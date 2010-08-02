@@ -370,7 +370,7 @@ void PluginView::stop()
         PluginView::setCurrentPluginView(0);
     }
 
-#ifdef XP_UNIX
+#if defined(XP_X11) && !defined(XP_DFB)
     if (m_isWindowed && m_npWindow.ws_info)
            delete (NPSetWindowCallbackStruct *)m_npWindow.ws_info;
     m_npWindow.ws_info = 0;
@@ -849,7 +849,7 @@ PluginView::PluginView(Frame* parentFrame, const IntSize& size, PluginPackage* p
     , m_isTransparent(false)
     , m_haveInitialized(false)
     , m_isWaitingToStart(false)
-#if defined(XP_UNIX)
+#if defined(XP_UNIX) && !defined (XP_DFB)
     , m_needsXEmbed(false)
 #endif
 #if OS(WINDOWS) && ENABLE(NETSCAPE_PLUGIN_API)
@@ -870,10 +870,14 @@ PluginView::PluginView(Frame* parentFrame, const IntSize& size, PluginPackage* p
 #endif
 #if defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API)
     , m_hasPendingGeometryChange(true)
+#if !defined XP_DFB
     , m_drawable(0)
     , m_visual(0)
     , m_colormap(0)
     , m_pluginDisplay(0)
+#else
+    , m_pluginViewQtDFB(0)
+#endif
 #endif
 #if PLATFORM(QT) && defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
     , m_renderToImage(false)

@@ -22,7 +22,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #ifndef PluginView_h
@@ -86,6 +86,9 @@ namespace WebCore {
     class PluginStream;
     class ResourceError;
     class ResourceResponse;
+#if defined XP_DFB && PLATFORM(QT)
+    class PluginViewQtDFB;
+#endif
 
     enum PluginStatus {
         PluginStatusCanNotFindPlugin,
@@ -164,7 +167,7 @@ namespace WebCore {
         static const char* userAgentStatic();
 #endif
         void status(const char* message);
-        
+
 #if ENABLE(NETSCAPE_PLUGIN_API)
         NPError getValue(NPNVariable variable, void* value);
         static NPError getValueStatic(NPNVariable variable, void* value);
@@ -248,8 +251,8 @@ namespace WebCore {
 #endif
         void keepAlive();
 
-#if USE(ACCELERATED_COMPOSITING)
-#if defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API) && PLATFORM(QT)
+#if USE(ACCELERATED_COMPOSITING) 
+#if defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API) && PLATFORM(QT) && !defined(XP_DFB)
         virtual PlatformLayer* platformLayer() const;
 #else
         virtual PlatformLayer* platformLayer() const { return 0; }
@@ -356,7 +359,7 @@ namespace WebCore {
         bool m_haveInitialized;
         bool m_isWaitingToStart;
 
-#if defined(XP_UNIX)
+#if defined(XP_UNIX) && !defined(XP_DFB)
         bool m_needsXEmbed;
 #endif
 
@@ -406,22 +409,29 @@ private:
 
 #if defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API)
         bool m_hasPendingGeometryChange;
+#ifndef XP_DFB
         Pixmap m_drawable;
         Visual* m_visual;
         Colormap m_colormap;
         Display* m_pluginDisplay;
 
         void initXEvent(XEvent* event);
+#else
+        friend class PluginViewQtDFB;
+        PluginViewQtDFB *m_pluginViewQtDFB;
+#endif
 #endif
 
-#if PLATFORM(QT) 
+#if PLATFORM(QT)
 #if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
         QImage m_image;
         bool m_renderToImage;
         void paintUsingImageSurfaceExtension(QPainter* painter, const IntRect& exposedRect);
 #endif
 #if defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API)
+#ifndef XP_DFB
         void paintUsingXPixmap(QPainter* painter, const QRect &exposedRect);
+#endif
 #if USE(ACCELERATED_COMPOSITING)
         OwnPtr<PlatformLayer> m_platformLayer;
         friend class PluginGraphicsLayerQt;

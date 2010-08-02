@@ -89,7 +89,7 @@
 #endif
 #endif
 
-#if defined(XP_UNIX)
+#if defined(XP_UNIX) && !defined(XP_DFB)
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <stdio.h>
@@ -243,7 +243,7 @@ typedef struct _NPSize
 /* Exact meaning must be spec'd in event model. */
 #define kNPEventStartIME 2
 
-#if defined(XP_UNIX)
+#if defined(XP_UNIX) && !defined(XP_DFB)
 /*
  * Unix specific structures and definitions
  */
@@ -525,6 +525,9 @@ typedef struct _NPEvent
   uintptr_t wParam;
   uintptr_t lParam;
 } NPEvent;
+#elif defined(XP_DFB)
+#include <directfb.h>
+typedef DFBEvent NPEvent;
 #elif defined(XP_OS2)
 typedef struct _NPEvent
 {
@@ -546,7 +549,7 @@ typedef RgnHandle NPQDRegion;
 typedef CGPathRef NPCGRegion;
 #elif defined(XP_WIN)
 typedef HRGN NPRegion;
-#elif defined(XP_UNIX)
+#elif defined(XP_UNIX) && !defined(XP_DFB)
 typedef Region NPRegion;
 #elif defined(XP_SYMBIAN)
 typedef QRegion* NPRegion;

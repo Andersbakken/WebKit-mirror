@@ -22,7 +22,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "config.h"
@@ -57,7 +57,6 @@
 #include "Page.h"
 #include "PlatformMouseEvent.h"
 #include "PlatformKeyboardEvent.h"
-#include "PluginContainerQt.h"
 #include "PluginDebug.h"
 #include "PluginPackage.h"
 #include "PluginMainThreadScheduler.h"
@@ -76,12 +75,17 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 #include <QWidget>
+#ifdef Q_WS_X11
+#include "PluginContainerQt.h"
 #include <QX11Info>
 #include <X11/X.h>
 #ifndef QT_NO_XRENDER
 #define Bool int
 #define Status int
 #include <X11/extensions/Xrender.h>
+#endif
+#elif defined(XP_DFB)
+#include "PluginViewQtDFB.h"
 #endif
 #include <runtime/JSLock.h>
 #include <runtime/JSValue.h>
@@ -100,7 +104,7 @@ namespace WebCore {
 
 using namespace HTMLNames;
 
-#if USE(ACCELERATED_COMPOSITING)
+#if USE(ACCELERATED_COMPOSITING) && defined(Q_WS_X11)
 // Qt's GraphicsLayer (GraphicsLayerQt) requires layers to be QGraphicsWidgets
 class PluginGraphicsLayerQt : public QGraphicsWidget {
 public:
@@ -136,6 +140,7 @@ void PluginView::updatePluginWidget()
     if (m_windowRect == oldWindowRect && m_clipRect == oldClipRect)
         return;
 
+#ifdef Q_WS_X11
     if (!m_isWindowed && m_windowRect.size() != oldWindowRect.size()) {
 #if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
         // On Maemo5, Flash always renders to 16-bit buffer
@@ -147,11 +152,12 @@ void PluginView::updatePluginWidget()
             if (m_drawable)
                 XFreePixmap(QX11Info::display(), m_drawable);
 
-            m_drawable = XCreatePixmap(QX11Info::display(), QX11Info::appRootWindow(), m_windowRect.width(), m_windowRect.height(), 
+            m_drawable = XCreatePixmap(QX11Info::display(), QX11Info::appRootWindow(), m_windowRect.width(), m_windowRect.height(),
                                        ((NPSetWindowCallbackStruct*)m_npWindow.ws_info)->depth);
             QApplication::syncX(); // make sure that the server knows about the Drawable
         }
     }
+#endif
 
     // do not call setNPWindowIfNeeded immediately, will be called on paint()
     m_hasPendingGeometryChange = true;
@@ -196,7 +202,7 @@ void PluginView::hide()
     Widget::hide();
 }
 
-#if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
+#if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5) && defined(Q_WS_X11)
 void PluginView::paintUsingImageSurfaceExtension(QPainter* painter, const IntRect& exposedRect)
 {
     NPImageExpose imageExpose;
@@ -222,7 +228,7 @@ void PluginView::paintUsingImageSurfaceExtension(QPainter* painter, const IntRec
     } else {
         if (m_isTransparent) {
             // On Maemo5, Flash expects the buffer to contain the contents that are below it.
-            // We don't support transparency for non-raster graphicssystem, so clean the image 
+            // We don't support transparency for non-raster graphicssystem, so clean the image
             // before giving to Flash.
             QPainter imagePainter(&m_image);
             imagePainter.fillRect(exposedRect, Qt::white);
@@ -259,7 +265,6 @@ void PluginView::paintUsingImageSurfaceExtension(QPainter* painter, const IntRec
     if (!surfaceHasUntransformedContents || !surface || surface->devType() != QInternal::Image)
         painter->drawImage(QPoint(frameRect().x() + exposedRect.x(), frameRect().y() + exposedRect.y()), m_image, exposedRect);
 }
-#endif
 
 void PluginView::paintUsingXPixmap(QPainter* painter, const QRect &exposedRect)
 {
@@ -284,12 +289,12 @@ void PluginView::paintUsingXPixmap(QPainter* painter, const QRect &exposedRect)
         QPixmap* backingStorePixmap = static_cast<QPixmap*>(backingStoreDevice);
 
         // We cannot grab contents from the backing store when painting on QGraphicsView items
-        // (because backing store contents are already transformed). What we really mean to do 
+        // (because backing store contents are already transformed). What we really mean to do
         // here is to check if we are painting on QWebView, but let's be a little permissive :)
         QWebPageClient* client = m_parentFrame->view()->hostWindow()->platformPageClient();
         const bool backingStoreHasUntransformedContents = client && qobject_cast<QWidget*>(client->pluginParent());
 
-        if (hasValidBackingStore && backingStorePixmap->depth() == drawableDepth 
+        if (hasValidBackingStore && backingStorePixmap->depth() == drawableDepth
             && backingStoreHasUntransformedContents) {
             GC gc = XDefaultGC(QX11Info::display(), QX11Info::appScreen());
             XCopyArea(QX11Info::display(), backingStorePixmap->handle(), m_drawable, gc,
@@ -322,6 +327,7 @@ void PluginView::paintUsingXPixmap(QPainter* painter, const QRect &exposedRect)
 
     painter->drawPixmap(QPoint(exposedRect.x(), exposedRect.y()), qtDrawable, exposedRect);
 }
+#endif    
 
 void PluginView::paint(GraphicsContext* context, const IntRect& rect)
 {
@@ -343,6 +349,7 @@ void PluginView::paint(GraphicsContext* context, const IntRect& rect)
         return;
 #endif
 
+#ifdef Q_WS_X11
     if (!m_drawable
 #if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
         && m_image.isNull()
@@ -364,7 +371,13 @@ void PluginView::paint(GraphicsContext* context, const IntRect& rect)
 
     painter->translate(frameRect().x(), frameRect().y());
     paintUsingXPixmap(painter, exposedRect);
+
     painter->translate(-frameRect().x(), -frameRect().y());
+
+#elif defined(XP_DFB)
+    if (m_pluginViewQtDFB)
+        m_pluginViewQtDFB->paint(context, rect);
+#endif    
 }
 
 // TODO: Unify across ports.
@@ -385,6 +398,7 @@ bool PluginView::dispatchNPEvent(NPEvent& event)
     return accepted;
 }
 
+#ifdef Q_WS_X11
 void setSharedXEventFields(XEvent* xEvent, QWidget* ownerWidget)
 {
     xEvent->xany.serial = 0; // we are unaware of the last request processed by X Server
@@ -439,6 +453,7 @@ void setXKeyEventSpecificFields(XEvent* xEvent, KeyboardEvent* event)
     xEvent->xkey.x_root = 0;
     xEvent->xkey.y_root = 0;
 }
+#endif
 
 void PluginView::handleKeyboardEvent(KeyboardEvent* event)
 {
@@ -448,14 +463,20 @@ void PluginView::handleKeyboardEvent(KeyboardEvent* event)
     if (event->type() != eventNames().keydownEvent && event->type() != eventNames().keyupEvent)
         return;
 
+#ifdef Q_WS_X11
     XEvent npEvent;
     initXEvent(&npEvent);
     setXKeyEventSpecificFields(&npEvent, event);
 
     if (!dispatchNPEvent(npEvent))
         event->setDefaultHandled();
+#elif defined(XP_DFB)
+    if (!m_pluginViewQtDFB || !m_pluginViewQtDFB->dispatchEvent(event))
+        event->setDefaultHandled();
+#endif
 }
 
+#ifdef Q_WS_X11
 static unsigned int inputEventState(MouseEvent* event)
 {
     unsigned int state = 0;
@@ -530,6 +551,7 @@ static void setXCrossingEventSpecificFields(XEvent* xEvent, MouseEvent* event, c
     xcrossing.same_screen = true;
     xcrossing.focus = false;
 }
+#endif
 
 void PluginView::handleMouseEvent(MouseEvent* event)
 {
@@ -546,7 +568,7 @@ void PluginView::handleMouseEvent(MouseEvent* event)
 
         focusPluginElement();
     }
-
+#ifdef Q_WS_X11
     XEvent npEvent;
     initXEvent(&npEvent);
 
@@ -563,10 +585,15 @@ void PluginView::handleMouseEvent(MouseEvent* event)
 
     if (!dispatchNPEvent(npEvent))
         event->setDefaultHandled();
+#elif defined(XP_DFB)
+    if (!m_pluginViewQtDFB || !m_pluginViewQtDFB->dispatchEvent(event))
+        event->setDefaultHandled();
+#endif
 }
 
 void PluginView::handleFocusInEvent()
 {
+#ifdef Q_WS_X11
     XEvent npEvent;
     initXEvent(&npEvent);
 
@@ -576,10 +603,15 @@ void PluginView::handleFocusInEvent()
     event.detail = NotifyDetailNone;
 
     dispatchNPEvent(npEvent);
+#elif defined(XP_DFB)
+    if (m_pluginViewQtDFB)
+        m_pluginViewQtDFB->dispatchEvent(PluginViewQtDFB::FocusIn);
+#endif
 }
 
 void PluginView::handleFocusOutEvent()
 {
+#ifdef Q_WS_X11
     XEvent npEvent;
     initXEvent(&npEvent);
 
@@ -589,6 +621,10 @@ void PluginView::handleFocusOutEvent()
     event.detail = NotifyDetailNone;
 
     dispatchNPEvent(npEvent);
+#elif defined(XP_DFB)
+    if (m_pluginViewQtDFB)
+        m_pluginViewQtDFB->dispatchEvent(PluginViewQtDFB::FocusIn);
+#endif
 }
 
 void PluginView::setParent(ScrollView* parent)
@@ -614,6 +650,7 @@ void PluginView::setNPWindowIfNeeded()
     if (m_status != PluginStatusLoadedSuccessfully)
         return;
 
+#ifdef Q_WS_X11
     // On Unix, only call plugin if it's full-page or windowed
     if (m_mode != NP_FULL && m_mode != NP_EMBED)
         return;
@@ -648,13 +685,19 @@ void PluginView::setNPWindowIfNeeded()
         m_npWindow.clipRect.top = 0;
         m_npWindow.clipRect.bottom = 0;
     } else {
-        // Clipping rectangle of the plug-in; the origin is the top left corner of the drawable or window. 
+        // Clipping rectangle of the plug-in; the origin is the top left corner of the drawable or window.
         m_npWindow.clipRect.left = m_npWindow.x + m_clipRect.x();
         m_npWindow.clipRect.top = m_npWindow.y + m_clipRect.y();
         m_npWindow.clipRect.right = m_npWindow.x + m_clipRect.x() + m_clipRect.width();
         m_npWindow.clipRect.bottom = m_npWindow.y + m_clipRect.y() + m_clipRect.height();
     }
 
+#elif defined(XP_DFB)
+    if (m_pluginViewQtDFB) {
+        m_hasPendingGeometryChange = true;
+        m_pluginViewQtDFB->setNPWindowIfNeeded();
+    }
+#endif
     if (m_plugin->quirks().contains(PluginQuirkDontCallSetWindowMoreThanOnce)) {
         // FLASH WORKAROUND: Only set initially. Multiple calls to
         // setNPWindow() cause the plugin to crash in windowed mode.
@@ -722,10 +765,12 @@ bool PluginView::platformGetValueStatic(NPNVariable variable, void* value, NPErr
         *result = NPERR_NO_ERROR;
         return true;
 
+#ifdef Q_WS_X11
     case NPNVSupportsXEmbedBool:
         *static_cast<NPBool*>(value) = true;
         *result = NPERR_NO_ERROR;
         return true;
+#endif
 
     case NPNVjavascriptEnabledBool:
         *static_cast<NPBool*>(value) = true;
@@ -737,7 +782,7 @@ bool PluginView::platformGetValueStatic(NPNVariable variable, void* value, NPErr
         *result = NPERR_NO_ERROR;
         return true;
 
-#if defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
+#if defined(Q_WS_X11) && defined(MOZ_PLATFORM_MAEMO) && (MOZ_PLATFORM_MAEMO >= 5)
     case NPNVSupportsWindowlessLocal:
         *static_cast<NPBool*>(value) = true;
         *result = NPERR_NO_ERROR;
@@ -751,6 +796,7 @@ bool PluginView::platformGetValueStatic(NPNVariable variable, void* value, NPErr
 
 bool PluginView::platformGetValue(NPNVariable variable, void* value, NPError* result)
 {
+#ifdef Q_WS_X11
     switch (variable) {
     case NPNVxDisplay:
         *(void **)value = QX11Info::display();
@@ -780,11 +826,14 @@ bool PluginView::platformGetValue(NPNVariable variable, void* value, NPError* re
     default:
         return false;
     }
+#elif defined(XP_DFB)
+    return m_pluginViewQtDFB && m_pluginViewQtDFB->platformGetValue(variable, value, result);
+#endif
 }
 
 void PluginView::invalidateRect(const IntRect& rect)
 {
-#if USE(ACCELERATED_COMPOSITING) && !USE(TEXTURE_MAPPER)
+#if USE(ACCELERATED_COMPOSITING)
     if (m_platformLayer) {
         m_platformLayer->update(QRectF(rect));
         return;
@@ -821,6 +870,7 @@ void PluginView::forceRedraw()
     invalidate();
 }
 
+#ifdef Q_WS_X11
 static Display *getPluginDisplay()
 {
     // The plugin toolkit might run using a different X connection. At the moment, we only
@@ -886,12 +936,14 @@ static void getVisualAndColormap(int depth, Visual **visual, Colormap *colormap)
     if (*visual)
         *colormap = XCreateColormap(QX11Info::display(), QX11Info::appRootWindow(), *visual, AllocNone);
 }
+#endif
 
 bool PluginView::platformStart()
 {
     ASSERT(m_isStarted);
     ASSERT(m_status == PluginStatusLoadedSuccessfully);
 
+#ifdef Q_WS_X11
     if (m_plugin->pluginFuncs()->getvalue) {
         PluginView::setCurrentPluginView(this);
 #if USE(JSC)
@@ -918,9 +970,9 @@ bool PluginView::platformStart()
         setPlatformWidget(0);
         m_pluginDisplay = getPluginDisplay();
 
-#if USE(ACCELERATED_COMPOSITING) && !USE(TEXTURE_MAPPER)
+#if USE(ACCELERATED_COMPOSITING)
         if (m_parentFrame->page()->chrome()->client()->allowsAcceleratedCompositing()
-            && m_parentFrame->page()->settings() 
+            && m_parentFrame->page()->settings()
             && m_parentFrame->page()->settings()->acceleratedCompositingEnabled()) {
             m_platformLayer = new PluginGraphicsLayerQt(this);
             // Trigger layer computation in RenderLayerCompositor
@@ -928,9 +980,29 @@ bool PluginView::platformStart()
         }
 #endif
     }
+#elif defined(XP_DFB)
+    if (m_isWindowed) {
+        notImplemented();
+        m_status = PluginStatusCanNotLoadPlugin;
+        return false;
+    }
+
+    m_pluginViewQtDFB = PluginViewQtDFB::create(this);
+
+    if (!m_pluginViewQtDFB) {
+        notImplemented();
+        m_status = PluginStatusCanNotLoadPlugin;
+        return false;
+    }
+#else
+    notImplemented();
+    m_status = PluginStatusCanNotLoadPlugin;
+    return false;
+#endif
 
     show();
 
+#ifdef Q_WS_X11
     NPSetWindowCallbackStruct* wsi = new NPSetWindowCallbackStruct();
     wsi->type = 0;
 
@@ -972,6 +1044,7 @@ bool PluginView::platformStart()
     }
 
     m_npWindow.ws_info = wsi;
+#endif
 
     if (!(m_plugin->quirks().contains(PluginQuirkDeferFirstSetWindowCall))) {
         updatePluginWidget();
@@ -986,11 +1059,18 @@ void PluginView::platformDestroy()
     if (platformPluginWidget())
         delete platformPluginWidget();
 
+#ifdef Q_WS_X11
     if (m_drawable)
         XFreePixmap(QX11Info::display(), m_drawable);
 
     if (m_colormap)
         XFreeColormap(QX11Info::display(), m_colormap);
+#elif defined(XP_DFB)
+    if (m_pluginViewQtDFB) {
+        delete m_pluginViewQtDFB;
+        m_pluginViewQtDFB = 0;
+    }
+#endif
 }
 
 void PluginView::halt()
@@ -1000,8 +1080,8 @@ void PluginView::halt()
 void PluginView::restart()
 {
 }
- 
-#if USE(ACCELERATED_COMPOSITING)
+
+#if USE(ACCELERATED_COMPOSITING) && defined(XP_UNIX) && ENABLE(NETSCAPE_PLUGIN_API) && PLATFORM(QT) && !defined(XP_DFB)
 PlatformLayer* PluginView::platformLayer() const
 {
     return m_platformLayer.get();

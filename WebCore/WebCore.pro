@@ -2795,9 +2795,17 @@ contains(DEFINES, ENABLE_NETSCAPE_PLUGIN_API=1) {
                 INCLUDEPATH += platform/mac
                 # Note: XP_MACOSX is defined in npapi.h
             } else {
-                !embedded {
+                directfb {
+                    DEFINES += XP_DFB
+                    QMAKE_CXXFLAGS += $$QT_CFLAGS_DIRECTFB
+                    LIBS += $$QT_LIBS_DIRECTFB
+                    SOURCES += plugins/qt/PluginViewQtDFB.cpp
+                    HEADERS += plugins/qt/PluginViewQtDFB.h
+                } else:!embedded {
                     CONFIG += x11
                     LIBS += -lXrender
+                    SOURCES += plugins/qt/PluginContainerQt.cpp
+                    HEADERS += plugins/qt/PluginContainerQt.h
                 }
                 maemo5 {
                     DEFINES += MOZ_PLATFORM_MAEMO=5
@@ -2806,11 +2814,8 @@ contains(DEFINES, ENABLE_NETSCAPE_PLUGIN_API=1) {
                     DEFINES += MOZ_PLATFORM_MAEMO=6
                 }
                 SOURCES += \
-                    plugins/qt/PluginContainerQt.cpp \
                     plugins/qt/PluginPackageQt.cpp \
                     plugins/qt/PluginViewQt.cpp
-                HEADERS += \
-                    plugins/qt/PluginContainerQt.h
                 DEFINES += XP_UNIX
                 DEFINES += ENABLE_NETSCAPE_PLUGIN_METADATA_CACHE=1
             }
