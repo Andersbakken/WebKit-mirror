@@ -70,7 +70,7 @@ extern "C" time_t mktime(struct tm *t);
 #include <QElapsedTimer>
 #endif
 
-#if PLATFORM(CHROMIUM)
+#if PLATFORM(CHROMIUM) && !PLATFORM(NETFLIX)
 #error Chromium uses a different timer implementation
 #endif
 

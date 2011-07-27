@@ -53,7 +53,7 @@ namespace WebCore {
 #if USE(CROSS_PLATFORM_CONTEXT_MENUS)
 #if PLATFORM(WIN)
         typedef HMENU NativeMenu;
-#elif PLATFORM(EFL)
+#elif PLATFORM(EFL) || PLATFORM(NETFLIX)
         typedef void* NativeMenu;
 #endif
         explicit ContextMenu(NativeMenu);

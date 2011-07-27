@@ -35,7 +35,7 @@
 #include "StdLibExtras.h"
 #include "Threading.h"
 
-#if PLATFORM(CHROMIUM)
+#if PLATFORM(CHROMIUM) && !PLATFORM(NETFLIX)
 #error Chromium uses a different main thread implementation
 #endif
 

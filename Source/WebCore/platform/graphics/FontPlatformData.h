@@ -23,7 +23,7 @@
  */
 
 // FIXME: This is temporary until all ports switch to using this file.
-#if PLATFORM(CHROMIUM) && !OS(DARWIN)
+#if PLATFORM(CHROMIUM) && !OS(DARWIN) && !USE(FREETYPE)
 #include "chromium/FontPlatformData.h"
 #elif PLATFORM(QT)
 #include "qt/FontPlatformData.h"
@@ -31,7 +31,7 @@
 #include "wince/FontPlatformData.h"
 #elif PLATFORM(WX)
 #include "wx/FontPlatformData.h"
-#elif (PLATFORM(EFL) || PLATFORM(GTK)) && USE(FREETYPE)
+#elif (PLATFORM(NETFLIX) || PLATFORM(EFL) || PLATFORM(GTK)) && USE(FREETYPE)
 #include "freetype/FontPlatformData.h"
 #elif (PLATFORM(EFL) || PLATFORM(GTK)) && USE(PANGO)
 #include "pango/FontPlatformData.h"
@@ -248,6 +248,8 @@ public:
         return StringHasher::hashMemory<sizeof(hashCodes)>(hashCodes);
 #elif USE(CAIRO)
         return PtrHash<cairo_scaled_font_t*>::hash(m_scaledFont);
+#else
+        return 0;
 #endif
     }
 
@@ -273,6 +275,8 @@ public:
         return m_font == hashTableDeletedFontValue();
 #elif USE(CAIRO)
         return m_scaledFont == hashTableDeletedFontValue();
+#else
+        return false;
 #endif
     }
 

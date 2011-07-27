@@ -1,0 +1,167 @@
+
+IF (WTF_USE_FREETYPE)
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    "${WEBCORE_DIR}/platform/graphics/freetype"
+  )
+  LIST(APPEND WebCore_SOURCES
+      platform/graphics/WOFFFileFormat.cpp
+      platform/graphics/freetype/FontCacheFreeType.cpp
+      platform/graphics/freetype/FontCustomPlatformDataFreeType.cpp
+      platform/graphics/freetype/FontPlatformDataFreeType.cpp
+      platform/graphics/freetype/GlyphPageTreeNodeFreeType.cpp
+      platform/graphics/freetype/SimpleFontDataFreeType.cpp
+  )
+ENDIF ()
+
+LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+  "${WEBCORE_DIR}/platform/chromium"
+  "${WEBCORE_DIR}/platform/text/chromium"
+  "${WEBCORE_DIR}/platform/graphics/chromium"
+  "${WEBCORE_DIR}/page/chromium"
+  "${WEBKIT_DIR}/netflix/WebCoreSupport"
+  "${DERIVED_SOURCES_DIR}"
+)
+
+LIST(APPEND WebCore_SOURCES
+  page/chromium/DragControllerChromium.cpp
+  page/chromium/EventHandlerChromium.cpp
+  page/chromium/FrameChromium.cpp
+  platform/Cursor.cpp
+  platform/efl/ClipboardEfl.cpp
+  platform/graphics/ImageSource.cpp
+  platform/image-decoders/ImageDecoder.cpp
+  platform/image-decoders/bmp/BMPImageDecoder.cpp
+  platform/image-decoders/bmp/BMPImageReader.cpp
+  platform/image-decoders/gif/GIFImageDecoder.cpp
+  platform/image-decoders/gif/GIFImageReader.cpp
+  platform/image-decoders/ico/ICOImageDecoder.cpp
+  platform/image-decoders/jpeg/JPEGImageDecoder.cpp
+  platform/image-decoders/png/PNGImageDecoder.cpp
+  platform/image-decoders/webp/WEBPImageDecoder.cpp
+  platform/posix/FileSystemPOSIX.cpp
+  platform/text/chromium/TextBreakIteratorInternalICUChromium.cpp
+  plugins/PluginDataNone.cpp
+  plugins/PluginPackageNone.cpp
+  plugins/PluginViewNone.cpp
+)
+
+LIST(APPEND WebCore_USER_AGENT_STYLE_SHEETS
+    ${WEBCORE_DIR}/css/mediaControlsChromium.css
+)
+
+IF (WTF_USE_CAIRO)
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    "${WEBCORE_DIR}/platform/graphics/cairo"
+  )
+  LIST(APPEND WebCore_SOURCES
+    platform/graphics/cairo/CairoUtilities.cpp
+    platform/graphics/cairo/ContextShadowCairo.cpp
+    platform/graphics/cairo/FontCairo.cpp
+    platform/graphics/cairo/GradientCairo.cpp
+    platform/graphics/cairo/GraphicsContextCairo.cpp
+    platform/graphics/cairo/ImageBufferCairo.cpp
+    platform/graphics/cairo/ImageCairo.cpp
+    platform/graphics/cairo/OwnPtrCairo.cpp
+    platform/graphics/cairo/PathCairo.cpp
+    platform/graphics/cairo/PatternCairo.cpp
+    platform/graphics/cairo/PlatformContextCairo.cpp
+    platform/graphics/cairo/PlatformPathCairo.cpp
+    platform/graphics/cairo/RefPtrCairo.cpp
+    platform/graphics/cairo/TransformationMatrixCairo.cpp
+    platform/image-decoders/cairo/ImageDecoderCairo.cpp
+  )
+ENDIF ()
+
+IF (WTF_USE_SKIA)
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    "${WEBCORE_DIR}/platform/graphics/skia"
+  )
+  LIST(APPEND WebCore_SOURCES
+    platform/graphics/skia/BitLockerSkia.cpp
+    platform/graphics/skia/FloatPointSkia.cpp
+    platform/graphics/skia/FloatRectSkia.cpp
+    platform/graphics/skia/FontCustomPlatformData.cpp
+    platform/graphics/skia/FontSkia.cpp
+    platform/graphics/skia/GlyphPageTreeNodeSkia.cpp
+    platform/graphics/skia/GradientSkia.cpp
+    platform/graphics/skia/GraphicsContext3DSkia.cpp
+    platform/graphics/skia/GraphicsContextSkia.cpp
+    platform/graphics/skia/ImageBufferSkia.cpp
+    platform/graphics/skia/ImageSkia.cpp
+    platform/graphics/skia/IntPointSkia.cpp
+    platform/graphics/skia/IntRectSkia.cpp
+    platform/graphics/skia/NativeImageSkia.cpp
+    platform/graphics/skia/PathSkia.cpp
+    platform/graphics/skia/PatternSkia.cpp
+    platform/graphics/skia/PlatformContextSkia.cpp
+    platform/graphics/skia/SkiaFontWin.cpp
+    platform/graphics/skia/SkiaUtils.cpp
+    platform/graphics/skia/TransformationMatrixSkia.cpp
+  )
+ENDIF ()
+
+IF (WTF_USE_CURL)
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    "${WEBCORE_DIR}/platform/network/curl"
+  )
+  LIST(APPEND WebCore_SOURCES
+    platform/network/curl/CookieJarCurl.cpp
+    platform/network/curl/DNSCurl.cpp
+    platform/network/curl/FormDataStreamCurl.cpp
+    platform/network/curl/ResourceHandleCurl.cpp
+    platform/network/curl/ResourceHandleManager.cpp
+    platform/network/curl/SocketStreamHandleCurl.cpp
+  )
+ENDIF ()
+
+IF (WTF_USE_ICU_UNICODE)
+  LIST(APPEND WebCore_SOURCES
+    editing/SmartReplaceICU.cpp
+    platform/text/TextEncodingDetectorICU.cpp
+    platform/text/TextBreakIteratorICU.cpp
+    platform/text/TextCodecICU.cpp
+  )
+ENDIF ()
+
+LIST(APPEND WebCore_LIBRARIES
+  ${ICU_LIBRARIES}
+  ${LIBXML2_LIBRARIES}
+  ${LIBXSLT_LIBRARIES}
+  ${SQLITE_LIBRARIES}
+)
+
+LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+  ${ICU_INCLUDE_DIRS}
+  ${LIBXML2_INCLUDE_DIR}
+  ${LIBXSLT_INCLUDE_DIRS}
+  ${SQLITE_INCLUDE_DIRS}
+)
+
+IF (WTF_USE_FREETYPE)
+  LIST(APPEND WebCore_LIBRARIES
+    ${Freetype_LIBRARIES}
+  )
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    ${Freetype_INCLUDE_DIRS}
+  )
+ENDIF ()
+
+IF (WTF_USE_CAIRO)
+  LIST(APPEND WebCore_LIBRARIES
+    ${Cairo_LIBRARIES}
+  )
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    ${Cairo_INCLUDE_DIRS}
+  )
+ENDIF ()
+
+IF (WTF_USE_CURL)
+  LIST(APPEND WebCore_LIBRARIES
+    ${CURL_LIBRARIES}
+  )
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    ${CURL_INCLUDE_DIRS}
+  )
+ENDIF ()
+
+ADD_DEFINITIONS(-DWTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1)

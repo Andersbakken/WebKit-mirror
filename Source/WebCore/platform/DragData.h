@@ -64,7 +64,7 @@ class DataObjectGtk;
 typedef WebCore::DataObjectGtk* DragDataRef;
 #elif PLATFORM(CHROMIUM)
 #include "DragDataRef.h"
-#elif PLATFORM(EFL)
+#elif PLATFORM(EFL) || PLATFORM(BREWMP) || PLATFORM(NETFLIX)
 typedef void* DragDataRef;
 #endif
 

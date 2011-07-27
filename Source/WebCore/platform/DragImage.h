@@ -68,7 +68,7 @@ namespace WebCore {
     typedef wxDragImage* DragImageRef;
 #elif PLATFORM(GTK)
     typedef cairo_surface_t* DragImageRef;
-#elif PLATFORM(EFL) || PLATFORM(BLACKBERRY)
+#elif PLATFORM(EFL) || PLATFORM(ANDROID) || PLATFORM(NETFLIX)
     typedef void* DragImageRef;
 #endif
     

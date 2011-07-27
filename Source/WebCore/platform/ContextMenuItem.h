@@ -247,7 +247,7 @@ namespace WebCore {
 #if USE(CROSS_PLATFORM_CONTEXT_MENUS)
 #if PLATFORM(WIN)
         typedef MENUITEMINFO NativeItem;
-#elif PLATFORM(EFL)
+#elif PLATFORM(EFL) || PLATFORM(NETFLIX)
         typedef void* NativeItem;
 #endif
         ContextMenuItem(ContextMenuAction, const String&, bool enabled, bool checked, const Vector<ContextMenuItem>& subMenuItems);

@@ -47,7 +47,7 @@ INCLUDE(WebKitFeatures)
 # -----------------------------------------------------------------------------
 # Determine which port will be built
 # -----------------------------------------------------------------------------
-SET(ALL_PORTS Efl WinCE BlackBerry)
+SET(ALL_PORTS Efl WinCE BlackBerry Netflix)
 SET(PORT "NOPORT" CACHE STRING "choose which WebKit port to build (one of ${ALL_PORTS})")
 
 LIST(FIND ALL_PORTS ${PORT} RET)
