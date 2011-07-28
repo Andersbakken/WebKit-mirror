@@ -30,7 +30,7 @@ SET(GFX_BACKEND "cairo" CACHE STRING "choose which graphics backend to use (one 
 # -----------------------------------------------------------------------------
 # Determine which font backend will be used
 # -----------------------------------------------------------------------------
-SET(ALL_FONT_BACKENDS freetype pango)
+SET(ALL_FONT_BACKENDS skia freetype)
 SET(FONT_BACKEND "freetype" CACHE STRING "choose which font backend to use (one of ${ALL_FONT_BACKENDS})")
 
 IF (GFX_BACKEND STREQUAL "cairo")
@@ -120,5 +120,9 @@ IF (FONT_BACKEND STREQUAL "freetype")
   SET(WTF_USE_FREETYPE 1)
   ADD_DEFINITIONS(-DWTF_USE_FREETYPE=1)
 ENDIF ()
+
+MESSAGE(STATUS "Font Backend: ${FONT_BACKEND}")
+MESSAGE(STATUS "GFX Backend: ${GFX_BACKEND}")
+MESSAGE(STATUS "Network Backend: ${NETWORK_BACKEND}")
 
 SET(CPACK_SOURCE_GENERATOR TBZ2)

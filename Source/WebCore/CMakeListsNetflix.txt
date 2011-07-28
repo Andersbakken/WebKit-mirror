@@ -27,7 +27,35 @@ LIST(APPEND WebCore_SOURCES
   page/chromium/EventHandlerChromium.cpp
   page/chromium/FrameChromium.cpp
   platform/Cursor.cpp
-  platform/efl/ClipboardEfl.cpp
+  platform/netflix/ClipboardNetflix.cpp
+  platform/netflix/ClipboardNetflix.h
+  platform/netflix/ContextMenuItemNetflix.cpp
+  platform/netflix/ContextMenuNetflix.cpp
+  platform/netflix/CookieJarNetflix.cpp
+  platform/netflix/CursorNetflix.cpp
+  platform/netflix/DragDataNetflix.cpp
+  platform/netflix/DragImageNetflix.cpp
+  platform/netflix/GeolocationServiceNetflix.cpp
+  platform/netflix/KURLNetflix.cpp
+  platform/netflix/LanguageNetflix.cpp
+  platform/netflix/LoggingNetflix.cpp
+  platform/netflix/MIMETypeRegistryNetflix.cpp
+  platform/netflix/PasteboardNetflix.cpp
+  platform/netflix/PlatformKeyboardEventNetflix.cpp
+  platform/netflix/PlatformMouseEventNetflix.cpp
+  platform/netflix/PlatformScreenNetflix.cpp
+  platform/netflix/PlatformTouchEventNetflix.cpp
+  platform/netflix/PlatformTouchPointNetflix.cpp
+  platform/netflix/PlatformWheelEventNetflix.cpp
+  platform/netflix/PopupMenuNetflix.cpp
+  platform/netflix/ScrollbarThemeNetflix.cpp
+  platform/netflix/ScrollViewNetflix.cpp
+  platform/netflix/SearchPopupMenuNetflix.cpp
+  platform/netflix/SharedTimerNetflix.cpp
+  platform/netflix/SoundNetflix.cpp
+  platform/netflix/SystemTimeNetflix.cpp
+  platform/netflix/TemporaryLinkStubs.cpp
+  platform/netflix/WidgetNetflix.cpp
   platform/graphics/ImageSource.cpp
   platform/image-decoders/ImageDecoder.cpp
   platform/image-decoders/bmp/BMPImageDecoder.cpp
