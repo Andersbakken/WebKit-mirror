@@ -156,6 +156,10 @@ namespace WebCore {
         PlatformKeyboardEvent(wxKeyEvent&);
 #endif
 
+#if PLATFORM(NETFLIX)
+        PlatformKeyboardEvent(Type type, String text, String keyIdentifier, int keyCode, unsigned modifier = 0);
+#endif
+
 #if PLATFORM(EFL)
         PlatformKeyboardEvent(const Evas_Event_Key_Down*);
         PlatformKeyboardEvent(const Evas_Event_Key_Up*);

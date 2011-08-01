@@ -23,15 +23,14 @@ LIST(APPEND WebCore_INCLUDE_DIRECTORIES
 )
 
 LIST(APPEND WebCore_SOURCES
-  page/chromium/DragControllerChromium.cpp
-  page/chromium/EventHandlerChromium.cpp
-  page/chromium/FrameChromium.cpp
+  page/netflix/DragControllerNetflix.cpp
+  page/netflix/EventHandlerNetflix.cpp
+  page/netflix/FrameNetflix.cpp
   platform/Cursor.cpp
   platform/netflix/ClipboardNetflix.cpp
   platform/netflix/ClipboardNetflix.h
   platform/netflix/ContextMenuItemNetflix.cpp
   platform/netflix/ContextMenuNetflix.cpp
-  platform/netflix/CookieJarNetflix.cpp
   platform/netflix/CursorNetflix.cpp
   platform/netflix/DragDataNetflix.cpp
   platform/netflix/DragImageNetflix.cpp

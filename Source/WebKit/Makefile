@@ -170,6 +170,150 @@ webkit_netflix/fast:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/build
 .PHONY : webkit_netflix/fast
 
+netflix/ChromeClientNetflix.o: netflix/ChromeClientNetflix.cpp.o
+.PHONY : netflix/ChromeClientNetflix.o
+
+# target to build an object file
+netflix/ChromeClientNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.o
+.PHONY : netflix/ChromeClientNetflix.cpp.o
+
+netflix/ChromeClientNetflix.i: netflix/ChromeClientNetflix.cpp.i
+.PHONY : netflix/ChromeClientNetflix.i
+
+# target to preprocess a source file
+netflix/ChromeClientNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.i
+.PHONY : netflix/ChromeClientNetflix.cpp.i
+
+netflix/ChromeClientNetflix.s: netflix/ChromeClientNetflix.cpp.s
+.PHONY : netflix/ChromeClientNetflix.s
+
+# target to generate assembly for a file
+netflix/ChromeClientNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.s
+.PHONY : netflix/ChromeClientNetflix.cpp.s
+
+netflix/EditorClientNetflix.o: netflix/EditorClientNetflix.cpp.o
+.PHONY : netflix/EditorClientNetflix.o
+
+# target to build an object file
+netflix/EditorClientNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.o
+.PHONY : netflix/EditorClientNetflix.cpp.o
+
+netflix/EditorClientNetflix.i: netflix/EditorClientNetflix.cpp.i
+.PHONY : netflix/EditorClientNetflix.i
+
+# target to preprocess a source file
+netflix/EditorClientNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.i
+.PHONY : netflix/EditorClientNetflix.cpp.i
+
+netflix/EditorClientNetflix.s: netflix/EditorClientNetflix.cpp.s
+.PHONY : netflix/EditorClientNetflix.s
+
+# target to generate assembly for a file
+netflix/EditorClientNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.s
+.PHONY : netflix/EditorClientNetflix.cpp.s
+
+netflix/FrameLoaderClientNetflix.o: netflix/FrameLoaderClientNetflix.cpp.o
+.PHONY : netflix/FrameLoaderClientNetflix.o
+
+# target to build an object file
+netflix/FrameLoaderClientNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.o
+.PHONY : netflix/FrameLoaderClientNetflix.cpp.o
+
+netflix/FrameLoaderClientNetflix.i: netflix/FrameLoaderClientNetflix.cpp.i
+.PHONY : netflix/FrameLoaderClientNetflix.i
+
+# target to preprocess a source file
+netflix/FrameLoaderClientNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.i
+.PHONY : netflix/FrameLoaderClientNetflix.cpp.i
+
+netflix/FrameLoaderClientNetflix.s: netflix/FrameLoaderClientNetflix.cpp.s
+.PHONY : netflix/FrameLoaderClientNetflix.s
+
+# target to generate assembly for a file
+netflix/FrameLoaderClientNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.s
+.PHONY : netflix/FrameLoaderClientNetflix.cpp.s
+
+netflix/InspectorClientNetflix.o: netflix/InspectorClientNetflix.cpp.o
+.PHONY : netflix/InspectorClientNetflix.o
+
+# target to build an object file
+netflix/InspectorClientNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.o
+.PHONY : netflix/InspectorClientNetflix.cpp.o
+
+netflix/InspectorClientNetflix.i: netflix/InspectorClientNetflix.cpp.i
+.PHONY : netflix/InspectorClientNetflix.i
+
+# target to preprocess a source file
+netflix/InspectorClientNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.i
+.PHONY : netflix/InspectorClientNetflix.cpp.i
+
+netflix/InspectorClientNetflix.s: netflix/InspectorClientNetflix.cpp.s
+.PHONY : netflix/InspectorClientNetflix.s
+
+# target to generate assembly for a file
+netflix/InspectorClientNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.s
+.PHONY : netflix/InspectorClientNetflix.cpp.s
+
+netflix/NPCompat.o: netflix/NPCompat.cpp.o
+.PHONY : netflix/NPCompat.o
+
+# target to build an object file
+netflix/NPCompat.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.o
+.PHONY : netflix/NPCompat.cpp.o
+
+netflix/NPCompat.i: netflix/NPCompat.cpp.i
+.PHONY : netflix/NPCompat.i
+
+# target to preprocess a source file
+netflix/NPCompat.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.i
+.PHONY : netflix/NPCompat.cpp.i
+
+netflix/NPCompat.s: netflix/NPCompat.cpp.s
+.PHONY : netflix/NPCompat.s
+
+# target to generate assembly for a file
+netflix/NPCompat.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.s
+.PHONY : netflix/NPCompat.cpp.s
+
+netflix/WebViewNetflix.o: netflix/WebViewNetflix.cpp.o
+.PHONY : netflix/WebViewNetflix.o
+
+# target to build an object file
+netflix/WebViewNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.o
+.PHONY : netflix/WebViewNetflix.cpp.o
+
+netflix/WebViewNetflix.i: netflix/WebViewNetflix.cpp.i
+.PHONY : netflix/WebViewNetflix.i
+
+# target to preprocess a source file
+netflix/WebViewNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.i
+.PHONY : netflix/WebViewNetflix.cpp.i
+
+netflix/WebViewNetflix.s: netflix/WebViewNetflix.cpp.s
+.PHONY : netflix/WebViewNetflix.s
+
+# target to generate assembly for a file
+netflix/WebViewNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.s
+.PHONY : netflix/WebViewNetflix.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -185,6 +329,24 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... webkit_netflix"
+	@echo "... netflix/ChromeClientNetflix.o"
+	@echo "... netflix/ChromeClientNetflix.i"
+	@echo "... netflix/ChromeClientNetflix.s"
+	@echo "... netflix/EditorClientNetflix.o"
+	@echo "... netflix/EditorClientNetflix.i"
+	@echo "... netflix/EditorClientNetflix.s"
+	@echo "... netflix/FrameLoaderClientNetflix.o"
+	@echo "... netflix/FrameLoaderClientNetflix.i"
+	@echo "... netflix/FrameLoaderClientNetflix.s"
+	@echo "... netflix/InspectorClientNetflix.o"
+	@echo "... netflix/InspectorClientNetflix.i"
+	@echo "... netflix/InspectorClientNetflix.s"
+	@echo "... netflix/NPCompat.o"
+	@echo "... netflix/NPCompat.i"
+	@echo "... netflix/NPCompat.s"
+	@echo "... netflix/WebViewNetflix.o"
+	@echo "... netflix/WebViewNetflix.i"
+	@echo "... netflix/WebViewNetflix.s"
 .PHONY : help
 
 

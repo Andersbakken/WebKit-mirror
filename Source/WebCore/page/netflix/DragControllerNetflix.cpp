@@ -1,7 +1,5 @@
 /*
- * Copyright (C) 2006 Michael Emmel mike.emmel@gmail.com
- * Copyright (C) 2007 Holger Hans Peter Freyther
- * Copyright (C) 2008 Kenneth Rohde Christiansen
+ * Copyright (C) 2007 Apple Inc.
  * Copyright (C) 2009-2010 ProFUSION embedded systems
  * Copyright (C) 2009-2010 Samsung Electronics
  * All rights reserved.
@@ -28,75 +26,44 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 #include "config.h"
-#include "Widget.h"
+#include "DragController.h"
 
-#include "ChromeClient.h"
-#include "Cursor.h"
+#include "DragData.h"
 #include "Frame.h"
 #include "FrameView.h"
-#include "GraphicsContext.h"
-#include "IntRect.h"
-#include "NotImplemented.h"
 #include "Page.h"
-
-#include <wtf/HashMap.h>
-#include <wtf/text/CString.h>
 
 namespace WebCore {
 
+const int DragController::LinkDragBorderInset = 2;
+const int DragController::MaxOriginalImageArea = 1500 * 1500;
+const int DragController::DragIconRightInset = 7;
+const int DragController::DragIconBottomInset = 3;
 
-Widget::Widget(PlatformWidget widget)
-    : m_parent(0)
-    , m_widget(0)
-    , m_selfVisible(false)
-    , m_parentVisible(false)
-    , m_frame(0, 0, 0, 0)
+const float DragController::DragImageAlpha = 0.75f;
+
+bool DragController::isCopyKeyDown(DragData*)
 {
-    init(widget);
+    return false;
 }
 
-Widget::~Widget()
+DragOperation DragController::dragOperation(DragData* dragData)
 {
-    ASSERT(!parent());
+    if (dragData->containsURL(0))
+        return DragOperationCopy;
+
+    return DragOperationNone;
 }
 
-IntRect Widget::frameRect() const
+const IntSize& DragController::maxDragImageSize()
 {
-    return m_frame;
+    static const IntSize maxDragImageSize(400, 400);
+
+    return maxDragImageSize;
 }
 
-void Widget::setFrameRect(const IntRect& rect)
-{
-    m_frame = rect;
-    Widget::frameRectsChanged();
-}
-
-void Widget::setFocus(bool focused)
-{
-}
-
-void Widget::setCursor(const Cursor& cursor)
-{
-}
-
-void Widget::show()
-{
-}
-
-void Widget::hide()
-{
-}
-
-void Widget::paint(GraphicsContext* context, const IntRect&)
-{
-    notImplemented();
-}
-
-void Widget::setIsSelected(bool)
-{
-    notImplemented();
-}
+void DragController::cleanupAfterSystemDrag()
+{}
 
 }

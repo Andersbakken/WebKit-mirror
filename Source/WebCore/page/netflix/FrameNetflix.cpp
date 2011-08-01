@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003, 2006, 2008 Apple Inc. All rights reserved.
+ * Copyright (C) 2008 INdT - Instituto Nokia de Tecnologia
  * Copyright (C) 2009-2010 ProFUSION embedded systems
  * Copyright (C) 2009-2010 Samsung Electronics
  *
@@ -26,45 +26,22 @@
  */
 
 #include "config.h"
-#include "CookieJar.h"
+#include "Frame.h"
 
-#include "KURL.h"
-#include "PlatformString.h"
-#include <wtf/HashMap.h>
-#include <wtf/text/StringHash.h>
+#include "NotImplemented.h"
 
 namespace WebCore {
 
-static HashMap<String, String> cookieJar;
-
-void setCookies(Document* document, const KURL& url, const KURL& policyURL, const String& value)
+DragImageRef Frame::nodeImage(Node* node)
 {
-    cookieJar.set(url.string(), value);
+    notImplemented();
+    return 0;
 }
 
-String cookies(const Document* document, const KURL& url)
+DragImageRef Frame::dragImageForSelection()
 {
-    return cookieJar.get(url.string());
-}
-
-bool cookiesEnabled(const Document* document)
-{
-    return true;
-}
-
-void getHostnamesWithCookies(HashSet<String>& hostnames)
-{
-    // FIXME: Not yet implemented
-}
-
-void deleteCookiesForHostname(const String& hostname)
-{
-    // FIXME: Not yet implemented
-}
-
-void deleteAllCookies()
-{
-    // FIXME: Not yet implemented
+    notImplemented();
+    return 0;
 }
 
 }

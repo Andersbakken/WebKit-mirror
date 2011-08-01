@@ -24,7 +24,10 @@
 #include "GraphicsLayer.h"
 #include "GraphicsLayerClient.h"
 #include "Image.h"
+
+#if USE(ACCELERATED_COMPOSITING)
 #include "TextureMapperNode.h"
+#endif
 
 #if ENABLE(WEBGL)
 #include "GraphicsContext3D.h"

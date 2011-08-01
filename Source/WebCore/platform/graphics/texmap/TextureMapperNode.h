@@ -20,6 +20,7 @@
 #ifndef TextureMapperNode_h
 #define TextureMapperNode_h
 
+#include "TextureMapper.h"
 #include "FloatRect.h"
 #include "GraphicsContext.h"
 #include "GraphicsLayer.h"

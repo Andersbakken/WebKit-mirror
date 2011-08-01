@@ -1,8 +1,19 @@
 INCLUDE(WebKitNetflix)
 
+LIST(APPEND WebKit_SOURCES
+    netflix/ChromeClientNetflix.cpp
+    netflix/EditorClientNetflix.cpp
+    netflix/FrameLoaderClientNetflix.cpp
+    netflix/InspectorClientNetflix.cpp
+    netflix/NPCompat.cpp
+    netflix/WebViewNetflix.cpp
+)
+
 LIST(APPEND WebKit_INCLUDE_DIRECTORIES
+    "${JAVASCRIPTCORE_DIR}/wtf"
     "${WEBKIT_DIR}/netflix/WebCoreSupport"
     "${WEBCORE_DIR}/platform/netflix"
+    "${WEBCORE_DIR}/platform/image-decoders"
     "${WEBCORE_DIR}/platform/graphics/cairo"
     ${LIBXML2_INCLUDE_DIR}
     ${LIBXSLT_INCLUDE_DIRS}

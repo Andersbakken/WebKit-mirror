@@ -36,8 +36,13 @@ void InitializeLoggingChannelsIfNecessary()
     didInitializeLoggingChannels = true;
 
     char* logEnv = getenv("NF_WEBKIT_DEBUG");
-    if (!logEnv)
+    if (!logEnv) {
+#if 1
+        logEnv = "Events,Frames,Loading,Network,PageCache,PlatformLeaks,SQLDatabase,StorageAPI,Progress";
+#else
         return;
+#endif
+    }
 
 #if 0
     char** logv = eina_str_split(logEnv, ",", -1);

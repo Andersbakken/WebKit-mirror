@@ -25370,77 +25370,77 @@ page/animation/KeyframeAnimation.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/animation/KeyframeAnimation.cpp.s
 .PHONY : page/animation/KeyframeAnimation.cpp.s
 
-page/chromium/DragControllerChromium.o: page/chromium/DragControllerChromium.cpp.o
-.PHONY : page/chromium/DragControllerChromium.o
+page/netflix/DragControllerNetflix.o: page/netflix/DragControllerNetflix.cpp.o
+.PHONY : page/netflix/DragControllerNetflix.o
 
 # target to build an object file
-page/chromium/DragControllerChromium.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/DragControllerChromium.cpp.o
-.PHONY : page/chromium/DragControllerChromium.cpp.o
+page/netflix/DragControllerNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/DragControllerNetflix.cpp.o
+.PHONY : page/netflix/DragControllerNetflix.cpp.o
 
-page/chromium/DragControllerChromium.i: page/chromium/DragControllerChromium.cpp.i
-.PHONY : page/chromium/DragControllerChromium.i
+page/netflix/DragControllerNetflix.i: page/netflix/DragControllerNetflix.cpp.i
+.PHONY : page/netflix/DragControllerNetflix.i
 
 # target to preprocess a source file
-page/chromium/DragControllerChromium.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/DragControllerChromium.cpp.i
-.PHONY : page/chromium/DragControllerChromium.cpp.i
+page/netflix/DragControllerNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/DragControllerNetflix.cpp.i
+.PHONY : page/netflix/DragControllerNetflix.cpp.i
 
-page/chromium/DragControllerChromium.s: page/chromium/DragControllerChromium.cpp.s
-.PHONY : page/chromium/DragControllerChromium.s
+page/netflix/DragControllerNetflix.s: page/netflix/DragControllerNetflix.cpp.s
+.PHONY : page/netflix/DragControllerNetflix.s
 
 # target to generate assembly for a file
-page/chromium/DragControllerChromium.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/DragControllerChromium.cpp.s
-.PHONY : page/chromium/DragControllerChromium.cpp.s
+page/netflix/DragControllerNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/DragControllerNetflix.cpp.s
+.PHONY : page/netflix/DragControllerNetflix.cpp.s
 
-page/chromium/EventHandlerChromium.o: page/chromium/EventHandlerChromium.cpp.o
-.PHONY : page/chromium/EventHandlerChromium.o
+page/netflix/EventHandlerNetflix.o: page/netflix/EventHandlerNetflix.cpp.o
+.PHONY : page/netflix/EventHandlerNetflix.o
 
 # target to build an object file
-page/chromium/EventHandlerChromium.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/EventHandlerChromium.cpp.o
-.PHONY : page/chromium/EventHandlerChromium.cpp.o
+page/netflix/EventHandlerNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/EventHandlerNetflix.cpp.o
+.PHONY : page/netflix/EventHandlerNetflix.cpp.o
 
-page/chromium/EventHandlerChromium.i: page/chromium/EventHandlerChromium.cpp.i
-.PHONY : page/chromium/EventHandlerChromium.i
+page/netflix/EventHandlerNetflix.i: page/netflix/EventHandlerNetflix.cpp.i
+.PHONY : page/netflix/EventHandlerNetflix.i
 
 # target to preprocess a source file
-page/chromium/EventHandlerChromium.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/EventHandlerChromium.cpp.i
-.PHONY : page/chromium/EventHandlerChromium.cpp.i
+page/netflix/EventHandlerNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/EventHandlerNetflix.cpp.i
+.PHONY : page/netflix/EventHandlerNetflix.cpp.i
 
-page/chromium/EventHandlerChromium.s: page/chromium/EventHandlerChromium.cpp.s
-.PHONY : page/chromium/EventHandlerChromium.s
+page/netflix/EventHandlerNetflix.s: page/netflix/EventHandlerNetflix.cpp.s
+.PHONY : page/netflix/EventHandlerNetflix.s
 
 # target to generate assembly for a file
-page/chromium/EventHandlerChromium.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/EventHandlerChromium.cpp.s
-.PHONY : page/chromium/EventHandlerChromium.cpp.s
+page/netflix/EventHandlerNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/EventHandlerNetflix.cpp.s
+.PHONY : page/netflix/EventHandlerNetflix.cpp.s
 
-page/chromium/FrameChromium.o: page/chromium/FrameChromium.cpp.o
-.PHONY : page/chromium/FrameChromium.o
+page/netflix/FrameNetflix.o: page/netflix/FrameNetflix.cpp.o
+.PHONY : page/netflix/FrameNetflix.o
 
 # target to build an object file
-page/chromium/FrameChromium.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/FrameChromium.cpp.o
-.PHONY : page/chromium/FrameChromium.cpp.o
+page/netflix/FrameNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/FrameNetflix.cpp.o
+.PHONY : page/netflix/FrameNetflix.cpp.o
 
-page/chromium/FrameChromium.i: page/chromium/FrameChromium.cpp.i
-.PHONY : page/chromium/FrameChromium.i
+page/netflix/FrameNetflix.i: page/netflix/FrameNetflix.cpp.i
+.PHONY : page/netflix/FrameNetflix.i
 
 # target to preprocess a source file
-page/chromium/FrameChromium.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/FrameChromium.cpp.i
-.PHONY : page/chromium/FrameChromium.cpp.i
+page/netflix/FrameNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/FrameNetflix.cpp.i
+.PHONY : page/netflix/FrameNetflix.cpp.i
 
-page/chromium/FrameChromium.s: page/chromium/FrameChromium.cpp.s
-.PHONY : page/chromium/FrameChromium.s
+page/netflix/FrameNetflix.s: page/netflix/FrameNetflix.cpp.s
+.PHONY : page/netflix/FrameNetflix.s
 
 # target to generate assembly for a file
-page/chromium/FrameChromium.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/chromium/FrameChromium.cpp.s
-.PHONY : page/chromium/FrameChromium.cpp.s
+page/netflix/FrameNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/netflix/FrameNetflix.cpp.s
+.PHONY : page/netflix/FrameNetflix.cpp.s
 
 platform/Arena.o: platform/Arena.cpp.o
 .PHONY : platform/Arena.o
@@ -28945,30 +28945,6 @@ platform/netflix/ContextMenuNetflix.s: platform/netflix/ContextMenuNetflix.cpp.s
 platform/netflix/ContextMenuNetflix.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/netflix/ContextMenuNetflix.cpp.s
 .PHONY : platform/netflix/ContextMenuNetflix.cpp.s
-
-platform/netflix/CookieJarNetflix.o: platform/netflix/CookieJarNetflix.cpp.o
-.PHONY : platform/netflix/CookieJarNetflix.o
-
-# target to build an object file
-platform/netflix/CookieJarNetflix.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/netflix/CookieJarNetflix.cpp.o
-.PHONY : platform/netflix/CookieJarNetflix.cpp.o
-
-platform/netflix/CookieJarNetflix.i: platform/netflix/CookieJarNetflix.cpp.i
-.PHONY : platform/netflix/CookieJarNetflix.i
-
-# target to preprocess a source file
-platform/netflix/CookieJarNetflix.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/netflix/CookieJarNetflix.cpp.i
-.PHONY : platform/netflix/CookieJarNetflix.cpp.i
-
-platform/netflix/CookieJarNetflix.s: platform/netflix/CookieJarNetflix.cpp.s
-.PHONY : platform/netflix/CookieJarNetflix.s
-
-# target to generate assembly for a file
-platform/netflix/CookieJarNetflix.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/netflix/CookieJarNetflix.cpp.s
-.PHONY : platform/netflix/CookieJarNetflix.cpp.s
 
 platform/netflix/CursorNetflix.o: platform/netflix/CursorNetflix.cpp.o
 .PHONY : platform/netflix/CursorNetflix.o
@@ -39071,15 +39047,15 @@ help:
 	@echo "... page/animation/KeyframeAnimation.o"
 	@echo "... page/animation/KeyframeAnimation.i"
 	@echo "... page/animation/KeyframeAnimation.s"
-	@echo "... page/chromium/DragControllerChromium.o"
-	@echo "... page/chromium/DragControllerChromium.i"
-	@echo "... page/chromium/DragControllerChromium.s"
-	@echo "... page/chromium/EventHandlerChromium.o"
-	@echo "... page/chromium/EventHandlerChromium.i"
-	@echo "... page/chromium/EventHandlerChromium.s"
-	@echo "... page/chromium/FrameChromium.o"
-	@echo "... page/chromium/FrameChromium.i"
-	@echo "... page/chromium/FrameChromium.s"
+	@echo "... page/netflix/DragControllerNetflix.o"
+	@echo "... page/netflix/DragControllerNetflix.i"
+	@echo "... page/netflix/DragControllerNetflix.s"
+	@echo "... page/netflix/EventHandlerNetflix.o"
+	@echo "... page/netflix/EventHandlerNetflix.i"
+	@echo "... page/netflix/EventHandlerNetflix.s"
+	@echo "... page/netflix/FrameNetflix.o"
+	@echo "... page/netflix/FrameNetflix.i"
+	@echo "... page/netflix/FrameNetflix.s"
 	@echo "... platform/Arena.o"
 	@echo "... platform/Arena.i"
 	@echo "... platform/Arena.s"
@@ -39518,9 +39494,6 @@ help:
 	@echo "... platform/netflix/ContextMenuNetflix.o"
 	@echo "... platform/netflix/ContextMenuNetflix.i"
 	@echo "... platform/netflix/ContextMenuNetflix.s"
-	@echo "... platform/netflix/CookieJarNetflix.o"
-	@echo "... platform/netflix/CookieJarNetflix.i"
-	@echo "... platform/netflix/CookieJarNetflix.s"
 	@echo "... platform/netflix/CursorNetflix.o"
 	@echo "... platform/netflix/CursorNetflix.i"
 	@echo "... platform/netflix/CursorNetflix.s"
