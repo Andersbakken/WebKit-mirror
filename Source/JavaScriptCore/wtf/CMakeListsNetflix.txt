@@ -8,7 +8,8 @@ ELSE ()
 ENDIF()
 
 LIST(APPEND WTF_SOURCES
-    chromium/MainThreadChromium.cpp
+    netflix/MainThreadNetflix.cpp
+    netflix/OwnPtrNetflix.cpp
 
     OSAllocatorPosix.cpp
     ThreadIdentifierDataPthreads.cpp

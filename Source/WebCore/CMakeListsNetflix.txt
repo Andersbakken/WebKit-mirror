@@ -26,14 +26,17 @@ LIST(APPEND WebCore_SOURCES
   page/netflix/DragControllerNetflix.cpp
   page/netflix/EventHandlerNetflix.cpp
   page/netflix/FrameNetflix.cpp
+  bindings/js/ScriptControllerNetflix.cpp
   platform/Cursor.cpp
   platform/netflix/ClipboardNetflix.cpp
+  platform/netflix/LocalizedStringsNetflix.cpp
   platform/netflix/ClipboardNetflix.h
   platform/netflix/ContextMenuItemNetflix.cpp
   platform/netflix/ContextMenuNetflix.cpp
   platform/netflix/CursorNetflix.cpp
   platform/netflix/DragDataNetflix.cpp
   platform/netflix/DragImageNetflix.cpp
+  platform/netflix/FileSystemNetflix.cpp
   platform/netflix/GeolocationServiceNetflix.cpp
   platform/netflix/KURLNetflix.cpp
   platform/netflix/LanguageNetflix.cpp
@@ -47,15 +50,23 @@ LIST(APPEND WebCore_SOURCES
   platform/netflix/PlatformTouchPointNetflix.cpp
   platform/netflix/PlatformWheelEventNetflix.cpp
   platform/netflix/PopupMenuNetflix.cpp
+  platform/netflix/RenderThemeNetflix.cpp
   platform/netflix/ScrollbarThemeNetflix.cpp
   platform/netflix/ScrollViewNetflix.cpp
   platform/netflix/SearchPopupMenuNetflix.cpp
+  platform/netflix/SharedBufferNetflix.cpp
   platform/netflix/SharedTimerNetflix.cpp
   platform/netflix/SoundNetflix.cpp
   platform/netflix/SystemTimeNetflix.cpp
   platform/netflix/TemporaryLinkStubs.cpp
   platform/netflix/WidgetNetflix.cpp
   platform/graphics/ImageSource.cpp
+  platform/graphics/netflix/FontNetflix.cpp
+  platform/graphics/netflix/GraphicsLayerNetflix.cpp
+  platform/graphics/netflix/IconNetflix.cpp
+  platform/graphics/netflix/ImageNetflix.cpp
+  platform/graphics/netflix/IntPointNetflix.cpp
+  platform/graphics/netflix/IntRectNetflix.cpp
   platform/image-decoders/ImageDecoder.cpp
   platform/image-decoders/bmp/BMPImageDecoder.cpp
   platform/image-decoders/bmp/BMPImageReader.cpp
@@ -70,6 +81,8 @@ LIST(APPEND WebCore_SOURCES
   plugins/PluginDataNone.cpp
   plugins/PluginPackageNone.cpp
   plugins/PluginViewNone.cpp
+  plugins/PluginDatabase.cpp
+  plugins/PluginPackage.cpp
 )
 
 LIST(APPEND WebCore_USER_AGENT_STYLE_SHEETS
@@ -192,3 +205,4 @@ IF (WTF_USE_CURL)
 ENDIF ()
 
 ADD_DEFINITIONS(-DWTF_USE_CROSS_PLATFORM_CONTEXT_MENUS=1)
+ADD_DEFINITIONS(-DWTF_USE_LAZY_NATIVE_CURSOR=1)

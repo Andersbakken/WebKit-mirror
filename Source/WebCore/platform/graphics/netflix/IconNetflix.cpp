@@ -1,7 +1,9 @@
 /*
- * Copyright (C) 2007, 2008 Apple Inc. All rights reserved.
- * Copyright (C) 2008 Matt Lilek <webkit@mattlilek.com>
- * Copyright (C) 2009 Google Inc. All rights reserved.
+ * Copyright (C) 2006, 2007 Apple Inc.  All rights reserved.
+ * Copyright (C) 2007 Holger Hans Peter Freyther
+ * Copyright (C) 2008 INdT - Instituto Nokia de Tecnologia
+ * Copyright (C) 2009-2010 ProFUSION embedded systems
+ * Copyright (C) 2009-2010 Samsung Electronics
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,42 +30,31 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef InspectorDatabaseResource_h
-#define InspectorDatabaseResource_h
+#include "config.h"
 
-#if ENABLE(SQL_DATABASE) && ENABLE(INSPECTOR)
-#include "InspectorFrontend.h"
-#include "Database.h"
+#include "Icon.h"
+
+#include "GraphicsContext.h"
+#include "MIMETypeRegistry.h"
+#include "NotImplemented.h"
+#include "PassRefPtr.h"
 #include "PlatformString.h"
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/RefPtr.h>
 
 namespace WebCore {
-class Database;
-class InspectorFrontend;
 
-class InspectorDatabaseResource : public RefCounted<InspectorDatabaseResource> {
-public:
-    static PassRefPtr<InspectorDatabaseResource> create(PassRefPtr<Database> database, const String& domain, const String& name, const String& version);
+Icon::~Icon()
+{
+}
 
-    void bind(InspectorFrontend::Database*);
-    Database* database() { return m_database.get(); }
-    void setDatabase(PassRefPtr<Database> database) { m_database = database; }
-    int id() const { return m_id; }
+PassRefPtr<Icon> Icon::createIconForFiles(const Vector<String>& filenames)
+{
+    notImplemented();
+    return 0;
+}
 
-private:
-    InspectorDatabaseResource(PassRefPtr<Database>, const String& domain, const String& name, const String& version);
+void Icon::paint(GraphicsContext* context, const IntRect& rect)
+{
+    notImplemented();
+}
 
-    RefPtr<Database> m_database;
-    int m_id;
-    String m_domain;
-    String m_name;
-    String m_version;
-};
-
-} // namespace WebCore
-
-#endif // ENABLE(SQL_DATABASE)
-
-#endif // InspectorDatabaseResource_h
+}

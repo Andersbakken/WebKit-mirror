@@ -1,7 +1,10 @@
 /*
  * Copyright (C) 2007, 2008 Apple Inc. All rights reserved.
- * Copyright (C) 2008 Matt Lilek <webkit@mattlilek.com>
- * Copyright (C) 2009 Google Inc. All rights reserved.
+ * Copyright (C) 2007 Justin Haygood (jhaygood@reaktix.com)
+ * Copyright (C) 2008 Diego Gonzalez
+ * Copyright (C) 2008 Kenneth Rohde Christiansen
+ * Copyright (C) 2009-2010 ProFUSION embedded systems
+ * Copyright (C) 2009-2010 Samsung Electronics
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -12,7 +15,7 @@
  * 2.  Redistributions in binary form must reproduce the above copyright
  *     notice, this list of conditions and the following disclaimer in the
  *     documentation and/or other materials provided with the distribution.
- * 3.  Neither the name of Apple Computer, Inc. ("Apple") nor the names of
+ * 3.  Neither the name of Apple Inc. ("Apple") nor the names of
  *     its contributors may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
  *
@@ -28,42 +31,21 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef InspectorDatabaseResource_h
-#define InspectorDatabaseResource_h
+#include "config.h"
+#include "MainThread.h"
 
-#if ENABLE(SQL_DATABASE) && ENABLE(INSPECTOR)
-#include "InspectorFrontend.h"
-#include "Database.h"
-#include "PlatformString.h"
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/RefPtr.h>
+#include <wtf/OwnPtr.h>
+#include <wtf/PassOwnPtr.h>
+#include <wtf/StdLibExtras.h>
 
-namespace WebCore {
-class Database;
-class InspectorFrontend;
+namespace WTF {
 
-class InspectorDatabaseResource : public RefCounted<InspectorDatabaseResource> {
-public:
-    static PassRefPtr<InspectorDatabaseResource> create(PassRefPtr<Database> database, const String& domain, const String& name, const String& version);
+void initializeMainThreadPlatform()
+{
+}
 
-    void bind(InspectorFrontend::Database*);
-    Database* database() { return m_database.get(); }
-    void setDatabase(PassRefPtr<Database> database) { m_database = database; }
-    int id() const { return m_id; }
+void scheduleDispatchFunctionsOnMainThread()
+{
+}
 
-private:
-    InspectorDatabaseResource(PassRefPtr<Database>, const String& domain, const String& name, const String& version);
-
-    RefPtr<Database> m_database;
-    int m_id;
-    String m_domain;
-    String m_name;
-    String m_version;
-};
-
-} // namespace WebCore
-
-#endif // ENABLE(SQL_DATABASE)
-
-#endif // InspectorDatabaseResource_h
+}

@@ -81,7 +81,7 @@ namespace WebCore {
     typedef NSCursor *PlatformCursor;
 #elif PLATFORM(GTK)
     typedef GRefPtr<GdkCursor> PlatformCursor;
-#elif PLATFORM(EFL)
+#elif PLATFORM(EFL) || PLATFORM(NETFLIX)
     typedef const char* PlatformCursor;
 #elif PLATFORM(QT) && !defined(QT_NO_CURSOR)
     // Do not need to be shared but need to be created dynamically via ensurePlatformCursor.
