@@ -28,6 +28,7 @@
 
 #include "config.h"
 #include "SharedTimer.h"
+#include <stdio.h>
 
 #include <wtf/Assertions.h>
 #include <wtf/CurrentTime.h>
@@ -35,6 +36,7 @@
 
 namespace WebCore {
 
+static bool _timerSet = false;
 static void (*_timerFunction)();
 
 void setSharedTimerFiredFunction(void (*func)())
@@ -44,16 +46,19 @@ void setSharedTimerFiredFunction(void (*func)())
 
 void stopSharedTimer()
 {
-}
-
-void addNewTimer(double interval)
-{
-    stopSharedTimer();
+    _timerSet = false;
 }
 
 void setSharedTimerFireInterval(double interval)
 {
-    addNewTimer(interval);
+    stopSharedTimer();
+    _timerSet = true;
+}
+
+void checkSharedTimer()
+{
+    if (_timerSet)
+        (*_timerFunction)();
 }
 
 }

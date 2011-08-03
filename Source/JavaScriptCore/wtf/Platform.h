@@ -760,7 +760,7 @@
 
 /* ENABLE macro defaults */
 
-#if PLATFORM(QT)
+#if PLATFORM(QT) || PLATFORM(NETFLIX)
 /* We must not customize the global operator new and delete for the Qt port. */
 #define ENABLE_GLOBAL_FASTMALLOC_NEW 0
 #if !OS(UNIX)

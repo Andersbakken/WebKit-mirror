@@ -33,9 +33,35 @@ void InitializeLoggingChannelsIfNecessary()
     if (didInitializeLoggingChannels)
         return;
 
+
+    LogNotYetImplemented.state = WTFLogChannelOn;
+    LogFrames.state = WTFLogChannelOn;
+    LogLoading.state = WTFLogChannelOn;
+    LogPopupBlocking.state = WTFLogChannelOn;
+    LogEvents.state = WTFLogChannelOn;
+    LogEditing.state = WTFLogChannelOn;
+    LogLiveConnect.state = WTFLogChannelOn;
+    LogIconDatabase.state = WTFLogChannelOn;
+    LogSQLDatabase.state = WTFLogChannelOn;
+    LogSpellingAndGrammar.state = WTFLogChannelOn;
+    LogBackForward.state = WTFLogChannelOn;
+    LogHistory.state = WTFLogChannelOn;
+    LogPageCache.state = WTFLogChannelOn;
+    LogPlatformLeaks.state = WTFLogChannelOn;
+    LogResourceLoading.state = WTFLogChannelOn;
+    LogNetwork.state = WTFLogChannelOn;
+    LogFTP.state = WTFLogChannelOn;
+    LogThreading.state = WTFLogChannelOn;
+    LogStorageAPI.state = WTFLogChannelOn;
+    LogMedia.state = WTFLogChannelOn;
+    LogPlugins.state = WTFLogChannelOn;
+    LogArchives.state = WTFLogChannelOn;
+    LogProgress.state = WTFLogChannelOn;
+    LogFileAPI.state = WTFLogChannelOn;
+
     didInitializeLoggingChannels = true;
 
-    char* logEnv = getenv("NF_WEBKIT_DEBUG");
+    const char* logEnv = getenv("NF_WEBKIT_DEBUG");
     if (!logEnv) {
 #if 1
         logEnv = "Events,Frames,Loading,Network,PageCache,PlatformLeaks,SQLDatabase,StorageAPI,Progress";
@@ -55,6 +81,7 @@ void InitializeLoggingChannelsIfNecessary()
     free(*logv);
     free(logv);
 #endif
+
 
     // To disable logging notImplemented set the DISABLE_NI_WARNING
     // environment variable to 1.

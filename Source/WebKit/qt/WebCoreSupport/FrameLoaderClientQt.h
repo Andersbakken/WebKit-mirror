@@ -256,7 +256,7 @@ public:
     static QStringList sendRequestClearHeaders;
     static bool policyDelegateEnabled;
     static bool policyDelegatePermissive;
-    static bool deferMainResourceDataLoad;
+    static bool deferMainResourceDataLoad1;
     static bool dumpHistoryCallbacks;
     static QMap<QString, QString> URLsToRedirect;
 
