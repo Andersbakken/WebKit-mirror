@@ -83,7 +83,7 @@
 // this breaks compilation of <QFontDatabase>, at least, so turn it off for now
 // Also generates errors on wx on Windows and QNX, because these functions
 // are used from wx and QNX headers. 
-#if !PLATFORM(QT) && !PLATFORM(WX) && !OS(QNX)
+#if !PLATFORM(QT) && !PLATFORM(WX) && !OS(QNX) && !PLATFORM(NETFLIX)
 #include <wtf/DisallowCType.h>
 #endif
 

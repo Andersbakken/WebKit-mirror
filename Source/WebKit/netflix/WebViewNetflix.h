@@ -5,6 +5,7 @@
 #include "KURL.h"
 #include "IntRect.h"
 #include "Color.h"
+#include "WindowsKeyboardCodes.h"
 
 #ifndef WTF_PLATFORM_NETFLIX
 # define WTF_PLATFORM_NETFLIX 1
