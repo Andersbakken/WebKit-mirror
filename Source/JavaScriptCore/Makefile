@@ -2690,30 +2690,6 @@ runtime/JSWrapperObject.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build.make JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/runtime/JSWrapperObject.cpp.s
 .PHONY : runtime/JSWrapperObject.cpp.s
 
-runtime/JSZombie.o: runtime/JSZombie.cpp.o
-.PHONY : runtime/JSZombie.o
-
-# target to build an object file
-runtime/JSZombie.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build.make JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/runtime/JSZombie.cpp.o
-.PHONY : runtime/JSZombie.cpp.o
-
-runtime/JSZombie.i: runtime/JSZombie.cpp.i
-.PHONY : runtime/JSZombie.i
-
-# target to preprocess a source file
-runtime/JSZombie.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build.make JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/runtime/JSZombie.cpp.i
-.PHONY : runtime/JSZombie.cpp.i
-
-runtime/JSZombie.s: runtime/JSZombie.cpp.s
-.PHONY : runtime/JSZombie.s
-
-# target to generate assembly for a file
-runtime/JSZombie.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build.make JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/runtime/JSZombie.cpp.s
-.PHONY : runtime/JSZombie.cpp.s
-
 runtime/LiteralParser.o: runtime/LiteralParser.cpp.o
 .PHONY : runtime/LiteralParser.o
 
@@ -3884,9 +3860,6 @@ help:
 	@echo "... runtime/JSWrapperObject.o"
 	@echo "... runtime/JSWrapperObject.i"
 	@echo "... runtime/JSWrapperObject.s"
-	@echo "... runtime/JSZombie.o"
-	@echo "... runtime/JSZombie.i"
-	@echo "... runtime/JSZombie.s"
 	@echo "... runtime/LiteralParser.o"
 	@echo "... runtime/LiteralParser.i"
 	@echo "... runtime/LiteralParser.s"

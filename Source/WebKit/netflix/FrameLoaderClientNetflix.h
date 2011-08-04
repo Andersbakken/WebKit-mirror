@@ -113,7 +113,7 @@ namespace WebKit {
 
         virtual void setMainFrameDocumentReady(bool);
 
-        virtual void startDownload(const WebCore::ResourceRequest&);
+        virtual void startDownload(const WebCore::ResourceRequest&, const WTF::String &);
 
         virtual void willChangeTitle(WebCore::DocumentLoader*);
         virtual void didChangeTitle(WebCore::DocumentLoader*);

@@ -548,7 +548,7 @@ void FrameLoaderClientNetflix::dispatchUnableToImplementPolicy(const ResourceErr
         m_webView->notify(NetflixEventLoadFail);
 }
 
-void FrameLoaderClientNetflix::startDownload(const ResourceRequest&)
+void FrameLoaderClientNetflix::startDownload(const ResourceRequest&, const WTF::String &)
 {
     notImplemented();
 }

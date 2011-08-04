@@ -10610,6 +10610,30 @@ bindings/js/JSOptionConstructor.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/bindings/js/JSOptionConstructor.cpp.s
 .PHONY : bindings/js/JSOptionConstructor.cpp.s
 
+bindings/js/JSPeerConnectionCustom.o: bindings/js/JSPeerConnectionCustom.cpp.o
+.PHONY : bindings/js/JSPeerConnectionCustom.o
+
+# target to build an object file
+bindings/js/JSPeerConnectionCustom.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/bindings/js/JSPeerConnectionCustom.cpp.o
+.PHONY : bindings/js/JSPeerConnectionCustom.cpp.o
+
+bindings/js/JSPeerConnectionCustom.i: bindings/js/JSPeerConnectionCustom.cpp.i
+.PHONY : bindings/js/JSPeerConnectionCustom.i
+
+# target to preprocess a source file
+bindings/js/JSPeerConnectionCustom.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/bindings/js/JSPeerConnectionCustom.cpp.i
+.PHONY : bindings/js/JSPeerConnectionCustom.cpp.i
+
+bindings/js/JSPeerConnectionCustom.s: bindings/js/JSPeerConnectionCustom.cpp.s
+.PHONY : bindings/js/JSPeerConnectionCustom.s
+
+# target to generate assembly for a file
+bindings/js/JSPeerConnectionCustom.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/bindings/js/JSPeerConnectionCustom.cpp.s
+.PHONY : bindings/js/JSPeerConnectionCustom.cpp.s
+
 bindings/js/JSPluginElementFunctions.o: bindings/js/JSPluginElementFunctions.cpp.o
 .PHONY : bindings/js/JSPluginElementFunctions.o
 
@@ -17185,6 +17209,30 @@ editing/RemoveNodePreservingChildrenCommand.s: editing/RemoveNodePreservingChild
 editing/RemoveNodePreservingChildrenCommand.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/editing/RemoveNodePreservingChildrenCommand.cpp.s
 .PHONY : editing/RemoveNodePreservingChildrenCommand.cpp.s
+
+editing/RenderedPosition.o: editing/RenderedPosition.cpp.o
+.PHONY : editing/RenderedPosition.o
+
+# target to build an object file
+editing/RenderedPosition.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/editing/RenderedPosition.cpp.o
+.PHONY : editing/RenderedPosition.cpp.o
+
+editing/RenderedPosition.i: editing/RenderedPosition.cpp.i
+.PHONY : editing/RenderedPosition.i
+
+# target to preprocess a source file
+editing/RenderedPosition.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/editing/RenderedPosition.cpp.i
+.PHONY : editing/RenderedPosition.cpp.i
+
+editing/RenderedPosition.s: editing/RenderedPosition.cpp.s
+.PHONY : editing/RenderedPosition.s
+
+# target to generate assembly for a file
+editing/RenderedPosition.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/editing/RenderedPosition.cpp.s
+.PHONY : editing/RenderedPosition.cpp.s
 
 editing/ReplaceNodeWithSpanCommand.o: editing/ReplaceNodeWithSpanCommand.cpp.o
 .PHONY : editing/ReplaceNodeWithSpanCommand.o
@@ -25010,30 +25058,6 @@ page/GeolocationController.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/GeolocationController.cpp.s
 .PHONY : page/GeolocationController.cpp.s
 
-page/GeolocationPositionCache.o: page/GeolocationPositionCache.cpp.o
-.PHONY : page/GeolocationPositionCache.o
-
-# target to build an object file
-page/GeolocationPositionCache.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/GeolocationPositionCache.cpp.o
-.PHONY : page/GeolocationPositionCache.cpp.o
-
-page/GeolocationPositionCache.i: page/GeolocationPositionCache.cpp.i
-.PHONY : page/GeolocationPositionCache.i
-
-# target to preprocess a source file
-page/GeolocationPositionCache.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/GeolocationPositionCache.cpp.i
-.PHONY : page/GeolocationPositionCache.cpp.i
-
-page/GeolocationPositionCache.s: page/GeolocationPositionCache.cpp.s
-.PHONY : page/GeolocationPositionCache.s
-
-# target to generate assembly for a file
-page/GeolocationPositionCache.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/page/GeolocationPositionCache.cpp.s
-.PHONY : page/GeolocationPositionCache.cpp.s
-
 page/GroupSettings.o: page/GroupSettings.cpp.o
 .PHONY : page/GroupSettings.o
 
@@ -26834,30 +26858,6 @@ platform/graphics/Color.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/Color.cpp.s
 .PHONY : platform/graphics/Color.cpp.s
 
-platform/graphics/ContextShadow.o: platform/graphics/ContextShadow.cpp.o
-.PHONY : platform/graphics/ContextShadow.o
-
-# target to build an object file
-platform/graphics/ContextShadow.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/ContextShadow.cpp.o
-.PHONY : platform/graphics/ContextShadow.cpp.o
-
-platform/graphics/ContextShadow.i: platform/graphics/ContextShadow.cpp.i
-.PHONY : platform/graphics/ContextShadow.i
-
-# target to preprocess a source file
-platform/graphics/ContextShadow.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/ContextShadow.cpp.i
-.PHONY : platform/graphics/ContextShadow.cpp.i
-
-platform/graphics/ContextShadow.s: platform/graphics/ContextShadow.cpp.s
-.PHONY : platform/graphics/ContextShadow.s
-
-# target to generate assembly for a file
-platform/graphics/ContextShadow.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/ContextShadow.cpp.s
-.PHONY : platform/graphics/ContextShadow.cpp.s
-
 platform/graphics/FloatPoint.o: platform/graphics/FloatPoint.cpp.o
 .PHONY : platform/graphics/FloatPoint.o
 
@@ -27458,6 +27458,30 @@ platform/graphics/Pattern.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/Pattern.cpp.s
 .PHONY : platform/graphics/Pattern.cpp.s
 
+platform/graphics/Region.o: platform/graphics/Region.cpp.o
+.PHONY : platform/graphics/Region.o
+
+# target to build an object file
+platform/graphics/Region.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/Region.cpp.o
+.PHONY : platform/graphics/Region.cpp.o
+
+platform/graphics/Region.i: platform/graphics/Region.cpp.i
+.PHONY : platform/graphics/Region.i
+
+# target to preprocess a source file
+platform/graphics/Region.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/Region.cpp.i
+.PHONY : platform/graphics/Region.cpp.i
+
+platform/graphics/Region.s: platform/graphics/Region.cpp.s
+.PHONY : platform/graphics/Region.s
+
+# target to generate assembly for a file
+platform/graphics/Region.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/Region.cpp.s
+.PHONY : platform/graphics/Region.cpp.s
+
 platform/graphics/RoundedRect.o: platform/graphics/RoundedRect.cpp.o
 .PHONY : platform/graphics/RoundedRect.o
 
@@ -27697,30 +27721,6 @@ platform/graphics/cairo/CairoUtilities.s: platform/graphics/cairo/CairoUtilities
 platform/graphics/cairo/CairoUtilities.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/cairo/CairoUtilities.cpp.s
 .PHONY : platform/graphics/cairo/CairoUtilities.cpp.s
-
-platform/graphics/cairo/ContextShadowCairo.o: platform/graphics/cairo/ContextShadowCairo.cpp.o
-.PHONY : platform/graphics/cairo/ContextShadowCairo.o
-
-# target to build an object file
-platform/graphics/cairo/ContextShadowCairo.cpp.o:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/cairo/ContextShadowCairo.cpp.o
-.PHONY : platform/graphics/cairo/ContextShadowCairo.cpp.o
-
-platform/graphics/cairo/ContextShadowCairo.i: platform/graphics/cairo/ContextShadowCairo.cpp.i
-.PHONY : platform/graphics/cairo/ContextShadowCairo.i
-
-# target to preprocess a source file
-platform/graphics/cairo/ContextShadowCairo.cpp.i:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/cairo/ContextShadowCairo.cpp.i
-.PHONY : platform/graphics/cairo/ContextShadowCairo.cpp.i
-
-platform/graphics/cairo/ContextShadowCairo.s: platform/graphics/cairo/ContextShadowCairo.cpp.s
-.PHONY : platform/graphics/cairo/ContextShadowCairo.s
-
-# target to generate assembly for a file
-platform/graphics/cairo/ContextShadowCairo.cpp.s:
-	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/platform/graphics/cairo/ContextShadowCairo.cpp.s
-.PHONY : platform/graphics/cairo/ContextShadowCairo.cpp.s
 
 platform/graphics/cairo/FontCairo.o: platform/graphics/cairo/FontCairo.cpp.o
 .PHONY : platform/graphics/cairo/FontCairo.o
@@ -38090,6 +38090,9 @@ help:
 	@echo "... bindings/js/JSOptionConstructor.o"
 	@echo "... bindings/js/JSOptionConstructor.i"
 	@echo "... bindings/js/JSOptionConstructor.s"
+	@echo "... bindings/js/JSPeerConnectionCustom.o"
+	@echo "... bindings/js/JSPeerConnectionCustom.i"
+	@echo "... bindings/js/JSPeerConnectionCustom.s"
 	@echo "... bindings/js/JSPluginElementFunctions.o"
 	@echo "... bindings/js/JSPluginElementFunctions.i"
 	@echo "... bindings/js/JSPluginElementFunctions.s"
@@ -38912,6 +38915,9 @@ help:
 	@echo "... editing/RemoveNodePreservingChildrenCommand.o"
 	@echo "... editing/RemoveNodePreservingChildrenCommand.i"
 	@echo "... editing/RemoveNodePreservingChildrenCommand.s"
+	@echo "... editing/RenderedPosition.o"
+	@echo "... editing/RenderedPosition.i"
+	@echo "... editing/RenderedPosition.s"
 	@echo "... editing/ReplaceNodeWithSpanCommand.o"
 	@echo "... editing/ReplaceNodeWithSpanCommand.i"
 	@echo "... editing/ReplaceNodeWithSpanCommand.s"
@@ -39890,9 +39896,6 @@ help:
 	@echo "... page/GeolocationController.o"
 	@echo "... page/GeolocationController.i"
 	@echo "... page/GeolocationController.s"
-	@echo "... page/GeolocationPositionCache.o"
-	@echo "... page/GeolocationPositionCache.i"
-	@echo "... page/GeolocationPositionCache.s"
 	@echo "... page/GroupSettings.o"
 	@echo "... page/GroupSettings.i"
 	@echo "... page/GroupSettings.s"
@@ -40118,9 +40121,6 @@ help:
 	@echo "... platform/graphics/Color.o"
 	@echo "... platform/graphics/Color.i"
 	@echo "... platform/graphics/Color.s"
-	@echo "... platform/graphics/ContextShadow.o"
-	@echo "... platform/graphics/ContextShadow.i"
-	@echo "... platform/graphics/ContextShadow.s"
 	@echo "... platform/graphics/FloatPoint.o"
 	@echo "... platform/graphics/FloatPoint.i"
 	@echo "... platform/graphics/FloatPoint.s"
@@ -40196,6 +40196,9 @@ help:
 	@echo "... platform/graphics/Pattern.o"
 	@echo "... platform/graphics/Pattern.i"
 	@echo "... platform/graphics/Pattern.s"
+	@echo "... platform/graphics/Region.o"
+	@echo "... platform/graphics/Region.i"
+	@echo "... platform/graphics/Region.s"
 	@echo "... platform/graphics/RoundedRect.o"
 	@echo "... platform/graphics/RoundedRect.i"
 	@echo "... platform/graphics/RoundedRect.s"
@@ -40226,9 +40229,6 @@ help:
 	@echo "... platform/graphics/cairo/CairoUtilities.o"
 	@echo "... platform/graphics/cairo/CairoUtilities.i"
 	@echo "... platform/graphics/cairo/CairoUtilities.s"
-	@echo "... platform/graphics/cairo/ContextShadowCairo.o"
-	@echo "... platform/graphics/cairo/ContextShadowCairo.i"
-	@echo "... platform/graphics/cairo/ContextShadowCairo.s"
 	@echo "... platform/graphics/cairo/FontCairo.o"
 	@echo "... platform/graphics/cairo/FontCairo.i"
 	@echo "... platform/graphics/cairo/FontCairo.s"
