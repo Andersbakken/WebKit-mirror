@@ -52,7 +52,6 @@ void EditorClientNetflix::handleKeyboardEvent(WebCore::KeyboardEvent* event)
     if (!start->isContentEditable())
         return;
 
-    printf("EditorClientNetflix::handleKeyboardEvent %d %d \"%s\", ptr %p\n", kevent->type(), kevent->nativeVirtualKeyCode(), kevent->text().latin1().data(), kevent);
     frame->editor()->insertText(kevent->text(), event);
     event->setDefaultHandled();
 }
