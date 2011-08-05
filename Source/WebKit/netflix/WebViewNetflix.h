@@ -44,6 +44,7 @@ enum NetflixEvent {
 };
 
 class ChromeClientNetflix;
+class EditorClientNetflix;
 class FrameLoaderClientNetflix;
 
 #define WEBKIT_API __attribute__((visibility("default")))
@@ -84,8 +85,8 @@ public:
     void operator delete(void*);
 
 protected:
-    void onKeyDown(char const *, int);
-    void onKeyUp(char const *, int);
+    void onKeyDown(char const *, int, char const *);
+    void onKeyUp(char const *, int, char const *);
     void onMouseMove(float, float);
     void onMousePress(float, float);
     void onMouseRelease(float, float);
@@ -102,6 +103,7 @@ protected:
 
 private:
     friend class ChromeClientNetflix;
+    friend class EditorClientNetflix;
     friend class PlatformLayerNetflix;
     friend class FrameLoaderClientNetflix;
 

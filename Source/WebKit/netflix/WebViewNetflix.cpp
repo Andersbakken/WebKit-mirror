@@ -75,7 +75,7 @@ WebViewNetflix::WebViewNetflix() :
     WebCore::Page::PageClients clients;
     memset(&clients, 0, sizeof(clients));
     clients.chromeClient = new ChromeClientNetflix(this);
-    clients.editorClient = new EditorClientNetflix;
+    clients.editorClient = new EditorClientNetflix(this);
 #if ENABLE(INSPECTOR)
     clients.inspectorClient = new InspectorClientNetflix;
 #endif
@@ -200,16 +200,16 @@ WebViewNetflix::onPaint(cairo_surface_t *surface, WebCore::IntRect rect)
 #endif
 
 void
-WebViewNetflix::onKeyDown(char const *key, int code)
+WebViewNetflix::onKeyDown(char const *key, int code, char const *text)
 {
-    PlatformKeyboardEvent keyPressEvent(PlatformKeyboardEvent::KeyDown, "", key, code);
+    PlatformKeyboardEvent keyPressEvent(PlatformKeyboardEvent::KeyDown, text, key, code);
     m_page->mainFrame()->eventHandler()->keyEvent(keyPressEvent);
 }
 
 void
-WebViewNetflix::onKeyUp(char const *key, int code)
+WebViewNetflix::onKeyUp(char const *key, int code, char const *text)
 {
-    PlatformKeyboardEvent keyPressEvent(PlatformKeyboardEvent::KeyUp, "", key, code);
+    PlatformKeyboardEvent keyPressEvent(PlatformKeyboardEvent::KeyUp, text, key, code);
     m_page->mainFrame()->eventHandler()->keyEvent(keyPressEvent);
 }
 

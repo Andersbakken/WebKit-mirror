@@ -8,10 +8,12 @@
 
 namespace WebKit {
 
+class WebViewNetflix;
+
 class EditorClientNetflix : public WebCore::EditorClient
 {
 public:
-    EditorClientNetflix();
+    EditorClientNetflix(WebViewNetflix* webview);
     virtual ~EditorClientNetflix();
 
     virtual void pageDestroyed();
@@ -31,7 +33,7 @@ public:
     virtual bool shouldBeginEditing(WebCore::Range*) { breakpoint(); return false; }
     virtual bool shouldEndEditing(WebCore::Range*) { breakpoint(); return false; }
     virtual bool shouldInsertNode(WebCore::Node*, WebCore::Range*, WebCore::EditorInsertAction) { breakpoint(); return false; }
-    virtual bool shouldInsertText(const WTF::String&, WebCore::Range*, WebCore::EditorInsertAction) { breakpoint(); return false; }
+    virtual bool shouldInsertText(const WTF::String&, WebCore::Range*, WebCore::EditorInsertAction);
     virtual bool shouldChangeSelectedRange(WebCore::Range*, WebCore::Range*, WebCore::EAffinity, bool) { breakpoint(); return true; }
 
     virtual bool shouldApplyStyle(WebCore::CSSStyleDeclaration*, WebCore::Range*) { breakpoint(); return false; }
@@ -83,6 +85,9 @@ public:
 
 private:
     void breakpoint() const { }
+
+private:
+    WebViewNetflix* m_webview;
 };
 
 }
