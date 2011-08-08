@@ -177,8 +177,10 @@ WebViewNetflix::onPaint(cairo_surface_t *surface, WebCore::IntRect rect)
     ASSERT(cairo);
     if(cairo) {
         GraphicsContext gc(cairo);
+#if 0
         fprintf(stderr, "Render!! %d %d\n", m_size.width(), m_size.height());
         fprintf(stderr, "%s\n", WebCore::externalRepresentation(m_frame.get()).latin1().data());
+#endif
         if(m_size.width() != FRAME_BUFFER_WIDTH || m_size.height() != FRAME_BUFFER_HEIGHT)
             gc.scale(FloatSize((float)FRAME_BUFFER_WIDTH / m_size.width(), (float)FRAME_BUFFER_HEIGHT / m_size.height()));
         m_frame->view()->paint(&gc, rect);

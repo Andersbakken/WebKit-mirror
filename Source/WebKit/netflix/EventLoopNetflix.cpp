@@ -26,6 +26,7 @@ EventLoopNetflix::EventLoopNetflix()
 {
     assert(!sEventLoop);
     sEventLoop = this;
+    mPendingSharedTimer = mPendingResourceHandleJobs = 0;
     mSharedTimerInterval = -1;
     mNextSharedTimer.tv_sec = 0;
     if (pipe(mWakeup) == -1) {
@@ -94,16 +95,14 @@ void EventLoopNetflix::execute()
                     return;
             }
         }
-        if(s >= 1)
-            notify(new EventNetflix(EventNetflix::ResourceHandleJobs));
+        if(s >= 1 && !mPendingResourceHandleJobs)
+            notify(mPendingResourceHandleJobs = new EventNetflix(EventNetflix::ResourceHandleJobs));
         struct timeval tv_now;
         gettimeofday(&tv_now, 0);
-        if(mNextSharedTimer.tv_sec && timercmp(&tv_now, &mNextSharedTimer, >=)) {
-            notify(new EventNetflix(EventNetflix::SharedTimer));
+        if(mNextSharedTimer.tv_sec && !mPendingSharedTimer && timercmp(&tv_now, &mNextSharedTimer, >=)) {
+            notify(mPendingSharedTimer = new EventNetflix(EventNetflix::SharedTimer));
 #if 0
             updateNextSharedTimer();
-#else
-            mNextSharedTimer.tv_sec = 0;
 #endif
         }
     }
@@ -125,10 +124,15 @@ void EventLoopNetflix::notify(EventNetflix *event)
 {
     switch(event->type()) {
     case EventNetflix::ResourceHandleJobs: {
+        if(event == mPendingResourceHandleJobs)
+            mPendingResourceHandleJobs = 0;
         if(WebCore::ResourceHandleManager *resources = WebCore::ResourceHandleManager::sharedInstance())
             resources->processJobs();
         break; }
     case EventNetflix::SharedTimer: {
+        printf("SharedTimer: %f\n", mSharedTimerInterval);
+        if(event == mPendingSharedTimer)
+            mPendingSharedTimer = 0;
         WebCore::checkSharedTimer();
         updateNextSharedTimer();
         break; }

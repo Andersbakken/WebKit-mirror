@@ -45,6 +45,7 @@ protected:
     virtual void notify(WebKit::EventNetflix *event);
 
 private:
+    EventNetflix *mPendingSharedTimer, *mPendingResourceHandleJobs;
     void initWakeupPipe(int fd);
     void updateNextSharedTimer();
     double mSharedTimerInterval;
