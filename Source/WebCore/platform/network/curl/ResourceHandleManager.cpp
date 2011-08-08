@@ -58,8 +58,6 @@
 
 namespace WebCore {
 
-const int selectTimeoutMS = 5;
-const double pollTimeSeconds = 0.05;
 const int maxRunningJobs = 5;
 
 static const bool ignoreSSLErrors = getenv("WEBKIT_IGNORE_SSL_ERRORS");
@@ -118,11 +116,12 @@ static void curl_unlock_callback(CURL* handle, curl_lock_data data, void* userPt
 }
 
 ResourceHandleManager::ResourceHandleManager()
-    : m_downloadTimer(this, &ResourceHandleManager::downloadTimerCallback)
-    , m_cookieJarFileName(0)
+    : m_cookieJarFileName(0)
     , m_certificatePath (certificatePath())
     , m_runningJobs(0)
-
+#if !PLATFORM(NETFLIX)
+    ,m_downloadTimer(this, &ResourceHandleManager::downloadTimerCallback)
+#endif
 {
     curl_global_init(CURL_GLOBAL_ALL);
     m_curlMultiHandle = curl_multi_init();
@@ -154,6 +153,20 @@ ResourceHandleManager* ResourceHandleManager::sharedInstance()
         sharedInstance = new ResourceHandleManager();
     return sharedInstance;
 }
+
+#if !PLATFORM(NETFLIX)
+void ResourceHandleManager::wakeup()
+{
+    const double pollTimeSeconds = 0.05;
+    if (!m_downloadTimer.isActive())
+        m_downloadTimer.startOneShot(pollTimeSeconds);
+}
+void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>* timer)
+{
+    if(processJobs())
+        wakeup();
+}
+#endif
 
 static void handleLocalReceiveResponse (CURL* handle, ResourceHandle* job, ResourceHandleInternal* d)
 {
@@ -322,30 +335,38 @@ size_t readCallback(void* ptr, size_t size, size_t nmemb, void* data)
     return sent;
 }
 
-void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>* timer)
+bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, fd_set *fdexcept, int *maxfd)
+{
+    if(!m_curlMultiHandle)
+        return false;
+    FD_ZERO(&fdread);
+    FD_ZERO(&fdwrite);
+    FD_ZERO(&fdexcep);
+    curl_multi_fdset(m_curlMultiHandle, &fdread, &fdwrite, &fdexcep, &maxfd);
+    return *maxfd >= 0;
+}
+
+bool ResourceHandleManager::processJobs()
 {
     startScheduledJobs();
 
-    fd_set fdread;
-    fd_set fdwrite;
-    fd_set fdexcep;
-    int maxfd = 0;
-
+#if !PLATFORM(NETFLIX)
     struct timeval timeout;
     timeout.tv_sec = 0;
+    const int selectTimeoutMS = 5;
     timeout.tv_usec = selectTimeoutMS * 1000;       // select waits microseconds
 
     // Retry 'select' if it was interrupted by a process signal.
     int rc = 0;
     do {
-        FD_ZERO(&fdread);
-        FD_ZERO(&fdwrite);
-        FD_ZERO(&fdexcep);
-        curl_multi_fdset(m_curlMultiHandle, &fdread, &fdwrite, &fdexcep, &maxfd);
+        fd_set fdread;
+        fd_set fdwrite;
+        fd_set fdexcep;
+        int maxfd = 0;
         // When the 3 file descriptors are empty, winsock will return -1
         // and bail out, stopping the file download. So make sure we
         // have valid file descriptors before calling select.
-        if (maxfd >= 0)
+        if (getFileDescriptors(&fdread, &fdwrite, &fdexcep, &maxfd))
             rc = ::select(maxfd + 1, &fdread, &fdwrite, &fdexcep, &timeout);
     } while (rc == -1 && errno == EINTR);
 
@@ -353,8 +374,9 @@ void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>* 
 #ifndef NDEBUG
         perror("bad: select() returned -1: ");
 #endif
-        return;
+        return false;
     }
+#endif
 
     int runningHandles = 0;
     while (curl_multi_perform(m_curlMultiHandle, &runningHandles) == CURLM_CALL_MULTI_PERFORM) { }
@@ -410,11 +432,7 @@ void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>* 
 
         removeFromCurl(job);
     }
-
-    bool started = startScheduledJobs(); // new jobs might have been added in the meantime
-
-    if (!m_downloadTimer.isActive() && (started || (runningHandles > 0)))
-        m_downloadTimer.startOneShot(pollTimeSeconds);
+    return startScheduledJobs() || (runningHandles > 0)
 }
 
 void ResourceHandleManager::setProxyInfo(const String& host,
@@ -541,8 +559,7 @@ void ResourceHandleManager::add(ResourceHandle* job)
     // schedule this job to be added the next time we enter curl download loop
     job->ref();
     m_resourceHandleList.append(job);
-    if (!m_downloadTimer.isActive())
-        m_downloadTimer.startOneShot(pollTimeSeconds);
+    wakeup();
 }
 
 bool ResourceHandleManager::removeScheduledJob(ResourceHandle* job)
@@ -746,8 +763,7 @@ void ResourceHandleManager::cancel(ResourceHandle* job)
 
     ResourceHandleInternal* d = job->getInternal();
     d->m_cancelled = true;
-    if (!m_downloadTimer.isActive())
-        m_downloadTimer.startOneShot(pollTimeSeconds);
+    wakeup();
 }
 
 } // namespace WebCore

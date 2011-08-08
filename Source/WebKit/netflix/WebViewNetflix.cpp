@@ -44,10 +44,6 @@
 
 using namespace WebCore;
 
-namespace WebCore {
-    extern void checkSharedTimer();
-}
-
 #define FRAME_BUFFER_WIDTH 1280
 #define FRAME_BUFFER_HEIGHT 720
 
@@ -333,11 +329,6 @@ void
 WebViewNetflix::collectJavascriptGarbageSoon()
 {
     WebCore::gcController().garbageCollectSoon();
-}
-
-void WebViewNetflix::checkTimers()
-{
-    WebCore::checkSharedTimer();
 }
 
 void* WebViewNetflix::operator new(size_t size)

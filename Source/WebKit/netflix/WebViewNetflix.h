@@ -1,18 +1,12 @@
 #ifndef WebViewNetflix_H
 #define WebViewNetflix_H
 
+#include "WebKitNetflix.h"
 #include "PassRefPtr.h"
 #include "KURL.h"
 #include "IntRect.h"
 #include "Color.h"
 #include "WindowsKeyboardCodes.h"
-
-#ifndef WTF_PLATFORM_NETFLIX
-# define WTF_PLATFORM_NETFLIX 1
-#endif
-#ifndef WTF_USE_CAIRO
-# define WTF_USE_CAIRO 1
-#endif
 
 #include <vector>
 
@@ -25,9 +19,6 @@ extern "C" {
 }
 
 namespace WebCore {
-bool getSharedTimerFireDelay(long&);
-void checkSharedTimer();
-
 class Frame;
 class Page;
 class GraphicsContext;
@@ -36,19 +27,9 @@ class TextureMapperContentLayer;
 
 namespace WebKit {
 
-enum NetflixEvent {
-    NetflixEventLoadFail,
-    NetflixEventWindowClose,
-    NetflixEventWindowClear,
-    NetflixEventFrameCreate, /* data: WebCore::Frame created */
-};
-
 class ChromeClientNetflix;
 class EditorClientNetflix;
 class FrameLoaderClientNetflix;
-
-#define WEBKIT_API __attribute__((visibility("default")))
-#define WEBKIT_OBSOLETE_API WEBKIT_API __attribute__((deprecated))
 
 class WEBKIT_API WebViewNetflix
 {
@@ -63,8 +44,6 @@ public:
     void setSize(int, int);
     inline int getWidth() const { return m_size.width(); }
     inline int getHeight() const { return m_size.height(); }
-
-    void checkTimers();
 
     inline WebCore::Color backgroundColor() const { return m_backgroundColor; }
     inline void setBackgroundColor(const WebCore::Color &color) { m_backgroundColor = color; }

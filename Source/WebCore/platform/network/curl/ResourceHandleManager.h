@@ -60,6 +60,8 @@ public:
 
     void dispatchSynchronousJob(ResourceHandle*);
 
+    bool getFileDescriptors(fd_set *fdread, fd_set *fdwrite, fd_set *fdexcept, int *maxfd);
+
     void setupPOST(ResourceHandle*, struct curl_slist**);
     void setupPUT(ResourceHandle*, struct curl_slist**);
 
@@ -72,15 +74,14 @@ public:
 private:
     ResourceHandleManager();
     ~ResourceHandleManager();
-    void downloadTimerCallback(Timer<ResourceHandleManager>*);
     void removeFromCurl(ResourceHandle*);
     bool removeScheduledJob(ResourceHandle*);
     void startJob(ResourceHandle*);
     bool startScheduledJobs();
-
+    bool processJobs();
     void initializeHandle(ResourceHandle*);
+    void wakeup();
 
-    Timer<ResourceHandleManager> m_downloadTimer;
     CURLM* m_curlMultiHandle;
     CURLSH* m_curlShareHandle;
     char* m_cookieJarFileName;
@@ -91,6 +92,10 @@ private:
     
     String m_proxy;
     ProxyType m_proxyType;
+#if !PLATFORM(NETFLIX)
+    void downloadTimerCallback(Timer<ResourceHandleManager>*);
+    Timer<ResourceHandleManager> m_downloadTimer;
+#endif
 };
 
 }

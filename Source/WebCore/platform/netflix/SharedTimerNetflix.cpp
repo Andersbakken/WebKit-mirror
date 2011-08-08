@@ -37,6 +37,7 @@
 namespace WebCore {
 
 static bool _timerSet = false;
+static double _timerInterval = 0.0;
 static void (*_timerFunction)();
 
 void setSharedTimerFiredFunction(void (*func)())
@@ -47,12 +48,24 @@ void setSharedTimerFiredFunction(void (*func)())
 void stopSharedTimer()
 {
     _timerSet = false;
+    WebKit::EventLoopNetflix::sharedInstance()->setTimeout(-1);
 }
 
 void setSharedTimerFireInterval(double interval)
 {
     stopSharedTimer();
+    _timerInterval = interval;
     _timerSet = true;
+    WebKit::EventLoopNetflix::sharedInstance()->wakeup();
+}
+
+bool getSharedTimer(double &interval)
+{
+    if(_timerSet) {
+        interval = _timerInterval;
+        return true;
+    }
+    return false;
 }
 
 void checkSharedTimer()
