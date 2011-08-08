@@ -2,6 +2,7 @@
 #define WebViewNetflix_H
 
 #include "WebKitNetflix.h"
+#include "EventLoopNetflix.h"
 #include "PassRefPtr.h"
 #include "KURL.h"
 #include "IntRect.h"
@@ -74,7 +75,7 @@ protected:
     void onPaint(cairo_surface_t *, WebCore::IntRect);
 #endif
 
-    virtual void notify(const NetflixEvent &event, WebCore::Frame *frame = NULL) { }
+    virtual void notify(const WebKit::EventNetflix *event) { }
     virtual void notifyRepaint(const WebCore::IntRect &) { }
     virtual WebCore::KURL notifyRequest(const WebCore::KURL &url) { return url; }
     virtual void javaScriptConsoleMessage(const char*, unsigned int, const char*);

@@ -18,7 +18,7 @@ LIST(APPEND WebCore_INCLUDE_DIRECTORIES
   "${WEBCORE_DIR}/platform/text/chromium"
   "${WEBCORE_DIR}/platform/graphics/chromium"
   "${WEBCORE_DIR}/page/chromium"
-  "${WEBKIT_DIR}/netflix/WebCoreSupport"
+  "${WEBKIT_DIR}/netflix/"
   "${DERIVED_SOURCES_DIR}"
 )
 

@@ -218,6 +218,30 @@ netflix/EditorClientNetflix.cpp.s:
 	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.s
 .PHONY : netflix/EditorClientNetflix.cpp.s
 
+netflix/EventLoopNetflix.o: netflix/EventLoopNetflix.cpp.o
+.PHONY : netflix/EventLoopNetflix.o
+
+# target to build an object file
+netflix/EventLoopNetflix.cpp.o:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.o
+.PHONY : netflix/EventLoopNetflix.cpp.o
+
+netflix/EventLoopNetflix.i: netflix/EventLoopNetflix.cpp.i
+.PHONY : netflix/EventLoopNetflix.i
+
+# target to preprocess a source file
+netflix/EventLoopNetflix.cpp.i:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.i
+.PHONY : netflix/EventLoopNetflix.cpp.i
+
+netflix/EventLoopNetflix.s: netflix/EventLoopNetflix.cpp.s
+.PHONY : netflix/EventLoopNetflix.s
+
+# target to generate assembly for a file
+netflix/EventLoopNetflix.cpp.s:
+	cd /home/smagnuson/webkit/webkit_3.2/Source && $(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.s
+.PHONY : netflix/EventLoopNetflix.cpp.s
+
 netflix/FrameLoaderClientNetflix.o: netflix/FrameLoaderClientNetflix.cpp.o
 .PHONY : netflix/FrameLoaderClientNetflix.o
 
@@ -335,6 +359,9 @@ help:
 	@echo "... netflix/EditorClientNetflix.o"
 	@echo "... netflix/EditorClientNetflix.i"
 	@echo "... netflix/EditorClientNetflix.s"
+	@echo "... netflix/EventLoopNetflix.o"
+	@echo "... netflix/EventLoopNetflix.i"
+	@echo "... netflix/EventLoopNetflix.s"
 	@echo "... netflix/FrameLoaderClientNetflix.o"
 	@echo "... netflix/FrameLoaderClientNetflix.i"
 	@echo "... netflix/FrameLoaderClientNetflix.s"

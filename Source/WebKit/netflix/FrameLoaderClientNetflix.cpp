@@ -487,13 +487,13 @@ bool FrameLoaderClientNetflix::dispatchDidLoadResourceFromMemoryCache(DocumentLo
 void FrameLoaderClientNetflix::dispatchDidFailProvisionalLoad(const ResourceError & error)
 {
     if ( !error.isNull() && !error.isCancellation() && m_webView )
-        m_webView->notify(NetflixEventLoadFail);
+        m_webView->notify(new WebKit::EventNetflix(EventNetflix::LoadFail));
 }
 
 void FrameLoaderClientNetflix::dispatchDidFailLoad(const ResourceError & error)
 {
     if ( !error.isNull() && !error.isCancellation() && m_webView )
-        m_webView->notify(NetflixEventLoadFail);
+        m_webView->notify(new WebKit::EventNetflix(EventNetflix::LoadFail));
 }
 
 Frame* FrameLoaderClientNetflix::dispatchCreatePage(const WebCore::NavigationAction&)
@@ -545,7 +545,7 @@ void FrameLoaderClientNetflix::dispatchDecidePolicyForNavigationAction(FramePoli
 void FrameLoaderClientNetflix::dispatchUnableToImplementPolicy(const ResourceError & error)
 {
     if ( !error.isNull() && !error.isCancellation() && error.errorCode() == WebKitErrorCannotShowURL && m_webView )
-        m_webView->notify(NetflixEventLoadFail);
+        m_webView->notify(new WebKit::EventNetflix(EventNetflix::LoadFail));
 }
 
 void FrameLoaderClientNetflix::startDownload(const ResourceRequest&, const WTF::String &)
@@ -574,7 +574,7 @@ PassRefPtr<Frame> FrameLoaderClientNetflix::createFrame(const KURL& url, const S
         return 0;
 
     if (m_webView)
-        m_webView->notify(NetflixEventFrameCreate, childFrame.get());
+        m_webView->notify(new WebKit::EventNetflix(EventNetflix::FrameCreate)); //pass childFrame.get
 
     m_frame->loader()->loadURLIntoChildFrame(url, referrer, childFrame.get());
 
@@ -626,7 +626,7 @@ String FrameLoaderClientNetflix::overrideMediaType() const
 void FrameLoaderClientNetflix::dispatchDidClearWindowObjectInWorld(WebCore::DOMWrapperWorld*)
 {
     if (m_webView)
-        m_webView->notify(NetflixEventWindowClear, m_webView->m_frame.get());
+        m_webView->notify(new WebKit::EventNetflix(EventNetflix::WindowClose)); //pass m_webView->m_frame.get()
 }
 
 

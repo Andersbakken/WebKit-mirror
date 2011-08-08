@@ -3,10 +3,13 @@
 
 #include "WebKitNetflix.h"
 
+#include <sys/time.h>
+
 namespace WebKit {
 
 class EventNetflix
 {
+public:
     enum Type {
         LoadFail,
         WindowClose,
@@ -39,10 +42,10 @@ public:
     void quit();
 
 protected:
-    virtual void notify(EventNetflix *event);
-    virtual void process(EventNetflix *event);
+    virtual void notify(WebKit::EventNetflix *event);
 
 private:
+    void initWakeupPipe(int fd);
     void updateNextSharedTimer();
     double mSharedTimerInterval;
     timeval mNextSharedTimer;

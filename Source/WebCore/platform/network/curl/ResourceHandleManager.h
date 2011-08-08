@@ -71,6 +71,8 @@ public:
                       const String& username = "",
                       const String& password = "");
 
+    bool processJobs();
+
 private:
     ResourceHandleManager();
     ~ResourceHandleManager();
@@ -78,7 +80,6 @@ private:
     bool removeScheduledJob(ResourceHandle*);
     void startJob(ResourceHandle*);
     bool startScheduledJobs();
-    bool processJobs();
     void initializeHandle(ResourceHandle*);
     void wakeup();
 
@@ -92,10 +93,8 @@ private:
     
     String m_proxy;
     ProxyType m_proxyType;
-#if !PLATFORM(NETFLIX)
     void downloadTimerCallback(Timer<ResourceHandleManager>*);
     Timer<ResourceHandleManager> m_downloadTimer;
-#endif
 };
 
 }

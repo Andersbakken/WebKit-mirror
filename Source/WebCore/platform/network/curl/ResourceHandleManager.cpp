@@ -51,6 +51,10 @@
 #include <wtf/Vector.h>
 #include <wtf/text/CString.h>
 
+#if PLATFORM(NETFLIX)
+#include "EventLoopNetflix.h"
+#endif
+
 #if !OS(WINDOWS)
 #include <sys/param.h>
 #define MAX_PATH MAXPATHLEN
@@ -119,9 +123,7 @@ ResourceHandleManager::ResourceHandleManager()
     : m_cookieJarFileName(0)
     , m_certificatePath (certificatePath())
     , m_runningJobs(0)
-#if !PLATFORM(NETFLIX)
     ,m_downloadTimer(this, &ResourceHandleManager::downloadTimerCallback)
-#endif
 {
     curl_global_init(CURL_GLOBAL_ALL);
     m_curlMultiHandle = curl_multi_init();
@@ -154,19 +156,26 @@ ResourceHandleManager* ResourceHandleManager::sharedInstance()
     return sharedInstance;
 }
 
-#if !PLATFORM(NETFLIX)
 void ResourceHandleManager::wakeup()
 {
     const double pollTimeSeconds = 0.05;
     if (!m_downloadTimer.isActive())
         m_downloadTimer.startOneShot(pollTimeSeconds);
+#if PLATFORM(NETFLIX)
+    WebKit::EventLoopNetflix::sharedInstance()->wakeup();
+#endif
 }
-void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>* timer)
+
+void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>*)
 {
+#if PLATFORM(NETFLIX)
+    if(startScheduledJobs())
+        WebKit::EventLoopNetflix::sharedInstance()->wakeup();
+#else
     if(processJobs())
         wakeup();
-}
 #endif
+}
 
 static void handleLocalReceiveResponse (CURL* handle, ResourceHandle* job, ResourceHandleInternal* d)
 {
@@ -335,14 +344,14 @@ size_t readCallback(void* ptr, size_t size, size_t nmemb, void* data)
     return sent;
 }
 
-bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, fd_set *fdexcept, int *maxfd)
+bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, fd_set *fdexcep, int *maxfd)
 {
     if(!m_curlMultiHandle)
         return false;
-    FD_ZERO(&fdread);
-    FD_ZERO(&fdwrite);
-    FD_ZERO(&fdexcep);
-    curl_multi_fdset(m_curlMultiHandle, &fdread, &fdwrite, &fdexcep, &maxfd);
+    FD_ZERO(fdread);
+    FD_ZERO(fdwrite);
+    FD_ZERO(fdexcep);
+    curl_multi_fdset(m_curlMultiHandle, fdread, fdwrite, fdexcep, maxfd);
     return *maxfd >= 0;
 }
 
@@ -432,7 +441,7 @@ bool ResourceHandleManager::processJobs()
 
         removeFromCurl(job);
     }
-    return startScheduledJobs() || (runningHandles > 0)
+    return startScheduledJobs() || (runningHandles > 0);
 }
 
 void ResourceHandleManager::setProxyInfo(const String& host,
@@ -586,7 +595,13 @@ bool ResourceHandleManager::startScheduledJobs()
         startJob(job);
         started = true;
     }
-    return started;
+
+    if(started) {
+        int runningHandles = 0;
+        while (curl_multi_perform(m_curlMultiHandle, &runningHandles) == CURLM_CALL_MULTI_PERFORM) { }
+        return true;
+    }
+    return false;
 }
 
 void ResourceHandleManager::dispatchSynchronousJob(ResourceHandle* job)

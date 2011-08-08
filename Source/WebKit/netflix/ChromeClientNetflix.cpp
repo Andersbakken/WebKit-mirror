@@ -50,7 +50,7 @@ void ChromeClientNetflix::takeFocus(WebCore::FocusDirection)
 void ChromeClientNetflix::closeWindowSoon()
 {
      if (m_webView)
-         m_webView->notify(NetflixEventWindowClose);
+         m_webView->notify(new WebKit::EventNetflix(EventNetflix::WindowClose));
 }
 
 bool ChromeClientNetflix::canRunBeforeUnloadConfirmPanel()
