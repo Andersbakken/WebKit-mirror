@@ -108,12 +108,10 @@ void EditorClientNetflix::handleKeyboardEvent(WebCore::KeyboardEvent* event)
         return;
     }
 
-    // ### FIXME not sure yet how to deal with raw events here
-    if (kevent->type() == WebCore::PlatformKeyboardEvent::RawKeyDown)
-        return;
-
-    // Only allow keypress events passed this point, and TAB events are handled elsewhere
-    if (kevent->type() == WebCore::PlatformKeyboardEvent::KeyDown || kevent->windowsVirtualKeyCode() == VK_TAB)
+    // Only allow keypress (which contains the actual text to be inserted) events past this point, and TAB events are handled elsewhere
+    if (kevent->type() == WebCore::PlatformKeyboardEvent::KeyDown
+        || kevent->type() == WebCore::PlatformKeyboardEvent::RawKeyDown
+        || kevent->windowsVirtualKeyCode() == VK_TAB)
         return;
 
     frame->editor()->insertText(kevent->text(), event);
