@@ -18,7 +18,7 @@ public:
 
     virtual void pageDestroyed();
     
-    virtual bool shouldDeleteRange(WebCore::Range*) { breakpoint(); return false; }
+    virtual bool shouldDeleteRange(WebCore::Range*) { return true; }
     virtual bool shouldShowDeleteInterface(WebCore::HTMLElement*) { breakpoint(); return false; }
     virtual bool smartInsertDeleteEnabled() { breakpoint(); return false; }
     virtual bool isSelectTrailingWhitespaceEnabled() { breakpoint(); return false; }
@@ -28,7 +28,7 @@ public:
     virtual void toggleGrammarChecking() { breakpoint(); }
     virtual int spellCheckerDocumentTag() { breakpoint(); return -1; }
 
-    virtual bool isEditable() { return false; }
+    bool isEditing() { breakpoint(); return m_editing; }
 
     virtual bool shouldBeginEditing(WebCore::Range*) { breakpoint(); return false; }
     virtual bool shouldEndEditing(WebCore::Range*) { breakpoint(); return false; }
@@ -39,10 +39,10 @@ public:
     virtual bool shouldApplyStyle(WebCore::CSSStyleDeclaration*, WebCore::Range*) { breakpoint(); return false; }
     virtual bool shouldMoveRangeAfterDelete(WebCore::Range*, WebCore::Range*) { breakpoint(); return false; }
 
-    virtual void didBeginEditing() { breakpoint(); }
+    virtual void didBeginEditing() { m_editing = true; }
     virtual void respondToChangedContents() { breakpoint(); }
     virtual void respondToChangedSelection() { breakpoint(); }
-    virtual void didEndEditing() { breakpoint(); }
+    virtual void didEndEditing() { m_editing = false; }
     virtual void didWriteSelectionToPasteboard() { breakpoint(); }
     virtual void didSetSelectionTypesForPasteboard() { breakpoint(); }
 
@@ -63,8 +63,8 @@ public:
     virtual void handleKeyboardEvent(WebCore::KeyboardEvent*);
     virtual void handleInputMethodKeydown(WebCore::KeyboardEvent*);
 
-    virtual void textFieldDidBeginEditing(WebCore::Element*) { breakpoint(); }
-    virtual void textFieldDidEndEditing(WebCore::Element*) { breakpoint(); }
+    virtual void textFieldDidBeginEditing(WebCore::Element*) { m_editing = true; }
+    virtual void textFieldDidEndEditing(WebCore::Element*) { m_editing = false; }
     virtual void textDidChangeInTextField(WebCore::Element*) { breakpoint(); }
     virtual bool doTextFieldCommandFromEvent(WebCore::Element*, WebCore::KeyboardEvent*) { breakpoint(); return false; }
     virtual void textWillBeDeletedInTextField(WebCore::Element*) { breakpoint(); }
@@ -88,6 +88,7 @@ private:
 
 private:
     WebViewNetflix* m_webview;
+    bool m_editing;
 };
 
 }
