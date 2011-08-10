@@ -660,33 +660,11 @@ void FrameLoaderClientNetflix::transitionToCommittedForNewPage()
     ASSERT(m_frame);
     ASSERT(m_webView);
 
-    Page* page = m_frame->page();
-    ASSERT(page);
-
-    bool isMainFrame = m_frame == page->mainFrame();
-
-    if (isMainFrame && m_frame->view())
-        m_frame->view()->setParentVisible(false);
-    m_frame->setView(0);
-
-    RefPtr<FrameView> frameView;
-    if (isMainFrame) {
-        WebCore::IntSize sz(m_webView->getWidth(), m_webView->getHeight());
-        frameView = FrameView::create(m_frame, sz);
-        const WebCore::Color color = m_webView->backgroundColor();
-        frameView->setBaseBackgroundColor(color);
-        if (color.alpha() == 0)
-            frameView->setTransparent(true);
-        frameView->setParentVisible(true);
-    } else {
-        frameView = FrameView::create(m_frame);
-    }
-
-    ASSERT(frameView);
-    m_frame->setView(frameView);
-
-    if (HTMLFrameOwnerElement* owner = m_frame->ownerElement())
-        m_frame->view()->setScrollbarModes(owner->scrollingMode(), owner->scrollingMode());
+    //const bool isMainFrame = m_frame == page->mainFrame();
+    const WebCore::IntSize sz(m_webView->getWidth(), m_webView->getHeight());
+    const WebCore::Color color = m_webView->backgroundColor();
+    m_frame->createView(sz, color, !color.alpha(), IntSize(), false,
+                        ScrollbarAuto, false, ScrollbarAuto, false);
 }
 
 void FrameLoaderClientNetflix::didDisplayInsecureContent()
