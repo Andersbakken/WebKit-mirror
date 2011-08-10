@@ -35,10 +35,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/smagnuson/webkit/webkit_3.2/Source
+CMAKE_SOURCE_DIR = /home/smagnuson/netflix/git/nrdp/main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/smagnuson/webkit/webkit_3.2/Source
+CMAKE_BINARY_DIR = /home/smagnuson/netflix/git/nrdp/main
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -97,7 +97,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	/usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/smagnuson/netflix/git/nrdp/main && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -107,7 +107,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/smagnuson/webkit/webkit_3.2/Source/CPackSourceConfig.cmake
+	cd /home/smagnuson/netflix/git/nrdp/main && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/smagnuson/netflix/git/nrdp/main/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -126,14 +126,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/webkit/webkit_3.2/Source/CMakeFiles /home/smagnuson/webkit/webkit_3.2/Source/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/webkit/webkit_3.2/Source/CMakeFiles 0
+	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/netflix/git/nrdp/main/CMakeFiles /home/smagnuson/netflix/git/nrdp/main/3rdParty/WebKit/Source/CMakeFiles/progress.marks
+	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/netflix/git/nrdp/main/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/clean
 .PHONY : clean
 
 # The main clean target
@@ -142,83 +142,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named javascriptcore_netflix
-
-# Build rule for target.
-javascriptcore_netflix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 javascriptcore_netflix
-.PHONY : javascriptcore_netflix
-
-# fast build rule for target.
-javascriptcore_netflix/fast:
-	$(MAKE) -f JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build.make JavaScriptCore/CMakeFiles/javascriptcore_netflix.dir/build
-.PHONY : javascriptcore_netflix/fast
-
-#=============================================================================
-# Target rules for targets named wtf_netflix
-
-# Build rule for target.
-wtf_netflix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wtf_netflix
-.PHONY : wtf_netflix
-
-# fast build rule for target.
-wtf_netflix/fast:
-	$(MAKE) -f JavaScriptCore/wtf/CMakeFiles/wtf_netflix.dir/build.make JavaScriptCore/wtf/CMakeFiles/wtf_netflix.dir/build
-.PHONY : wtf_netflix/fast
-
-#=============================================================================
-# Target rules for targets named jsc_netflix
-
-# Build rule for target.
-jsc_netflix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jsc_netflix
-.PHONY : jsc_netflix
-
-# fast build rule for target.
-jsc_netflix/fast:
-	$(MAKE) -f JavaScriptCore/shell/CMakeFiles/jsc_netflix.dir/build.make JavaScriptCore/shell/CMakeFiles/jsc_netflix.dir/build
-.PHONY : jsc_netflix/fast
-
-#=============================================================================
-# Target rules for targets named webcore_netflix
-
-# Build rule for target.
-webcore_netflix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 webcore_netflix
-.PHONY : webcore_netflix
-
-# fast build rule for target.
-webcore_netflix/fast:
-	$(MAKE) -f WebCore/CMakeFiles/webcore_netflix.dir/build.make WebCore/CMakeFiles/webcore_netflix.dir/build
-.PHONY : webcore_netflix/fast
-
-#=============================================================================
-# Target rules for targets named webkit_netflix
-
-# Build rule for target.
-webkit_netflix: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 webkit_netflix
-.PHONY : webkit_netflix
-
-# fast build rule for target.
-webkit_netflix/fast:
-	$(MAKE) -f WebKit/CMakeFiles/webkit_netflix.dir/build.make WebKit/CMakeFiles/webkit_netflix.dir/build
-.PHONY : webkit_netflix/fast
 
 # Help Target
 help:
@@ -234,11 +169,6 @@ help:
 	@echo "... package"
 	@echo "... package_source"
 	@echo "... rebuild_cache"
-	@echo "... javascriptcore_netflix"
-	@echo "... wtf_netflix"
-	@echo "... jsc_netflix"
-	@echo "... webcore_netflix"
-	@echo "... webkit_netflix"
 .PHONY : help
 
 
@@ -250,6 +180,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
