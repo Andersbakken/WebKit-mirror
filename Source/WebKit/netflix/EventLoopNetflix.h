@@ -5,6 +5,8 @@
 
 #include <sys/time.h>
 
+//#define NETFLIX_NO_EVENTLOOP
+
 namespace WebKit {
 
 class EventNetflix

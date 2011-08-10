@@ -62,6 +62,8 @@
 
 namespace WebCore {
 
+Mutex curlMutex;
+
 const int maxRunningJobs = 5;
 
 static const bool ignoreSSLErrors = getenv("WEBKIT_IGNORE_SSL_ERRORS");
@@ -161,14 +163,14 @@ void ResourceHandleManager::wakeup()
     const double pollTimeSeconds = 0.05;
     if (!m_downloadTimer.isActive())
         m_downloadTimer.startOneShot(pollTimeSeconds);
-#if PLATFORM(NETFLIX)
+#if PLATFORM(NETFLIX) && !defined(NETFLIX_NO_EVENTLOOP)
     WebKit::EventLoopNetflix::sharedInstance()->wakeup();
 #endif
 }
 
 void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>*)
 {
-#if PLATFORM(NETFLIX)
+#if PLATFORM(NETFLIX) && !defined(NETFLIX_NO_EVENTLOOP)
     if(startScheduledJobs())
         WebKit::EventLoopNetflix::sharedInstance()->wakeup();
 #else
@@ -348,6 +350,7 @@ bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, 
 {
     if(!m_curlMultiHandle)
         return false;
+    MutexLocker lock(curlMutex);
     FD_ZERO(fdread);
     FD_ZERO(fdwrite);
     FD_ZERO(fdexcep);
@@ -357,6 +360,7 @@ bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, 
 
 bool ResourceHandleManager::processJobs()
 {
+    MutexLocker lock(curlMutex);
     startScheduledJobs();
 
 #if !PLATFORM(NETFLIX)

@@ -21,9 +21,13 @@ void checkSharedTimer();
 namespace WebKit {
 
 static EventLoopNetflix *sEventLoop = 0;
+extern void initWebKitNetflix();
 
 EventLoopNetflix::EventLoopNetflix()
 {
+    WebKit::initWebKitNetflix();
+    WebCore::ResourceHandleManager::sharedInstance(); //make sure it exists
+
     assert(!sEventLoop);
     sEventLoop = this;
     mPendingSharedTimer = mPendingResourceHandleJobs = 0;
@@ -35,6 +39,8 @@ EventLoopNetflix::EventLoopNetflix()
         initWakeupPipe(mWakeup[0]);
         initWakeupPipe(mWakeup[1]);
     }
+    assert(mWakeup[0] != -1);
+    assert(mWakeup[1] != -1);
 }
 
 EventLoopNetflix::~EventLoopNetflix()
@@ -55,11 +61,17 @@ void EventLoopNetflix::execute()
 {
     while(true) {
         fd_set fdread;
+        FD_ZERO(&fdread);
         fd_set fdwrite;
+        FD_ZERO(&fdwrite);
         fd_set fdexcep;
+        FD_ZERO(&fdexcep);
         int maxfd = 0;
+
+#ifndef NETFLIX_NO_EVENTLOOP
         if(WebCore::ResourceHandleManager *resources = WebCore::ResourceHandleManager::sharedInstance())
             resources->getFileDescriptors(&fdread, &fdwrite, &fdexcep, &maxfd);
+#endif
         FD_SET(mWakeup[0], &fdread);
         if(mWakeup[0] > maxfd)
             maxfd = mWakeup[0];
@@ -78,7 +90,7 @@ void EventLoopNetflix::execute()
         } else {
             s = select(maxfd+1, &fdread, &fdwrite, &fdexcep, 0);
         }
-#if 1
+#if 0
         if (s == -1) {
             perror("EventLoopNetflix::execute");
             break;
@@ -95,8 +107,10 @@ void EventLoopNetflix::execute()
                     return;
             }
         }
+#ifndef NETFLIX_NO_EVENTLOOP
         if(s >= 1 && !mPendingResourceHandleJobs)
             notify(mPendingResourceHandleJobs = new EventNetflix(EventNetflix::ResourceHandleJobs));
+#endif
         struct timeval tv_now;
         gettimeofday(&tv_now, 0);
         if(mNextSharedTimer.tv_sec && !mPendingSharedTimer && timercmp(&tv_now, &mNextSharedTimer, >=)) {
@@ -130,7 +144,6 @@ void EventLoopNetflix::notify(EventNetflix *event)
             resources->processJobs();
         break; }
     case EventNetflix::SharedTimer: {
-        printf("SharedTimer: %f\n", mSharedTimerInterval);
         if(event == mPendingSharedTimer)
             mPendingSharedTimer = 0;
         WebCore::checkSharedTimer();
@@ -167,10 +180,10 @@ void EventLoopNetflix::initWakeupPipe(int fd)
 {
     const int flags = fcntl(fd, F_GETFL);
     if (flags == -1)
-        perror("EventLoopNetflix: Unable to get flags on wakup pipe");
+        perror("EventLoopNetflix: Error getting flags from wakup pipe");
     const int ret = fcntl(fd, F_SETFL, flags | O_NONBLOCK);
     if (ret == -1)
-        perror("EventLoopNetflix: Unable to set flags on wakup pipe");
+        perror("EventLoopNetflix: Error setting flags on wakup pipe");
 }
 
 }

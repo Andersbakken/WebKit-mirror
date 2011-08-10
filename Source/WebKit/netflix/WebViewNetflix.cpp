@@ -47,15 +47,11 @@ using namespace WebCore;
 #define FRAME_BUFFER_WIDTH 1280
 #define FRAME_BUFFER_HEIGHT 720
 
-static bool init = false;
 
 namespace WebKit {
 
-WebViewNetflix::WebViewNetflix() :
-    m_page(0)
-#if USE(ACCELERATED_COMPOSITING)
-    ,rootGraphicsLayer(0)
-#endif
+static bool init = false;
+void initWebKitNetflix()
 {
     if (!init) {
         JSC::initializeThreading();
@@ -67,6 +63,16 @@ WebViewNetflix::WebViewNetflix() :
 
         init = true;
     }
+}
+
+
+WebViewNetflix::WebViewNetflix() :
+    m_page(0)
+#if USE(ACCELERATED_COMPOSITING)
+    ,rootGraphicsLayer(0)
+#endif
+{
+    WebKit::initWebKitNetflix();
 
     WebCore::Page::PageClients clients;
     memset(&clients, 0, sizeof(clients));

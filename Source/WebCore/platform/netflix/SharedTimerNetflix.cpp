@@ -53,7 +53,6 @@ void stopSharedTimer()
 
 void setSharedTimerFireInterval(double interval)
 {
-    stopSharedTimer();
     _timerSet = true;
     WebKit::EventLoopNetflix::sharedInstance()->setSharedTimerInterval(interval);
 }
