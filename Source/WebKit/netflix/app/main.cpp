@@ -21,7 +21,7 @@
 
 static const QSize defaultSize(1280, 720);
 
-#if 0
+#if 1
 # define HEADLESS
 #endif
 
@@ -536,7 +536,6 @@ public:
     bool event(QEvent *e) {
         if(e->type() == (QEvent::Type)WebEventQEvent::StaticType) {
             WebEventQEvent *we = (WebEventQEvent*)e;
-            qDebug() << "ProcessWebKitEvent:" << we->m_event->type();
             WebKit::EventLoopNetflix::notify(we->m_event);
             we->m_event = 0; //used it
             return false;
@@ -586,7 +585,9 @@ protected:
                 onPaint(&p, paintArea);
             }
             static int serial_number = 0;
-            m_image.save(QString().sprintf("%s/%p_%d.png", QDir::tempPath().toLocal8Bit().constData(), this, serial_number++), "PNG");
+            const QString png = QString().sprintf("%s/%p_%d.png", QDir::tempPath().toLocal8Bit().constData(), this, serial_number++);
+            fprintf(stderr, "Saving to: %s\n", png.toLatin1().constData());
+            m_image.save(png, "PNG");
         }
     }
 #else
@@ -633,7 +634,7 @@ private:
 
 void WebView::onPaint(QPainter *p, const QRect &rect)
 {
-    fprintf(stderr, "onPaint\n");
+    fprintf(stderr, "onPaint %d %d %d %d\n", rect.x(), rect.y(), rect.width(), rect.height());
     p->save();
     {
         p->setClipRect(rect);
