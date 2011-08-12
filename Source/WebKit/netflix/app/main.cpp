@@ -17,7 +17,9 @@
 #include <WebViewNetflix.h>
 #include <EventLoopNetflix.h>
 #include <cairo/cairo-qt.h>
+
 #include <ctype.h>
+#include <unistd.h>
 
 static const QSize defaultSize(1280, 720);
 
@@ -585,9 +587,17 @@ protected:
                 onPaint(&p, paintArea);
             }
             static int serial_number = 0;
-            const QString png = QString().sprintf("%s/%p_%d.png", QDir::tempPath().toLocal8Bit().constData(), this, serial_number++);
+            QString dir = QDir::tempPath();
+            if(const char *headless_dump_dir = getenv("HEADLESS_DUMP_DIR"))
+                dir = headless_dump_dir;
+            const QString png = QString().sprintf("%s/%p_%d.png", dir.toLocal8Bit().constData(), this, serial_number++);
             fprintf(stderr, "Saving to: %s\n", png.toLatin1().constData());
             m_image.save(png, "PNG");
+#if 1
+            const QString latest = QString().sprintf("%s/latest.png", dir.toLocal8Bit().constData());
+            unlink(latest.toLocal8Bit().constData());
+            symlink(png.toLocal8Bit().constData(), latest.toLocal8Bit().constData());
+#endif
         }
     }
 #else
@@ -657,7 +667,7 @@ void *WebKitEventLoop(void *e)
 int
 main(int argc, char **argv)
 {
-#ifdef HEADLESS
+#if defined(HEADLESS) && 0
     QCoreApplication a(argc, argv);
 #else
     QApplication a(argc, argv);
