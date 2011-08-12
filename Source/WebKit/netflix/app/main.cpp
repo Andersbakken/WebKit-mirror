@@ -23,7 +23,7 @@
 
 static const QSize defaultSize(1280, 720);
 
-#if 1
+#if 0
 # define HEADLESS
 #endif
 
@@ -576,10 +576,12 @@ public:
 protected:
     //Qt
 #ifdef HEADLESS
+    inline int getWidth() const { return defaultSize.width(); }
+    inline int getHeight() const { return defaultSize.height(); }
     void timerEvent(QTimerEvent *e) {
         if(e->timerId() == m_repaintTimer && !m_repaintArea.isEmpty()) {
             if(m_image.isNull())
-                m_image = QImage(defaultSize, QImage::Format_ARGB32_Premultiplied);
+                m_image = QImage(getWidth(), getHeight(), QImage::Format_ARGB32_Premultiplied);
             QRect paintArea = m_repaintArea;
             m_repaintArea = QRect();
             {
@@ -619,7 +621,7 @@ protected:
 #if 1
         const QRect qArea(area.x(), area.y(), area.width(), area.height());
 #else
-        const QRect qArea(0, 0, WebViewNetflix::getWidth(), WebViewNetflix::getHeight());
+        const QRect qArea(0, 0, getWidth(), getHeight());
 #endif
 
         fprintf(stderr, "notifyRepaint %d %d %d %d\n", qArea.x(), qArea.y(), qArea.width(), qArea.height());
@@ -645,6 +647,7 @@ private:
 void WebView::onPaint(QPainter *p, const QRect &rect)
 {
     fprintf(stderr, "onPaint %d %d %d %d\n", rect.x(), rect.y(), rect.width(), rect.height());
+#if 0
     p->save();
     {
         p->setClipRect(rect);
@@ -653,6 +656,14 @@ void WebView::onPaint(QPainter *p, const QRect &rect)
         cairo_surface_destroy(surface);
     }
     p->restore();
+#else
+    cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, getWidth(), getHeight());
+    WebViewNetflix::onPaint(surface, WebCore::IntRect(rect.x(), rect.y(), rect.width(), rect.height()));
+    QImage img(cairo_image_surface_get_data(surface), getWidth(), getHeight(), cairo_image_surface_get_stride(surface),
+               QImage::Format_ARGB32_Premultiplied);
+    p->drawImage(rect, img, rect);
+    cairo_surface_destroy(surface);
+#endif
     fprintf(stderr, "~onPaint\n");
 }
 
