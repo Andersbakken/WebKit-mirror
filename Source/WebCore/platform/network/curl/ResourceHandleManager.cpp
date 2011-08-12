@@ -360,7 +360,6 @@ bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, 
 
 bool ResourceHandleManager::processJobs()
 {
-    MutexLocker lock(curlMutex);
     startScheduledJobs();
 
 #if !PLATFORM(NETFLIX)
@@ -392,58 +391,62 @@ bool ResourceHandleManager::processJobs()
 #endif
 
     int runningHandles = 0;
-    while (curl_multi_perform(m_curlMultiHandle, &runningHandles) == CURLM_CALL_MULTI_PERFORM) { }
+    {
+        MutexLocker lock(curlMutex);
 
-    // check the curl messages indicating completed transfers
-    // and free their resources
-    while (true) {
-        int messagesInQueue;
-        CURLMsg* msg = curl_multi_info_read(m_curlMultiHandle, &messagesInQueue);
-        if (!msg)
-            break;
+        while (curl_multi_perform(m_curlMultiHandle, &runningHandles) == CURLM_CALL_MULTI_PERFORM) { }
 
-        // find the node which has same d->m_handle as completed transfer
-        CURL* handle = msg->easy_handle;
-        ASSERT(handle);
-        ResourceHandle* job = 0;
-        CURLcode err = curl_easy_getinfo(handle, CURLINFO_PRIVATE, &job);
-        ASSERT_UNUSED(err, CURLE_OK == err);
-        ASSERT(job);
-        if (!job)
-            continue;
-        ResourceHandleInternal* d = job->getInternal();
-        ASSERT(d->m_handle == handle);
+        // check the curl messages indicating completed transfers
+        // and free their resources
+        while (true) {
+            int messagesInQueue;
+            CURLMsg* msg = curl_multi_info_read(m_curlMultiHandle, &messagesInQueue);
+            if (!msg)
+                break;
 
-        if (d->m_cancelled) {
-            removeFromCurl(job);
-            continue;
-        }
+            // find the node which has same d->m_handle as completed transfer
+            CURL* handle = msg->easy_handle;
+            ASSERT(handle);
+            ResourceHandle* job = 0;
+            CURLcode err = curl_easy_getinfo(handle, CURLINFO_PRIVATE, &job);
+            ASSERT_UNUSED(err, CURLE_OK == err);
+            ASSERT(job);
+            if (!job)
+                continue;
+            ResourceHandleInternal* d = job->getInternal();
+            ASSERT(d->m_handle == handle);
 
-        if (CURLMSG_DONE != msg->msg)
-            continue;
-
-        if (CURLE_OK == msg->data.result) {
-            if (!d->m_response.responseFired()) {
-                handleLocalReceiveResponse(d->m_handle, job, d);
-                if (d->m_cancelled) {
-                    removeFromCurl(job);
-                    continue;
-                }
+            if (d->m_cancelled) {
+                removeFromCurl(job);
+                continue;
             }
 
-            if (d->client())
-                d->client()->didFinishLoading(job, 0);
-        } else {
-            char* url = 0;
-            curl_easy_getinfo(d->m_handle, CURLINFO_EFFECTIVE_URL, &url);
-#ifndef NDEBUG
-            fprintf(stderr, "Curl ERROR for url='%s', error: '%s'\n", url, curl_easy_strerror(msg->data.result));
-#endif
-            if (d->client())
-                d->client()->didFail(job, ResourceError(String(), msg->data.result, String(url), String(curl_easy_strerror(msg->data.result))));
-        }
+            if (CURLMSG_DONE != msg->msg)
+                continue;
 
-        removeFromCurl(job);
+            if (CURLE_OK == msg->data.result) {
+                if (!d->m_response.responseFired()) {
+                    handleLocalReceiveResponse(d->m_handle, job, d);
+                    if (d->m_cancelled) {
+                        removeFromCurl(job);
+                        continue;
+                    }
+                }
+
+                if (d->client())
+                    d->client()->didFinishLoading(job, 0);
+            } else {
+                char* url = 0;
+                curl_easy_getinfo(d->m_handle, CURLINFO_EFFECTIVE_URL, &url);
+#ifndef NDEBUG
+                fprintf(stderr, "Curl ERROR for url='%s', error: '%s'\n", url, curl_easy_strerror(msg->data.result));
+#endif
+                if (d->client())
+                    d->client()->didFail(job, ResourceError(String(), msg->data.result, String(url), String(curl_easy_strerror(msg->data.result))));
+            }
+
+            removeFromCurl(job);
+        }
     }
     return startScheduledJobs() || (runningHandles > 0);
 }
@@ -590,6 +593,8 @@ bool ResourceHandleManager::removeScheduledJob(ResourceHandle* job)
 
 bool ResourceHandleManager::startScheduledJobs()
 {
+    MutexLocker lock(curlMutex);
+
     // TODO: Create a separate stack of jobs for each domain.
 
     bool started = false;
