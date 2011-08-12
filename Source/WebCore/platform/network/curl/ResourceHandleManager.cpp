@@ -358,6 +358,8 @@ bool ResourceHandleManager::getFileDescriptors(fd_set *fdread, fd_set *fdwrite, 
     return *maxfd >= 0;
 }
 
+
+
 bool ResourceHandleManager::processJobs()
 {
     startScheduledJobs();
@@ -780,6 +782,117 @@ void ResourceHandleManager::initializeHandle(ResourceHandle* job)
     }
 }
 
+void ResourceHandleManager::setCookies(const KURL& url, const String& value)
+{
+    //MutexLocker lock(curlMutex);
+
+    CURL *handle = curl_easy_init();
+#ifndef NDEBUG
+    if (getenv("DEBUG_CURL"))
+        curl_easy_setopt(handle, CURLOPT_VERBOSE, 1);
+#endif
+    curl_easy_setopt(handle, CURLOPT_SHARE, m_curlShareHandle);
+    curl_easy_setopt(handle, CURLOPT_COOKIEFILE, m_cookieJarFileName);
+    curl_easy_setopt(handle, CURLOPT_COOKIEJAR, m_cookieJarFileName);
+    // this will force immediate reading of the file (which otherwise is deferred?)
+    curl_easy_setopt(handle, CURLOPT_COOKIELIST, "FLUSH");
+
+    // cause curl to parse this as if it came from an http header
+    String cookie("Set-cookie:");
+    // force a path and a domain; curl will take the last one it sees
+    cookie.append("path=");
+    cookie.append(url.path());
+    cookie.append(";domain=");
+    cookie.append(url.host());
+    cookie.append(';');
+    // finally the actual cookie
+    cookie.append(value);
+
+    curl_easy_setopt(handle, CURLOPT_COOKIELIST, cookie.latin1().data());
+
+    curl_easy_cleanup(handle);
+}
+
+String ResourceHandleManager::cookies(const KURL& url)
+{
+    //MutexLocker lock(curlMutex);
+    String rv;
+
+    CURL *handle = curl_easy_init();
+#ifndef NDEBUG
+    if (getenv("DEBUG_CURL"))
+        curl_easy_setopt(handle, CURLOPT_VERBOSE, 1);
+#endif
+    curl_easy_setopt(handle, CURLOPT_SHARE, m_curlShareHandle);
+    curl_easy_setopt(handle, CURLOPT_COOKIEFILE, m_cookieJarFileName);
+    curl_easy_setopt(handle, CURLOPT_COOKIEJAR, m_cookieJarFileName);
+    curl_easy_setopt(handle, CURLOPT_URL, url.string().latin1().data());
+    // this will force immediate reading of the file
+    curl_easy_setopt(handle, CURLOPT_COOKIELIST, "FLUSH");
+
+    struct curl_slist *list, *cur;
+
+    curl_easy_getinfo(handle, CURLINFO_COOKIELIST, &list);
+
+    curl_easy_cleanup(handle);
+
+    for (cur = list; cur; cur = cur->next) {
+        String cookie(cur->data);
+        Vector<String> bits;
+        cookie.split("\t", bits);
+
+        // http only cookies shouldn't go to javascript
+        if (bits[0].startsWith("#HttpOnly_")) {
+            continue;
+        }
+
+        // domain
+        if (!bits[0].isEmpty()) {
+            if (equalIgnoringCase(bits[1], "TRUE")) {
+                if (!url.host().endsWith(bits[0])) {
+                    continue;
+                }
+            } else {
+                if (url.host() != bits[0]) {
+                    continue;
+                }
+            }
+        }
+
+        // path
+        if (!bits[2].isEmpty()) {
+            if (!url.path().startsWith(bits[2])) {
+                continue;
+            }
+        }
+
+        // secure
+        if (equalIgnoringCase(bits[3], "TRUE")) {
+            if (!(url.protocolIs("https") || getenv("INSECURE_JS_SEES_SECURE_COOKIES")))
+                continue;
+        }
+
+        // expiration
+        double exp = bits[4].toDouble();
+        if (exp != 0.0f && exp < currentTime()) {
+            continue;
+        }
+
+        // we got a match!
+
+        if (!rv.isEmpty()) {
+            rv.append("; ");
+        }
+
+        rv.append(bits[5]);
+        rv.append("=");
+        if (bits.size() > 6)
+            rv.append(bits[6]);
+    }
+
+    curl_slist_free_all(list);
+    return rv;
+}
 void ResourceHandleManager::cancel(ResourceHandle* job)
 {
     if (removeScheduledJob(job))

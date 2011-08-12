@@ -21,27 +21,27 @@
 #include "Document.h"
 #include "KURL.h"
 #include "PlatformString.h"
+#include "ResourceHandleManager.h"
+#include "NotImplemented.h"
 #include <wtf/HashMap.h>
 #include <wtf/text/StringHash.h>
 
 namespace WebCore {
 
-static HashMap<String, String> cookieJar;
-
 void setCookies(Document* /*document*/, const KURL& url, const String& value)
 {
-    cookieJar.set(url.string(), value);
+    ResourceHandleManager::sharedInstance()->setCookies(url, value);
 }
 
 String cookies(const Document* /*document*/, const KURL& url)
 {
-    return cookieJar.get(url.string());
+    return ResourceHandleManager::sharedInstance()->cookies(url);
 }
 
 String cookieRequestHeaderFieldValue(const Document* /*document*/, const KURL& url)
 {
     // FIXME: include HttpOnly cookie.
-    return cookieJar.get(url.string());
+    return ResourceHandleManager::sharedInstance()->cookies(url);
 }
 
 bool cookiesEnabled(const Document* /*document*/)
@@ -52,6 +52,7 @@ bool cookiesEnabled(const Document* /*document*/)
 bool getRawCookies(const Document*, const KURL&, Vector<Cookie>& rawCookies)
 {
     // FIXME: Not yet implemented
+    notImplemented();
     rawCookies.clear();
     return false; // return true when implemented
 }
@@ -59,6 +60,7 @@ bool getRawCookies(const Document*, const KURL&, Vector<Cookie>& rawCookies)
 void deleteCookie(const Document*, const KURL&, const String&)
 {
     // FIXME: Not yet implemented
+    notImplemented();
 }
 
 #if !PLATFORM(EFL)
@@ -71,16 +73,19 @@ void setCookieStoragePrivateBrowsingEnabled(bool enabled)
 void getHostnamesWithCookies(HashSet<String>& hostnames)
 {
     // FIXME: Not yet implemented
+    notImplemented();
 }
 
 void deleteCookiesForHostname(const String& hostname)
 {
     // FIXME: Not yet implemented
+    notImplemented();
 }
 
 void deleteAllCookies()
 {
     // FIXME: Not yet implemented
+    notImplemented();
 }
 
 }

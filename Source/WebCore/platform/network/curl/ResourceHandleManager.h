@@ -57,6 +57,8 @@ public:
     void add(ResourceHandle*);
     void cancel(ResourceHandle*);
     void setCookieJarFileName(const char* cookieJarFileName);
+    void setCookies(const KURL&, const String&);
+    String cookies(const KURL &);
 
     void dispatchSynchronousJob(ResourceHandle*);
 
