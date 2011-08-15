@@ -23,6 +23,7 @@
 
 static const QSize defaultSize(1280, 720);
 
+//#define DEBUG_PAINT
 #if 0
 # define HEADLESS
 #endif
@@ -624,7 +625,9 @@ protected:
         const QRect qArea(0, 0, getWidth(), getHeight());
 #endif
 
+#ifdef DEBUG_PAINT
         fprintf(stderr, "notifyRepaint %d %d %d %d\n", qArea.x(), qArea.y(), qArea.width(), qArea.height());
+#endif
 #ifdef HEADLESS
         m_repaintArea |= qArea;
         if(m_repaintTimer == -1)
@@ -646,7 +649,9 @@ private:
 
 void WebView::onPaint(QPainter *p, const QRect &rect)
 {
+#ifdef DEBUG_PAINT
     fprintf(stderr, "onPaint %d %d %d %d\n", rect.x(), rect.y(), rect.width(), rect.height());
+#endif
 #if 0
     p->save();
     {
@@ -664,7 +669,9 @@ void WebView::onPaint(QPainter *p, const QRect &rect)
     p->drawImage(rect, img, rect);
     cairo_surface_destroy(surface);
 #endif
+#ifdef DEBUG_PAINT
     fprintf(stderr, "~onPaint\n");
+#endif
 }
 
 void *WebKitEventLoop(void *e)
