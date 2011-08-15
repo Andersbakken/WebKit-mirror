@@ -104,7 +104,7 @@ WebViewNetflix::WebViewNetflix() :
     m_page->settings()->setPrivateBrowsingEnabled(false);
     m_page->settings()->setJavaScriptCanOpenWindowsAutomatically(false);
 
-#if defined(DBG_THOMAS) || defined(DBG_ERIC) || defined(DBG_HOLGER)     || defined(DBG_JENS) || defined(DBG_ACHIM)
+#if defined(DBG_THOMAS) || defined(DBG_ERIC) || defined(DBG_HOLGER)     || defined(DBG_JENS) || defined(DBG_ACHIM) || 1
     m_page->settings()->setWebSecurityEnabled(false);
 #endif
 
