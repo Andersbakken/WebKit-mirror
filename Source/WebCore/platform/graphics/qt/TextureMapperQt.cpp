@@ -47,14 +47,14 @@ void BitmapTextureQt::reset(const IntSize& size, bool isOpaque)
         m_pixmap.fill(Qt::transparent);
 }
 
-PlatformGraphicsContext* BitmapTextureQt::beginPaint(const IntRect& dirtyRect)
+GraphicsContext* BitmapTextureQt::beginPaint(const IntRect& dirtyRect)
 {
     m_painter.begin(&m_pixmap);
     TextureMapperQt::initialize(&m_painter);
     m_painter.setCompositionMode(QPainter::CompositionMode_Clear);
     m_painter.fillRect(QRect(dirtyRect), Qt::transparent);
     m_painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-    return &m_painter;
+    return new GraphicsContext(&m_painter);
 }
 
 void BitmapTextureQt::endPaint()
@@ -230,7 +230,7 @@ void TextureMapperQt::endPainting()
 #if USE(TEXTURE_MAPPER_GL)
 class BGRA32PremultimpliedBufferQt : public BGRA32PremultimpliedBuffer {
 public:
-    virtual PlatformGraphicsContext* beginPaint(const IntRect& rect, bool opaque)
+    virtual GraphicsContext* beginPaint(const IntRect& rect, bool opaque)
     {
         // m_image is only using during paint, it's safe to override it.
         m_image = QImage(rect.size().width(), rect.size().height(), opaque ? QImage::Format_RGB32 : QImage::Format_ARGB32_Premultiplied);
@@ -239,7 +239,7 @@ public:
         m_painter.begin(&m_image);
         TextureMapperQt::initialize(&m_painter);
         m_painter.translate(-rect.x(), -rect.y());
-        return &m_painter;
+        return new GraphicsContext(&m_painter);
     }
 
     virtual void endPaint() { m_painter.end(); }

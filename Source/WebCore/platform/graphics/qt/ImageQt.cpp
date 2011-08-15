@@ -229,6 +229,11 @@ void BitmapImage::invalidatePlatformData()
 {
 }
 
+PassOwnPtr<WebCore::GraphicsContext> BitmapImage::createGraphicsContext()
+{
+
+}
+
 // Drawing Routines
 void BitmapImage::draw(GraphicsContext* ctxt, const FloatRect& dst,
                        const FloatRect& src, ColorSpace styleColorSpace, CompositeOperator op)

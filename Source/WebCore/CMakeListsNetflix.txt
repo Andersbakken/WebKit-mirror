@@ -1,4 +1,16 @@
 
+IF (WTF_USE_ACCELERATED_COMPOSITING)
+  ADD_DEFINITIONS(-DWTF_USE_TEXTURE_MAPPER=1)
+  LIST(APPEND WebCore_INCLUDE_DIRECTORIES
+    "${WEBCORE_DIR}/platform/graphics/texmap"
+  )
+  LIST(APPEND WebCore_SOURCES
+      platform/graphics/texmap/GraphicsLayerTextureMapper.cpp
+      platform/graphics/texmap/TextureMapperGeneric.cpp
+      platform/graphics/texmap/TextureMapperNode.cpp
+  )
+ENDIF()
+
 IF (WTF_USE_FREETYPE)
   LIST(APPEND WebCore_INCLUDE_DIRECTORIES
     "${WEBCORE_DIR}/platform/graphics/freetype"

@@ -69,7 +69,7 @@ void initWebKitNetflix()
 WebViewNetflix::WebViewNetflix() :
     m_page(0)
 #if USE(ACCELERATED_COMPOSITING)
-    ,rootGraphicsLayer(0)
+    ,rootTextureMapperNode(0)
 #endif
 {
     WebKit::initWebKitNetflix();
@@ -109,7 +109,13 @@ WebViewNetflix::WebViewNetflix() :
 #endif
 
 #if USE(ACCELERATED_COMPOSITING)
-    m_page->settings()->setAcceleratedCompositingEnabled(getenv("NF_NO_ACCEL") != 0);
+    const bool accelerated = getenv("NF_NO_ACCEL") == 0;
+    m_page->settings()->setAcceleratedCompositingEnabled(accelerated);
+    m_page->settings()->setAcceleratedCompositingFor3DTransformsEnabled(accelerated);
+    m_page->settings()->setAcceleratedCompositingForAnimationEnabled(accelerated);
+    //m_page->settings()->setAcceleratedCompositingForCanvasEnabled(value);
+    m_page->settings()->setAcceleratedCompositingForVideoEnabled(false);
+    m_page->settings()->setAcceleratedCompositingForPluginsEnabled(false);
 #endif
     m_page->settings()->setShouldPrintBackgrounds(false);
 
@@ -171,6 +177,27 @@ WebViewNetflix::currentUrl()
 #endif
 }
 
+#if USE(ACCELERATED_COMPOSITING)
+void
+WebViewNetflix::renderCompositedLayers(GraphicsContext* context, const IntRect& clip)
+{
+    if (!rootTextureMapperNode || !textureMapper)
+        return;
+
+    textureMapper->setGraphicsContext(context);
+    textureMapper->setImageInterpolationQuality(context->imageInterpolationQuality());
+    textureMapper->setTextDrawingMode(context->textDrawingMode());
+    textureMapper->setViewportSize(m_frame->view()->frameRect().size());
+    textureMapper->beginPainting();
+    {
+        textureMapper->beginClip(context->getCTM().toTransformationMatrix(), clip);
+        rootTextureMapperNode->paint();
+        textureMapper->endClip();
+    }
+    textureMapper->endPainting();
+}
+#endif
+
 #if USE(CAIRO)
 void
 WebViewNetflix::onPaint(cairo_surface_t *surface, WebCore::IntRect rect)
@@ -191,9 +218,7 @@ WebViewNetflix::onPaint(cairo_surface_t *surface, WebCore::IntRect rect)
             gc.scale(FloatSize((float)FRAME_BUFFER_WIDTH / m_size.width(), (float)FRAME_BUFFER_HEIGHT / m_size.height()));
         m_frame->view()->paint(&gc, rect);
 #if USE(ACCELERATED_COMPOSITING)
-        if (rootGraphicsLayer)
-            rootGraphicsLayer->paint(gc, m_frame->view()->size(), rect, m_frame->view()->frameRect(),
-                                     TransformationMatrix(), 1.0);
+        renderCompositedLayers(&gc, rect);
 #endif
 #if 0
         frame->page()->inspectorController()->drawNodeHighlight(context);

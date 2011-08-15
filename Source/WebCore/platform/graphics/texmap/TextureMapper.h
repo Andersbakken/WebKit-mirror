@@ -65,7 +65,7 @@ public:
     virtual void unpack() { }
     virtual bool isPacked() const { return false; }
 
-    virtual PlatformGraphicsContext* beginPaint(const IntRect& dirtyRect) = 0;
+    virtual GraphicsContext* beginPaint(const IntRect& dirtyRect) = 0;
     virtual void endPaint() = 0;
 
     // For performance reasons, BitmapTexture might modify the bits directly (swizzle).

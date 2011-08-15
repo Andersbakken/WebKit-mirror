@@ -23,7 +23,8 @@ namespace WebCore {
 class Frame;
 class Page;
 class GraphicsContext;
-class TextureMapperContentLayer;
+class TextureMapper;
+class TextureMapperNode;
 }
 
 namespace WebKit {
@@ -94,7 +95,10 @@ private:
 
     WebCore::Page *m_page;
 #if USE(ACCELERATED_COMPOSITING)
-    WebCore::TextureMapperContentLayer* rootGraphicsLayer;
+    friend class TextureMapperNodeClientNetflix;
+    void renderCompositedLayers(WebCore::GraphicsContext*, const WebCore::IntRect& clip);
+    WebCore::TextureMapperNode* rootTextureMapperNode;
+    OwnPtr<WebCore::TextureMapper> textureMapper;
 #endif
     WebCore::Color m_backgroundColor;
 };

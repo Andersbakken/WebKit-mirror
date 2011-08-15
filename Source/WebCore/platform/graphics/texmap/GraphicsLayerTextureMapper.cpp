@@ -329,7 +329,7 @@ void GraphicsLayerTextureMapper::setContentsToImage(Image* image)
     GraphicsLayer::setContentsToImage(image);
 }
 
-void GraphicsLayerTextureMapper::setContentsToMedia(TextureMapperPlatformLayer* media)
+void GraphicsLayerTextureMapper::setContentsToMedia(PlatformLayer* media)
 {
     GraphicsLayer::setContentsToMedia(media);
     notifyChange(TextureMapperNode::ContentChange);
@@ -394,8 +394,10 @@ void GraphicsLayerTextureMapper::animationStartedTimerFired(Timer<GraphicsLayerT
 
 PassOwnPtr<GraphicsLayer> GraphicsLayer::create(GraphicsLayerClient* client)
 {
+#if PLATFORM(QT)
     if (s_graphicsLayerFactory)
         return (*s_graphicsLayerFactory)(client);
+#endif
     return adoptPtr(new GraphicsLayerTextureMapper(client));
 }
 

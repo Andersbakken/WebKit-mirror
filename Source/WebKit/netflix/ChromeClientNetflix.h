@@ -4,14 +4,32 @@
 #include "ChromeClient.h"
 #include "WebViewNetflix.h"
 #include "Timer.h"
-#include "GraphicsLayer.h"
 #include "NotImplemented.h"
-
 #include "text/WTFString.h"
+
+#if USE(ACCELERATED_COMPOSITING)
+# include "GraphicsLayer.h"
+# include "TextureMapper.h"
+# include "TextureMapperNode.h"
+#endif
 
 namespace WebKit {
 
-class PlatformLayerNetflix;
+#if USE(ACCELERATED_COMPOSITING)
+class ChromeClientNetflix;
+class TextureMapperNodeClientNetflix {
+public:
+    TextureMapperNodeClientNetflix(WebViewNetflix *, WebCore::GraphicsLayer*);
+    virtual ~TextureMapperNodeClientNetflix();
+    void setTextureMapper(const PassOwnPtr<WebCore::TextureMapper>&);
+    void syncRootLayer();
+    WebCore::TextureMapperNode* rootNode();
+
+private:
+    WebViewNetflix *m_webView;
+    OwnPtr<WebCore::GraphicsLayer> m_rootGraphicsLayer;
+};
+#endif
 
 class ChromeClientNetflix : public WebCore::ChromeClient
 {
@@ -139,8 +157,9 @@ private:
 
 #if USE(ACCELERATED_COMPOSITING)
     friend class PlatformLayerNetflix;
+    OwnPtr<TextureMapperNodeClientNetflix> textureMapperNodeClient;
+    bool shouldSync;
     void syncLayers(WebCore::Timer<ChromeClientNetflix>*);
-    PlatformLayerNetflix *rootGraphicsLayer;
     WebCore::Timer<ChromeClientNetflix> syncTimer;
 #endif
 

@@ -6,8 +6,9 @@
 #include <stdio.h>
 
 #if USE(ACCELERATED_COMPOSITING)
-#include "texmap/GraphicsLayerTextureMapper.h"
-#include "texmap/TextureMapperPlatformLayer.h"
+# include "texmap/GraphicsLayerTextureMapper.h"
+# include "texmap/TextureMapperPlatformLayer.h"
+# include "texmap/TextureMapperGeneric.h"
 #endif
 
 using namespace WebCore;
@@ -17,7 +18,6 @@ namespace WebKit {
 ChromeClientNetflix::ChromeClientNetflix(WebViewNetflix *webview) :
   m_webView(webview)
 #if USE(ACCELERATED_COMPOSITING)
-  , rootGraphicsLayer(0)
   , syncTimer(this, &ChromeClientNetflix::syncLayers)
 #endif
 
@@ -104,56 +104,48 @@ void ChromeClientNetflix::invalidateContentsForSlowScroll(const WebCore::IntRect
 
 #if USE(ACCELERATED_COMPOSITING)
 
-class PlatformLayerNetflix : public WebCore::TextureMapperLayerClient {
-public:
-    PlatformLayerNetflix(ChromeClientNetflix *client, WebCore::TextureMapperContentLayer *layer)
-        : m_client(client)
-        , m_layer(layer)
-    {
-        if (m_layer)
-            m_layer->setPlatformLayerClient(this);
-        m_client->m_webView->rootGraphicsLayer = m_layer;
-    }
-    ~PlatformLayerNetflix()
-    {
-        if (m_layer)
-            m_layer->setPlatformLayerClient(0);
-        if (m_client) {
-            if( m_client->m_webView )
-                m_client->m_webView->rootGraphicsLayer = 0;
-            m_client->rootGraphicsLayer = 0;
-        }
-    }
+TextureMapperNodeClientNetflix::TextureMapperNodeClientNetflix(WebViewNetflix* view, GraphicsLayer* layer)
+    : m_webView(view)
+    , m_rootGraphicsLayer(GraphicsLayer::create(0))
+{
+    m_webView->rootTextureMapperNode = rootNode();
+    m_rootGraphicsLayer->addChild(layer);
+    m_rootGraphicsLayer->setDrawsContent(false);
+    m_rootGraphicsLayer->setMasksToBounds(false);
+    m_rootGraphicsLayer->setSize(IntSize(1, 1));
+}
 
-    void setNeedsDisplay()
-    {
-        WebCore::IntRect bounds(0, 0, m_client->m_webView->getWidth(),
-                                m_client->m_webView->getHeight());
-        m_client->m_webView->notifyRepaint(bounds);
-    }
+void TextureMapperNodeClientNetflix::setTextureMapper(const PassOwnPtr<TextureMapper>& textureMapper)
+{
+    m_webView->textureMapper = textureMapper;
+    m_webView->rootTextureMapperNode->setTextureMapper(m_webView->textureMapper.get());
+}
 
-    void setNeedsDisplayInRect(const WebCore::IntRect& rect)
-    {
-        m_client->m_webView->notifyRepaint(rect);
-    }
+TextureMapperNodeClientNetflix::~TextureMapperNodeClientNetflix()
+{
+    m_webView->rootTextureMapperNode = 0;
+}
 
-    void setSizeChanged(const WebCore::IntSize& newSize)
-    {
-    }
+void TextureMapperNodeClientNetflix::syncRootLayer()
+{
+    m_rootGraphicsLayer->syncCompositingStateForThisLayerOnly();
+}
 
-    ChromeClientNetflix *m_client;
-    WebCore::TextureMapperContentLayer* m_layer;
-};
+TextureMapperNode* TextureMapperNodeClientNetflix::rootNode()
+{
+    return toTextureMapperNode(m_rootGraphicsLayer.get());
+}
 
 void
 ChromeClientNetflix::attachRootGraphicsLayer(WebCore::Frame*, WebCore::GraphicsLayer *layer)
 {
     if (layer) {
-        rootGraphicsLayer = new PlatformLayerNetflix(this, static_cast<WebCore::TextureMapperContentLayer*>(layer->platformLayer()));
-    } else {
-        delete rootGraphicsLayer;
-        rootGraphicsLayer = 0;
+        textureMapperNodeClient = adoptPtr(new TextureMapperNodeClientNetflix(m_webView, layer));
+        textureMapperNodeClient->setTextureMapper(adoptPtr(new TextureMapperGeneric));
+        textureMapperNodeClient->syncRootLayer();
+        return;
     }
+    textureMapperNodeClient.clear();
 }
 
 void
@@ -165,6 +157,7 @@ ChromeClientNetflix::setNeedsOneShotDrawingSynchronization()
 void
 ChromeClientNetflix::scheduleCompositingLayerSync()
 {
+    shouldSync = true;
     syncTimer.startOneShot(0);
 }
 
@@ -177,6 +170,17 @@ ChromeClientNetflix::allowsAcceleratedCompositing() const
 void
 ChromeClientNetflix::syncLayers(WebCore::Timer<ChromeClientNetflix>*)
 {
+    if (textureMapperNodeClient)
+        textureMapperNodeClient->syncRootLayer();
+    //m_webView->m_page->syncCompositingStateIncludingSubframes();
+    if (!textureMapperNodeClient)
+        return;
+    if (textureMapperNodeClient->rootNode()->descendantsOrSelfHaveRunningAnimations())
+        syncTimer.startOneShot(1.0 / 60.0);
+    m_webView->notifyRepaint(IntRect(0, 0, m_webView->getWidth(), m_webView->getHeight()));
+    if (!shouldSync)
+        return;
+    shouldSync = false;
     m_webView->syncCompositingState();
 }
 

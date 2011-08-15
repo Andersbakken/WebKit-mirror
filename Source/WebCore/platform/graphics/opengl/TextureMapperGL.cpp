@@ -337,7 +337,7 @@ public:
     virtual bool isValid() const;
     virtual void reset(const IntSize&, bool opaque);
     void bind();
-    virtual PlatformGraphicsContext* beginPaint(const IntRect& dirtyRect);
+    virtual GraphicsContext* beginPaint(const IntRect& dirtyRect);
     virtual void endPaint();
     virtual void setContentsToImage(Image*);
     ~BitmapTextureGL() { destroy(); }
@@ -668,7 +668,7 @@ void BitmapTextureGL::reset(const IntSize& newSize, bool opaque)
     m_surfaceNeedsReset = true;
 }
 
-PlatformGraphicsContext* BitmapTextureGL::beginPaint(const IntRect& dirtyRect)
+GraphicsContext* BitmapTextureGL::beginPaint(const IntRect& dirtyRect)
 {
     m_buffer = BGRA32PremultimpliedBuffer::create();
     m_dirtyRect = dirtyRect;

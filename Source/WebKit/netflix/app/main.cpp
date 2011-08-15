@@ -694,8 +694,7 @@ main(int argc, char **argv)
     }
 
     WebView wv;
-    wv.loadUri("http://tenfootui.netflix.com/htmltvui/trunk/release/3041/3_0_or_none/a/720p/plus.html");
-    wv.loadUri("http://www.google.com/");
+    wv.loadUri(argc ? argv[1] : "http://tenfootui.netflix.com/htmltvui");
 #ifndef HEADLESS
     wv.show();
 #endif

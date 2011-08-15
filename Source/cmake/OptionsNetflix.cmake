@@ -35,6 +35,15 @@ SET(ALL_GFX skia cairo)
 SET(GFX_BACKEND "cairo" CACHE STRING "choose which graphics backend to use (one of ${ALL_GFX})")
 
 # -----------------------------------------------------------------------------
+# Accelerated compositing
+# -----------------------------------------------------------------------------
+OPTION( WEBKIT_ACCELERATED_COMPOSITING "Sets whether to use accelerated compositing." ON)
+IF(WEBKIT_ACCELERATED_COMPOSITING)
+  SET(WTF_USE_ACCELERATED_COMPOSITING 1)
+  ADD_DEFINITIONS(-DWTF_USE_ACCELERATED_COMPOSITING=1)
+ENDIF()
+
+# -----------------------------------------------------------------------------
 # Determine which font backend will be used
 # -----------------------------------------------------------------------------
 SET(ALL_FONT_BACKENDS skia freetype)
