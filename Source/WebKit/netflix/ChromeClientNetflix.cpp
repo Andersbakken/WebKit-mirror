@@ -5,6 +5,9 @@
 #include "text/CString.h"
 #include <stdio.h>
 
+#include "Frame.h"
+#include "FrameView.h"
+
 #if USE(ACCELERATED_COMPOSITING)
 # include "texmap/GraphicsLayerTextureMapper.h"
 # include "texmap/TextureMapperPlatformLayer.h"
@@ -112,7 +115,7 @@ TextureMapperNodeClientNetflix::TextureMapperNodeClientNetflix(WebViewNetflix* v
     m_rootGraphicsLayer->addChild(layer);
     m_rootGraphicsLayer->setDrawsContent(false);
     m_rootGraphicsLayer->setMasksToBounds(false);
-    m_rootGraphicsLayer->setSize(IntSize(1, 1));
+    m_rootGraphicsLayer->setSize(IntSize(1000, 1000));
 }
 
 void TextureMapperNodeClientNetflix::setTextureMapper(const PassOwnPtr<TextureMapper>& textureMapper)
@@ -172,7 +175,7 @@ ChromeClientNetflix::syncLayers(WebCore::Timer<ChromeClientNetflix>*)
 {
     if (textureMapperNodeClient)
         textureMapperNodeClient->syncRootLayer();
-    //m_webView->m_page->syncCompositingStateIncludingSubframes();
+    m_webView->syncCompositingState();
     if (!textureMapperNodeClient)
         return;
     if (textureMapperNodeClient->rootNode()->descendantsOrSelfHaveRunningAnimations())
@@ -181,7 +184,6 @@ ChromeClientNetflix::syncLayers(WebCore::Timer<ChromeClientNetflix>*)
     if (!shouldSync)
         return;
     shouldSync = false;
-    m_webView->syncCompositingState();
 }
 
 #endif
