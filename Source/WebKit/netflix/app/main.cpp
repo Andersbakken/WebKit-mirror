@@ -565,6 +565,7 @@ public:
                 , WebViewNetflix()
  {
      WebViewNetflix::setSize(defaultSize.width(), defaultSize.height());
+     WebViewNetflix::setCookieJarFileName("/tmp/cookies.netflix");
 #if defined(HEADLESS)
      m_repaintTimer = -1;
 #else
