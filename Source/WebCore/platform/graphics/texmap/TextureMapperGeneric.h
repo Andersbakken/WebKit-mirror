@@ -37,7 +37,7 @@ public:
     virtual IntSize size() const { return m_image->size(); }
     virtual void reset(const IntSize&, bool opaque);
     virtual GraphicsContext* beginPaint(const IntRect& dirtyRect);
-    virtual void endPaint();
+    virtual void endPaint(GraphicsContext *);
     virtual void setContentsToImage(Image*);
     virtual bool save(const String& path);
     virtual bool isValid() const { return m_image; }

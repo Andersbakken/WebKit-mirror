@@ -192,8 +192,7 @@ void TextureMapperNode::renderContent(TextureMapper* textureMapper, GraphicsLaye
                 context->drawImage(m_currentContent.image.get(), ColorSpaceDeviceRGB, IntPoint(0, 0));
             else
                 layer->paintGraphicsLayerContents(*context, enclosingIntRect(scaledContentRect));
-            texture->endPaint();
-            delete context;
+            texture->endPaint(context);
         }
     }
 

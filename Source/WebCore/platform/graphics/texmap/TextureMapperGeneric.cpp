@@ -57,7 +57,7 @@ GraphicsContext* BitmapTextureGeneric::beginPaint(const IntRect& dirtyRect)
     return 0;
 }
 
-void BitmapTextureGeneric::endPaint()
+void BitmapTextureGeneric::endPaint(GraphicsContext *)
 {
 }
 

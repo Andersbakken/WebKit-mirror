@@ -57,9 +57,10 @@ GraphicsContext* BitmapTextureQt::beginPaint(const IntRect& dirtyRect)
     return new GraphicsContext(&m_painter);
 }
 
-void BitmapTextureQt::endPaint()
+void BitmapTextureQt::endPaint(GraphicsContext *ctx)
 {
     m_painter.end();
+    delete ctx;
 }
 
 void BitmapTextureQt::updateContents(PixelFormat pixelFormat, const IntRect& rect, void* bits)
