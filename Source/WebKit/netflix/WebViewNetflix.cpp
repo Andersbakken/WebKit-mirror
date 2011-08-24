@@ -154,7 +154,7 @@ WebViewNetflix::setSize(int w, int h)
 void
 WebViewNetflix::loadUri(char const *url)
 {
-    m_frame->loader()->load(KURL(ParsedURLString, url), false);
+    m_frame->loader()->load(KURL(KURL(), url), false);
 }
 
 void
