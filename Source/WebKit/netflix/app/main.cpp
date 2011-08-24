@@ -702,7 +702,7 @@ main(int argc, char **argv)
     }
 
     WebView wv;
-    wv.loadUri(argc ? argv[1] : "http://tenfootui.netflix.com/htmltvui");
+    wv.loadUri(argc > 1 ? argv[1] : "http://tenfootui.netflix.com/htmltvui");
 #ifndef HEADLESS
     wv.show();
 #endif
