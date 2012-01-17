@@ -142,6 +142,10 @@ void QWebSettingsPrivate::apply()
                                       global->attributes.value(QWebSettings::AutoLoadImages));
         settings->setLoadsImagesAutomatically(value);
 
+        value = attributes.value(QWebSettings::WebSecurityEnabled,
+                                 global->attributes.value(QWebSettings::WebSecurityEnabled));
+        settings->setWebSecurityEnabled(value);
+
         value = attributes.value(QWebSettings::DnsPrefetchEnabled,
                                  global->attributes.value(QWebSettings::DnsPrefetchEnabled));
         settings->setDNSPrefetchingEnabled(value);
@@ -504,6 +508,7 @@ QWebSettings::QWebSettings()
     d->attributes.insert(QWebSettings::AutoLoadImages, true);
     d->attributes.insert(QWebSettings::DnsPrefetchEnabled, false);
     d->attributes.insert(QWebSettings::JavascriptEnabled, true);
+    d->attributes.insert(QWebSettings::WebSecurityEnabled, true);
     d->attributes.insert(QWebSettings::SpatialNavigationEnabled, false);
     d->attributes.insert(QWebSettings::LinksIncludedInFocusChain, true);
     d->attributes.insert(QWebSettings::ZoomTextOnly, false);

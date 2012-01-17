@@ -81,7 +81,8 @@ public:
         SiteSpecificQuirksEnabled,
         JavascriptCanCloseWindows,
         WebGLEnabled,
-        HyperlinkAuditingEnabled
+        HyperlinkAuditingEnabled,
+        WebSecurityEnabled
     };
     enum WebGraphic {
         MissingImageGraphic,
