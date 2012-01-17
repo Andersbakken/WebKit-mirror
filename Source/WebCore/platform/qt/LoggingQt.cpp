@@ -24,6 +24,15 @@
 #include <QDebug>
 #include <QStringList>
 
+
+#include "qwebkitglobal.h"
+void QWEBKIT_EXPORT qt_webkit_enable_log(const QString &c, bool b)
+{
+    if (WTFLogChannel* channel = WebCore::getChannelFromName(c))
+        channel->state = b ? WTFLogChannelOn : WTFLogChannelOff;
+}
+
+
 namespace WebCore {
 
 void initializeLoggingChannelsIfNecessary()
@@ -42,15 +51,15 @@ void initializeLoggingChannelsIfNecessary()
     qWarning("This is a release build. Setting QT_WEBKIT_LOG will have no effect.");
 #else
     QStringList channels = QString::fromLocal8Bit(loggingEnv).split(QLatin1String(","));
-    for (int i = 0; i < channels.count(); i++) {
-        if (WTFLogChannel* channel = getChannelFromName(channels.at(i)))
-            channel->state = WTFLogChannelOn;
-    }
+    for (int i = 0; i < channels.count(); i++)
+        ::qt_webkit_enable_log(channels.at(i), true);
 
     // By default we log calls to notImplemented(). This can be turned
     // off by setting the environment variable DISABLE_NI_WARNING to 1
     LogNotYetImplemented.state = WTFLogChannelOn;
 #endif
 }
+
+
 
 } // namespace WebCore
