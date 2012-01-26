@@ -2146,7 +2146,7 @@ sub buildQMakeProjects
     my $result = 0;
 
     my $makefile = File::Spec->catfile($dir, "Makefile");
-    if (! -e $makefile) {
+    if (! -e $makefile || 1) {
         push @buildArgs, "-after OVERRIDE_SUBDIRS=\"@{$projects}\"" if @{$projects};
 
         push @buildArgs, File::Spec->catfile(sourceDir(), "WebKit.pro");

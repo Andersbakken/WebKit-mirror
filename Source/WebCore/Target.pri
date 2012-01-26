@@ -3962,3 +3962,4 @@ contains(CONFIG, opengl-shims) {
 # Make sure the derived sources are built
 include(DerivedSources.pri)
 
+INCLUDEPATH += ../WebKit/qt/Api 

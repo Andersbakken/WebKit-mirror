@@ -95,8 +95,10 @@ static void mouseEventTypeAndMouseButtonFromQEvent(const QEvent* event, Platform
         break;
     }
     case GraphicsSceneMouseEvent: {
+#ifndef QT_NO_GRAPHICSVIEW
         const QGraphicsSceneMouseEvent* mouseEvent = static_cast<const QGraphicsSceneMouseEvent*>(event);
         mouseButtons = mouseEventType == PlatformEvent::MouseMoved ? mouseEvent->buttons() : mouseEvent->button();
+#endif
         break;
     }
     }

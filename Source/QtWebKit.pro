@@ -17,9 +17,11 @@ SUBDIRS += api
 
 include(WebKit/qt/docs/docs.pri)
 
-declarative.file = WebKit/qt/declarative/declarative.pro
-declarative.makefile = Makefile.declarative
-SUBDIRS += declarative
+!no_declarative {
+    declarative.file = WebKit/qt/declarative/declarative.pro
+    declarative.makefile = Makefile.declarative
+    SUBDIRS += declarative
+}
 
 tests.file = tests.pri
 SUBDIRS += tests

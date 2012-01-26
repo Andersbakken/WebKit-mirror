@@ -19,13 +19,12 @@
 
 #include "config.h"
 #include "Logging.h"
+#include "qwebkitglobal.h"
 
 #include "PlatformString.h"
 #include <QDebug>
 #include <QStringList>
 
-
-#include "qwebkitglobal.h"
 void QWEBKIT_EXPORT qt_webkit_enable_log(const QString &c, bool b)
 {
     if (WTFLogChannel* channel = WebCore::getChannelFromName(c))
