@@ -5,6 +5,7 @@ CONFIG += warn_off
 QMAKE_CXXFLAGS += -Wno-c++0x-compat
 DEFINES += WTF_USE_PTHREADS=1
 LIBS += -licuuc -licui18n
+OBJECTS_DIR = .obj
 INCLUDEPATH += . \
                ../Source/ \
                ../Source/JavaScriptCore/ \
@@ -254,4 +255,13 @@ SOURCES += ../Source/JavaScriptCore/interpreter/CallFrame.cpp \
            ../Source/JavaScriptCore/jit/JITOpcodes32_64.cpp \
            ../Source/JavaScriptCore/jit/ThunkGenerators.cpp \
            ../Source/JavaScriptCore/jit/JITPropertyAccess32_64.cpp \
-           ../Source/JavaScriptCore/jit/JITPropertyAccess.cpp
+           ../Source/JavaScriptCore/jit/JITPropertyAccess.cpp \
+           ../Source/JavaScriptCore/wtf/dtoa/strtod.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/double-conversion.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/diy-fp.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/bignum.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/fast-dtoa.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/bignum-dtoa.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/fixed-dtoa.cc \
+           ../Source/JavaScriptCore/wtf/dtoa/cached-powers.cc \
+ 
