@@ -51,7 +51,7 @@ namespace JSC {
             Callee = -4,
             ScopeChain = -3,
             ReturnPC = -2, // This is either an Instruction* or a pointer into JIT generated code stored as an Instruction*.
-            CodeBlock = -1,
+            CodeBlock = -1
         };
 
         static const size_t defaultCapacity = 512 * 1024;

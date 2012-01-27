@@ -40,7 +40,7 @@ public:
         FastMallocPages = VM_TAG_FOR_TCMALLOC_MEMORY,
         JSGCHeapPages = VM_TAG_FOR_COLLECTOR_MEMORY,
         JSVMStackPages = VM_TAG_FOR_REGISTERFILE_MEMORY,
-        JSJITCodePages = VM_TAG_FOR_EXECUTABLEALLOCATOR_MEMORY,
+        JSJITCodePages = VM_TAG_FOR_EXECUTABLEALLOCATOR_MEMORY
     };
 
     // These methods are symmetric; reserveUncommitted allocates VM in an uncommitted state,

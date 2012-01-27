@@ -151,9 +151,9 @@ private:
     enum VerificationMode {
         SingleThreadVerificationMode,
         MutexVerificationMode,
-        NoVerificationMode,
+        NoVerificationMode
 #if HAVE(DISPATCH_H)
-        SingleDispatchQueueVerificationMode,
+        , SingleDispatchQueueVerificationMode
 #endif
     };
 

@@ -77,7 +77,7 @@ private:
     enum BufferOwnership {
         BufferInternal,
         BufferOwned,
-        BufferSubstring,
+        BufferSubstring
     };
 
     // Used to construct static strings, which have an special refCount that can never hit zero.

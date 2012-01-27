@@ -72,7 +72,7 @@ enum DecompositionType {
     DecompositionSub = U_DT_SUB,
     DecompositionSuper = U_DT_SUPER,
     DecompositionVertical = U_DT_VERTICAL,
-    DecompositionWide = U_DT_WIDE,
+    DecompositionWide = U_DT_WIDE
 };
 
 enum CharCategory {

@@ -44,7 +44,7 @@ enum Intrinsic {
     CeilIntrinsic,
     RoundIntrinsic,
     ExpIntrinsic,
-    LogIntrinsic,
+    LogIntrinsic
 };
 
 } // namespace JSC

@@ -1,0 +1,10 @@
+TEMPLATE = lib
+QT =
+CONFIG -= warn_on
+CONFIG += warn_off static
+#QMAKE_CXXFLAGS += -Wno-c++0x-compat
+LIBS += -licuuc -licui18n
+OBJECTS_DIR = .obj
+include(netflixjsc.pri)
+INCLUDEPATH += generated
+TARGET = nrdjscore

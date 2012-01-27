@@ -48,7 +48,7 @@ namespace JSC {
         enum Flags {
             Normal = 0,
             SparseMode = 1,
-            LengthIsReadOnly = 2,
+            LengthIsReadOnly = 2
         };
 
     public:
