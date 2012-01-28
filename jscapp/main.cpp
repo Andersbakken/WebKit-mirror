@@ -6,6 +6,7 @@
 #include <wtf/MainThread.h>
 #include <runtime/InitializeThreading.h>
 #include <vector>
+#include "Object.h"
 
 namespace WTF {
 void scheduleDispatchFunctionsOnMainThread() {}
@@ -154,6 +155,13 @@ int main(int argc, char **argv)
     JSObjectRef func = JSObjectMakeFunctionWithCallback(ctx, Str("func"), funcCb);
     JSObjectRef setTimeout = JSObjectMakeFunctionWithCallback(ctx, Str("setTimeout"), ::setTimeout);
     JSObjectRef global = JSContextGetGlobalObject(ctx);
+    JSClassDefinition def = classDefinition();
+    JSClassRef c = JSClassCreate(&def);
+    JSObjectRef test = JSObjectMake(ctx, c, 0);
+    JSObjectSetProperty(ctx, global, Str("test"), test, kJSPropertyAttributeNone, NULL);
+    JSEvaluateScript(ctx, Str("test.foo = 12;"), 0, 0, 0, 0);
+    JSEvaluateScript(ctx, Str("var b = new test();"), 0, 0, 0, 0);
+
     JSObjectSetProperty(ctx, global, Str("func"), func, kJSPropertyAttributeNone, NULL);
     JSObjectSetProperty(ctx, global, Str("setTimeout"), setTimeout, kJSPropertyAttributeNone, NULL);
     EventLoop loop;

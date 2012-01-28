@@ -10,5 +10,6 @@ include(../netflixjsc/netflixjsc.pri)
 QT = 
 # Input
 SOURCES += main.cpp
+HEADERS += Object.h
 LIBS += -lnetflixjsc -L../netflixjsc -Wl,-rpath,$$PWD/../netflixjsc -lrt
 
