@@ -52,12 +52,12 @@ public:
             nsecPerMillisecond = (1000 * 1000),
             msecPerSecond = 1000
         };
-        
+
         struct timespec ts;
         clock_gettime(CLOCK_MONOTONIC, &ts);
         return (ts.tv_sec * msecPerSecond) + (ts.tv_nsec / nsecPerMillisecond);
     }
-    
+
     void post(long long offset, JSContextRef ctx, JSObjectRef object, JSObjectRef thisObject,
               size_t argumentCount, const JSValueRef arguments[])
     {
@@ -159,7 +159,8 @@ int main(int argc, char **argv)
     JSClassRef c = JSClassCreate(&def);
     JSObjectRef test = JSObjectMake(ctx, c, 0);
     JSObjectSetProperty(ctx, global, Str("test"), test, kJSPropertyAttributeNone, NULL);
-    JSEvaluateScript(ctx, Str("test.foo = 12;"), 0, 0, 0, 0);
+    // JSEvaluateScript(ctx, Str("test();"), 0, 0, 0, 0);
+   // JSEvaluateScript(ctx, Str("test.foo = 12;"), 0, 0, 0, 0);
     JSEvaluateScript(ctx, Str("var b = new test();"), 0, 0, 0, 0);
 
     JSObjectSetProperty(ctx, global, Str("func"), func, kJSPropertyAttributeNone, NULL);

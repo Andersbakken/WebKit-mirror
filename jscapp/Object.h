@@ -31,23 +31,26 @@ static inline bool DeleteProperty(JSContextRef ctx, JSObjectRef object, JSString
 }
 static inline void GetPropertyNames(JSContextRef ctx, JSObjectRef object, JSPropertyNameAccumulatorRef propertyNames)
 {
-
+    printf("%s:%d static inline void GetPropertyNames(JSContextRef ctx, JSObjectRef object, JSPropertyNameAccumulatorRef propertyNames)\n", __FILE__, __LINE__);
 }
 static inline JSValueRef CallAsFunction(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)
 {
+    printf("%s:%d static inline JSValueRef CallAsFunction(JSContextRef ctx, JSObjectRef function, JSObjectRef thisObject, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)\n", __FILE__, __LINE__);
 
 }
 static inline JSObjectRef CallAsConstructor(JSContextRef ctx, JSObjectRef constructor, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)
 {
+    printf("%s:%d static inline JSObjectRef CallAsConstructor(JSContextRef ctx, JSObjectRef constructor, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception)\n", __FILE__, __LINE__);
 
 }
 static inline bool HasInstance(JSContextRef ctx, JSObjectRef constructor, JSValueRef possibleInstance, JSValueRef* exception)
 {
+    printf("%s:%d static inline bool HasInstance(JSContextRef ctx, JSObjectRef constructor, JSValueRef possibleInstance, JSValueRef* exception)\n", __FILE__, __LINE__);
 
 }
 static inline JSValueRef ConvertToType(JSContextRef ctx, JSObjectRef object, JSType type, JSValueRef* exception)
 {
-
+    printf("%s:%d static inline JSValueRef ConvertToType(JSContextRef ctx, JSObjectRef object, JSType type, JSValueRef* exception)\n", __FILE__, __LINE__);
 }
 
 static inline JSClassDefinition classDefinition()
