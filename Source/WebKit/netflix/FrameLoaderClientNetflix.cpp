@@ -415,7 +415,7 @@ WTF::PassRefPtr<DocumentLoader> FrameLoaderClientNetflix::createDocumentLoader(c
     return loader.release();
 }
 
-void FrameLoaderClientNetflix::download(ResourceHandle*, const ResourceRequest&, const ResourceRequest&, const ResourceResponse&)
+void FrameLoaderClientNetflix::download(ResourceHandle*, const ResourceRequest&, const ResourceResponse&)
 {
     notImplemented();
 }
@@ -672,6 +672,10 @@ void FrameLoaderClientNetflix::didDisplayInsecureContent()
 }
 
 void FrameLoaderClientNetflix::didRunInsecureContent(SecurityOrigin*, const WebCore::KURL &)
+{
+}
+
+void FrameLoaderClientNetflix::didDetectXSS(const KURL&, bool didBlockEntirePage)
 {
 }
 

@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/smagnuson/netflix/git/nrdp/main
+CMAKE_SOURCE_DIR = /home/jhanssen/dev/NetflixWebKit
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/smagnuson/netflix/git/nrdp/main
+CMAKE_BINARY_DIR = /home/jhanssen/dev/NetflixWebKit
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -98,7 +98,7 @@ list_install_components/fast: list_install_components
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /home/smagnuson/netflix/git/nrdp/main && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /home/jhanssen/dev/NetflixWebKit && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -108,7 +108,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /home/smagnuson/netflix/git/nrdp/main && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/smagnuson/netflix/git/nrdp/main/CPackSourceConfig.cmake
+	cd /home/jhanssen/dev/NetflixWebKit && /usr/bin/cpack --config ./CPackSourceConfig.cmake /home/jhanssen/dev/NetflixWebKit/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -127,14 +127,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/netflix/git/nrdp/main/CMakeFiles /home/smagnuson/netflix/git/nrdp/main/3rdParty/WebKit/Source/WebKit/CMakeFiles/progress.marks
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/WebKit/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/smagnuson/netflix/git/nrdp/main/CMakeFiles 0
+	cd /home/jhanssen/dev/NetflixWebKit && $(CMAKE_COMMAND) -E cmake_progress_start /home/jhanssen/dev/NetflixWebKit/CMakeFiles /home/jhanssen/dev/NetflixWebKit/Source/WebKit/CMakeFiles/progress.marks
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f CMakeFiles/Makefile2 Source/WebKit/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jhanssen/dev/NetflixWebKit/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/WebKit/clean
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f CMakeFiles/Makefile2 Source/WebKit/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,31 +143,31 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/WebKit/preinstall
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f CMakeFiles/Makefile2 Source/WebKit/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/WebKit/preinstall
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f CMakeFiles/Makefile2 Source/WebKit/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/jhanssen/dev/NetflixWebKit && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
-3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/rule:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
-.PHONY : 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
+Source/WebKit/CMakeFiles/webkit_netflix.dir/rule:
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f CMakeFiles/Makefile2 Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
+.PHONY : Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
 
 # Convenience name for target.
-webkit_netflix: 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
+webkit_netflix: Source/WebKit/CMakeFiles/webkit_netflix.dir/rule
 .PHONY : webkit_netflix
 
 # fast build rule for target.
 webkit_netflix/fast:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/build
 .PHONY : webkit_netflix/fast
 
 netflix/ChromeClientNetflix.o: netflix/ChromeClientNetflix.cpp.o
@@ -175,7 +175,7 @@ netflix/ChromeClientNetflix.o: netflix/ChromeClientNetflix.cpp.o
 
 # target to build an object file
 netflix/ChromeClientNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.o
 .PHONY : netflix/ChromeClientNetflix.cpp.o
 
 netflix/ChromeClientNetflix.i: netflix/ChromeClientNetflix.cpp.i
@@ -183,7 +183,7 @@ netflix/ChromeClientNetflix.i: netflix/ChromeClientNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/ChromeClientNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.i
 .PHONY : netflix/ChromeClientNetflix.cpp.i
 
 netflix/ChromeClientNetflix.s: netflix/ChromeClientNetflix.cpp.s
@@ -191,7 +191,7 @@ netflix/ChromeClientNetflix.s: netflix/ChromeClientNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/ChromeClientNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/ChromeClientNetflix.cpp.s
 .PHONY : netflix/ChromeClientNetflix.cpp.s
 
 netflix/EditorClientNetflix.o: netflix/EditorClientNetflix.cpp.o
@@ -199,7 +199,7 @@ netflix/EditorClientNetflix.o: netflix/EditorClientNetflix.cpp.o
 
 # target to build an object file
 netflix/EditorClientNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.o
 .PHONY : netflix/EditorClientNetflix.cpp.o
 
 netflix/EditorClientNetflix.i: netflix/EditorClientNetflix.cpp.i
@@ -207,7 +207,7 @@ netflix/EditorClientNetflix.i: netflix/EditorClientNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/EditorClientNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.i
 .PHONY : netflix/EditorClientNetflix.cpp.i
 
 netflix/EditorClientNetflix.s: netflix/EditorClientNetflix.cpp.s
@@ -215,7 +215,7 @@ netflix/EditorClientNetflix.s: netflix/EditorClientNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/EditorClientNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EditorClientNetflix.cpp.s
 .PHONY : netflix/EditorClientNetflix.cpp.s
 
 netflix/EventLoopNetflix.o: netflix/EventLoopNetflix.cpp.o
@@ -223,7 +223,7 @@ netflix/EventLoopNetflix.o: netflix/EventLoopNetflix.cpp.o
 
 # target to build an object file
 netflix/EventLoopNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.o
 .PHONY : netflix/EventLoopNetflix.cpp.o
 
 netflix/EventLoopNetflix.i: netflix/EventLoopNetflix.cpp.i
@@ -231,7 +231,7 @@ netflix/EventLoopNetflix.i: netflix/EventLoopNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/EventLoopNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.i
 .PHONY : netflix/EventLoopNetflix.cpp.i
 
 netflix/EventLoopNetflix.s: netflix/EventLoopNetflix.cpp.s
@@ -239,7 +239,7 @@ netflix/EventLoopNetflix.s: netflix/EventLoopNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/EventLoopNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/EventLoopNetflix.cpp.s
 .PHONY : netflix/EventLoopNetflix.cpp.s
 
 netflix/FrameLoaderClientNetflix.o: netflix/FrameLoaderClientNetflix.cpp.o
@@ -247,7 +247,7 @@ netflix/FrameLoaderClientNetflix.o: netflix/FrameLoaderClientNetflix.cpp.o
 
 # target to build an object file
 netflix/FrameLoaderClientNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.o
 .PHONY : netflix/FrameLoaderClientNetflix.cpp.o
 
 netflix/FrameLoaderClientNetflix.i: netflix/FrameLoaderClientNetflix.cpp.i
@@ -255,7 +255,7 @@ netflix/FrameLoaderClientNetflix.i: netflix/FrameLoaderClientNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/FrameLoaderClientNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.i
 .PHONY : netflix/FrameLoaderClientNetflix.cpp.i
 
 netflix/FrameLoaderClientNetflix.s: netflix/FrameLoaderClientNetflix.cpp.s
@@ -263,7 +263,7 @@ netflix/FrameLoaderClientNetflix.s: netflix/FrameLoaderClientNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/FrameLoaderClientNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/FrameLoaderClientNetflix.cpp.s
 .PHONY : netflix/FrameLoaderClientNetflix.cpp.s
 
 netflix/InspectorClientNetflix.o: netflix/InspectorClientNetflix.cpp.o
@@ -271,7 +271,7 @@ netflix/InspectorClientNetflix.o: netflix/InspectorClientNetflix.cpp.o
 
 # target to build an object file
 netflix/InspectorClientNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.o
 .PHONY : netflix/InspectorClientNetflix.cpp.o
 
 netflix/InspectorClientNetflix.i: netflix/InspectorClientNetflix.cpp.i
@@ -279,7 +279,7 @@ netflix/InspectorClientNetflix.i: netflix/InspectorClientNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/InspectorClientNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.i
 .PHONY : netflix/InspectorClientNetflix.cpp.i
 
 netflix/InspectorClientNetflix.s: netflix/InspectorClientNetflix.cpp.s
@@ -287,7 +287,7 @@ netflix/InspectorClientNetflix.s: netflix/InspectorClientNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/InspectorClientNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/InspectorClientNetflix.cpp.s
 .PHONY : netflix/InspectorClientNetflix.cpp.s
 
 netflix/NPCompat.o: netflix/NPCompat.cpp.o
@@ -295,7 +295,7 @@ netflix/NPCompat.o: netflix/NPCompat.cpp.o
 
 # target to build an object file
 netflix/NPCompat.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.o
 .PHONY : netflix/NPCompat.cpp.o
 
 netflix/NPCompat.i: netflix/NPCompat.cpp.i
@@ -303,7 +303,7 @@ netflix/NPCompat.i: netflix/NPCompat.cpp.i
 
 # target to preprocess a source file
 netflix/NPCompat.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.i
 .PHONY : netflix/NPCompat.cpp.i
 
 netflix/NPCompat.s: netflix/NPCompat.cpp.s
@@ -311,7 +311,7 @@ netflix/NPCompat.s: netflix/NPCompat.cpp.s
 
 # target to generate assembly for a file
 netflix/NPCompat.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/NPCompat.cpp.s
 .PHONY : netflix/NPCompat.cpp.s
 
 netflix/WebViewNetflix.o: netflix/WebViewNetflix.cpp.o
@@ -319,7 +319,7 @@ netflix/WebViewNetflix.o: netflix/WebViewNetflix.cpp.o
 
 # target to build an object file
 netflix/WebViewNetflix.cpp.o:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.o
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.o
 .PHONY : netflix/WebViewNetflix.cpp.o
 
 netflix/WebViewNetflix.i: netflix/WebViewNetflix.cpp.i
@@ -327,7 +327,7 @@ netflix/WebViewNetflix.i: netflix/WebViewNetflix.cpp.i
 
 # target to preprocess a source file
 netflix/WebViewNetflix.cpp.i:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.i
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.i
 .PHONY : netflix/WebViewNetflix.cpp.i
 
 netflix/WebViewNetflix.s: netflix/WebViewNetflix.cpp.s
@@ -335,7 +335,7 @@ netflix/WebViewNetflix.s: netflix/WebViewNetflix.cpp.s
 
 # target to generate assembly for a file
 netflix/WebViewNetflix.cpp.s:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(MAKE) -f 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make 3rdParty/WebKit/Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.s
+	cd /home/jhanssen/dev/NetflixWebKit && $(MAKE) -f Source/WebKit/CMakeFiles/webkit_netflix.dir/build.make Source/WebKit/CMakeFiles/webkit_netflix.dir/netflix/WebViewNetflix.cpp.s
 .PHONY : netflix/WebViewNetflix.cpp.s
 
 # Help Target
@@ -385,6 +385,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/smagnuson/netflix/git/nrdp/main && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/jhanssen/dev/NetflixWebKit && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

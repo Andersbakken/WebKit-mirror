@@ -41,13 +41,13 @@ public:
 
     virtual void didBeginEditing() { m_editing = true; }
     virtual void respondToChangedContents() { breakpoint(); }
-    virtual void respondToChangedSelection() { breakpoint(); }
+    virtual void respondToChangedSelection(WebCore::Frame*) { breakpoint(); }
     virtual void didEndEditing() { m_editing = false; }
     virtual void didWriteSelectionToPasteboard() { breakpoint(); }
     virtual void didSetSelectionTypesForPasteboard() { breakpoint(); }
 
-    virtual void registerCommandForUndo(PassRefPtr<WebCore::EditCommand>) { breakpoint(); }
-    virtual void registerCommandForRedo(PassRefPtr<WebCore::EditCommand>) { breakpoint(); }
+    virtual void registerUndoStep(PassRefPtr<WebCore::UndoStep>) { breakpoint(); }
+    virtual void registerRedoStep(PassRefPtr<WebCore::UndoStep>) { breakpoint(); }
     virtual void clearUndoRedoOperations();
 
     virtual bool canCopyCut(WebCore::Frame*, bool) const { breakpoint(); return false; }

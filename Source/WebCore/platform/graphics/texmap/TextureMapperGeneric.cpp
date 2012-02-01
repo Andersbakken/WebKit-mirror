@@ -48,16 +48,17 @@ void BitmapTextureGeneric::reset(const IntSize& size, bool isOpaque)
 #endif
 }
 
-GraphicsContext* BitmapTextureGeneric::beginPaint(const IntRect& dirtyRect)
+PlatformGraphicsContext* BitmapTextureGeneric::beginPaint(const IntRect& dirtyRect)
 {
-    if(GraphicsContext *ret = m_image->context()) {
-        ret->clearRect(dirtyRect);
-        return ret;
+    GraphicsContext* ctx = m_image->context();
+    if (ctx) {
+        ctx->clearRect(dirtyRect);
+        return ctx->platformContext();
     }
     return 0;
 }
 
-void BitmapTextureGeneric::endPaint(GraphicsContext *)
+void BitmapTextureGeneric::endPaint()
 {
 }
 
@@ -75,6 +76,13 @@ void BitmapTextureGeneric::setContentsToImage(Image* image)
     assert(context);
     if(context)
         context->drawImage(image, WebCore::ColorSpaceDeviceRGB, IntPoint(0, 0), CompositeCopy);
+}
+
+void BitmapTextureGeneric::updateContents(PixelFormat format, const IntRect& rect, void* bits)
+{
+    (void)format;
+    (void)rect;
+    (void)bits;
 }
 
 void TextureMapperGeneric::beginClip(const TransformationMatrix& matrix, const FloatRect& rect)

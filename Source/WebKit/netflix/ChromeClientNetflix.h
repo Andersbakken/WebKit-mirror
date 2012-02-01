@@ -95,18 +95,19 @@ public:
 
     virtual WebCore::IntRect windowResizerRect() const { breakpoint(); return WebCore::IntRect(); }
 
-    virtual void invalidateWindow(const WebCore::IntRect&, bool);
-    virtual void invalidateContentsAndWindow(const WebCore::IntRect&, bool);
+    virtual void invalidateRootView(const WebCore::IntRect&, bool);
+    virtual void invalidateContentsAndRootView(const WebCore::IntRect&, bool);
     virtual void invalidateContentsForSlowScroll(const WebCore::IntRect&, bool);
     virtual void scroll(const WebCore::IntSize&, const WebCore::IntRect&, const WebCore::IntRect&) { breakpoint(); }
-    virtual WebCore::IntPoint screenToWindow(const WebCore::IntPoint& p) const { breakpoint(); return p; }
-    virtual WebCore::IntRect windowToScreen(const WebCore::IntRect& r) const { breakpoint(); return r; }
+    virtual WebCore::IntPoint screenToRootView(const WebCore::IntPoint& p) const { breakpoint(); return p; }
+    virtual WebCore::IntRect rootViewToScreen(const WebCore::IntRect& r) const { breakpoint(); return r; }
     virtual PlatformPageClient platformPageClient() const { breakpoint(); return 0; }
     virtual void scrollbarsModeDidChange() const { breakpoint(); }
     virtual void setCursor(const WebCore::Cursor&) { breakpoint(); }
 
     virtual bool selectItemWritingDirectionIsNatural() { breakpoint(); return false; }
     virtual bool selectItemAlignmentFollowsMenuWritingDirection() { breakpoint(); return true; }
+    virtual bool hasOpenedPopup() const { breakpoint(); return false; }
     virtual PassRefPtr<WebCore::PopupMenu> createPopupMenu(WebCore::PopupMenuClient*) const { breakpoint(); return 0; }
     virtual PassRefPtr<WebCore::SearchPopupMenu> createSearchPopupMenu(WebCore::PopupMenuClient*) const { breakpoint(); return 0; }
 
@@ -126,6 +127,9 @@ public:
 #if ENABLE(DATABASE)
     virtual void exceededDatabaseQuota(WebCore::Frame*, const WTF::String&) { breakpoint(); }
 #endif
+
+    virtual void reachedMaxAppCacheSize(int64_t) { breakpoint(); }
+    virtual void reachedApplicationCacheOriginQuota(WebCore::SecurityOrigin*, int64_t) { breakpoint(); }
 
 #if ENABLE(OFFLINE_WEB_APPLICATIONS)
     virtual void reachedMaxAppCacheSize(int64_t) { breakpoint(); }

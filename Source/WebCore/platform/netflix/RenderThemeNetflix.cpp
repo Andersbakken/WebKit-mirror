@@ -86,7 +86,7 @@ PassRefPtr<RenderTheme> RenderTheme::themeForPage(Page* page)
     if (page)
         return RenderThemeNetflix::create(page);
 
-    static RenderTheme* fallback = RenderThemeNetflix::create(0).releaseRef();
+    static RenderTheme* fallback = RenderThemeNetflix::create(0).leakRef();
     return fallback;
 }
 

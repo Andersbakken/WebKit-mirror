@@ -136,6 +136,7 @@ namespace WebKit {
         virtual void didDisplayInsecureContent();
 
         virtual void didRunInsecureContent(WebCore::SecurityOrigin*, const WebCore::KURL &);
+        virtual void didDetectXSS(const WebCore::KURL&, bool didBlockEntirePage);
 
         virtual WebCore::ResourceError cancelledError(const WebCore::ResourceRequest&);
         virtual WebCore::ResourceError blockedError(const WebCore::ResourceRequest&);
@@ -174,7 +175,7 @@ namespace WebKit {
         virtual void transitionToCommittedForNewPage();
 
         virtual bool canCachePage() const;
-        virtual void download(WebCore::ResourceHandle*, const WebCore::ResourceRequest&, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+        virtual void download(WebCore::ResourceHandle*, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
 
         virtual void transferLoadingResourceFromPage(long unsigned int, WebCore::DocumentLoader*, const WebCore::ResourceRequest&, WebCore::Page*);
 

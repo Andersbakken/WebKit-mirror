@@ -72,6 +72,11 @@ namespace WebCore {
 typedef ClutterActor PlatformLayer;
 };
 #endif
+#elif PLATFORM(NETFLIX)
+namespace WebCore {
+class TextureMapperPlatformLayer;
+typedef TextureMapperPlatformLayer PlatformLayer;
+};
 #else
 typedef void* PlatformLayer;
 #endif

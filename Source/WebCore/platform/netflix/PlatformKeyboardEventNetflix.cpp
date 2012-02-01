@@ -44,18 +44,14 @@
 namespace WebCore {
 
 PlatformKeyboardEvent::PlatformKeyboardEvent(Type type, String text, String keyIdentifier, int keyCode, unsigned modifier) :
-	m_type(type),
-	m_text(text),
-	m_unmodifiedText(text), // FIX
-	m_keyIdentifier(keyIdentifier),
-	m_autoRepeat(false),
-	m_windowsVirtualKeyCode(keyCode),
-	m_nativeVirtualKeyCode(keyCode),
-	m_isKeypad(false),
-	m_shiftKey((modifier & ShiftKey) ? true : false),
-	m_ctrlKey((modifier & CtrlKey) ? true : false),
-	m_altKey((modifier & AltKey) ? true : false),
-	m_metaKey((modifier & MetaKey) ? true : false)
+    PlatformEvent(type, static_cast<Modifiers>(modifier), 0.),
+    m_text(text),
+    m_unmodifiedText(text), // FIX
+    m_keyIdentifier(keyIdentifier),
+    m_windowsVirtualKeyCode(keyCode),
+    m_nativeVirtualKeyCode(keyCode),
+    m_autoRepeat(false),
+    m_isKeypad(false)
 {
 }
 

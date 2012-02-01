@@ -90,12 +90,12 @@ void ChromeClientNetflix::addMessageToConsole(WebCore::MessageSource source, Web
     m_webView->javaScriptConsoleMessage(sourceID.latin1().data(), lineNumber, message.latin1().data());
 }
 
-void ChromeClientNetflix::invalidateWindow(const WebCore::IntRect& rect, bool)
+void ChromeClientNetflix::invalidateRootView(const WebCore::IntRect& rect, bool)
 {
     m_webView->notifyRepaint(rect);
 }
 
-void ChromeClientNetflix::invalidateContentsAndWindow(const WebCore::IntRect& rect, bool)
+void ChromeClientNetflix::invalidateContentsAndRootView(const WebCore::IntRect& rect, bool)
 {
     m_webView->notifyRepaint(rect);
 }

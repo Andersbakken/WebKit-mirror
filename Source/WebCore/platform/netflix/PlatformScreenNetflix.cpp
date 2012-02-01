@@ -42,6 +42,18 @@
 
 namespace WebCore {
 
+int screenHorizontalDPI(Widget*)
+{
+    notImplemented();
+    return 0;
+}
+
+int screenVerticalDPI(Widget*)
+{
+    notImplemented();
+    return 0;
+}
+
 int screenDepth(Widget* widget)
 {
     notImplemented();
@@ -60,7 +72,7 @@ bool screenIsMonochrome(Widget*)
     return false;
 }
 
-FloatRect screenRect(Widget* widget)
+FloatRect screenRect(FrameView* widget)
 {
     if (!widget)
         return FloatRect();
@@ -77,7 +89,7 @@ FloatRect screenRect(Widget* widget)
     return FloatRect(x, y, w, h);
 }
 
-FloatRect screenAvailableRect(Widget* widget)
+FloatRect screenAvailableRect(FrameView* widget)
 {
     notImplemented();
     return screenRect(widget);

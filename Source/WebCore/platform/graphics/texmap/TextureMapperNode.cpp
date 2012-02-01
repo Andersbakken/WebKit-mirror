@@ -72,7 +72,7 @@ void TextureMapperNode::computeTransformsRecursive()
         m_state.maskLayer->computeTransformsRecursive();
     if (m_state.replicaLayer)
         m_state.replicaLayer->computeTransformsRecursive();
-    for (int i = 0; i < m_children.size(); ++i)
+    for (size_t i = 0; i < m_children.size(); ++i)
         m_children[i]->computeTransformsRecursive();
 
     // Reorder children if needed on the way back up.
@@ -137,7 +137,7 @@ void TextureMapperNode::computeTiles()
         m_ownedTiles.append(tile);
     }
 
-    for (size_t i = 0; i < tilesToRemove.size() && m_ownedTiles.size() > TileEraseThreshold; ++i)
+    for (size_t i = 0; i < tilesToRemove.size() && m_ownedTiles.size() > (size_t)TileEraseThreshold; ++i)
         m_ownedTiles.remove(tilesToRemove[i]);
 }
 
@@ -189,10 +189,10 @@ void TextureMapperNode::renderContent(TextureMapper* textureMapper, GraphicsLaye
             context.translate(offset.x(), offset.y());
             FloatRect scaledContentRect(contentRect);
             if (m_currentContent.contentType == DirectImageContentType)
-                context->drawImage(m_currentContent.image.get(), ColorSpaceDeviceRGB, IntPoint(0, 0));
+                context.drawImage(m_currentContent.image.get(), ColorSpaceDeviceRGB, IntPoint(0, 0));
             else
-                layer->paintGraphicsLayerContents(*context, enclosingIntRect(scaledContentRect));
-            texture->endPaint(context);
+                layer->paintGraphicsLayerContents(context, enclosingIntRect(scaledContentRect));
+            texture->endPaint();
         }
     }
 
@@ -299,7 +299,7 @@ void TextureMapperNode::paintSelfAndChildren(const TextureMapperPaintOptions& op
 
     paintSelf(options);
 
-    for (int i = 0; i < m_children.size(); ++i)
+    for (size_t i = 0; i < m_children.size(); ++i)
         m_children[i]->paintRecursive(options);
 
     if (hasClip)
@@ -318,7 +318,7 @@ IntRect TextureMapperNode::intermediateSurfaceRect(const TransformationMatrix& m
     TransformationMatrix localTransform = TransformationMatrix(matrix).multiply(m_transform.combined());
     rect = enclosingIntRect(localTransform.mapRect(entireRect()));
     if (!m_state.masksToBounds && !m_state.maskLayer) {
-        for (int i = 0; i < m_children.size(); ++i)
+        for (size_t i = 0; i < m_children.size(); ++i)
             rect.unite(m_children[i]->intermediateSurfaceRect(matrix));
     }
 
@@ -631,78 +631,7 @@ bool TextureMapperNode::descendantsOrSelfHaveRunningAnimations() const
     return false;
 }
 
-<<<<<<< HEAD
 void TextureMapperNode::syncAnimations()
-=======
-static double normalizedAnimationValue(double runningTime, double duration, bool alternate)
-{
-    if (!duration)
-        return 0;
-    const int loopCount = runningTime / duration;
-    const double lastFullLoop = duration * double(loopCount);
-    const double remainder = runningTime - lastFullLoop;
-    const double normalized = remainder / duration;
-    return (loopCount % 2 && alternate) ? (1 - normalized) : normalized;
-}
-
-void TextureMapperNode::applyOpacityAnimation(float fromOpacity, float toOpacity, double progress)
-{
-    // Optimization: special case the edge values (0 and 1).
-    if (progress == 1.0)
-        setOpacity(toOpacity);
-    else if (!progress)
-        setOpacity(fromOpacity);
-    else
-        setOpacity(fromOpacity + progress * (toOpacity - fromOpacity));
-}
-
-static inline double solveEpsilon(double duration)
-{
-    return 1.0 / (200.0 * duration);
-}
-
-static inline double solveCubicBezierFunction(double p1x, double p1y, double p2x, double p2y, double t, double duration)
-{
-    UnitBezier bezier(p1x, p1y, p2x, p2y);
-    return bezier.solve(t, solveEpsilon(duration));
-}
-
-static inline double solveStepsFunction(int numSteps, bool stepAtStart, double t)
-{
-    if (stepAtStart)
-        return std::min(1.0, (floor(numSteps * t) + 1) / numSteps);
-    if (stepAtStart) {
-        const double result = (floor(numSteps * t) + 1) / numSteps;
-        if(result > 1.0)
-            return 1.0;
-        return result;
-    }
-    return floor(numSteps * t) / numSteps;
-}
-
-static inline float applyTimingFunction(const TimingFunction* timingFunction, float progress, double duration)
-{
-    if (!timingFunction)
-        return progress;
-
-    if (timingFunction->isCubicBezierTimingFunction()) {
-        const CubicBezierTimingFunction* ctf = static_cast<const CubicBezierTimingFunction*>(timingFunction);
-        return solveCubicBezierFunction(ctf->x1(),
-                                        ctf->y1(),
-                                        ctf->x2(),
-                                        ctf->y2(),
-                                        progress, duration);
-    }
-
-    if (timingFunction->isStepsTimingFunction()) {
-        const StepsTimingFunction* stf = static_cast<const StepsTimingFunction*>(timingFunction);
-        return solveStepsFunction(stf->numberOfSteps(), stf->stepAtStart(), double(progress));
-    }
-
-    return progress;
-}
-
-void TextureMapperNode::applyTransformAnimation(const TextureMapperAnimation& animation, const TransformOperations* from, const TransformOperations* to, double progress)
 {
     m_animations.apply(this);
     if (!m_animations.hasActiveAnimationsOfType(AnimatedPropertyWebkitTransform))

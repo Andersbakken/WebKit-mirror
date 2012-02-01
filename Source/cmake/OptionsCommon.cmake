@@ -3,7 +3,7 @@ ADD_DEFINITIONS(-DHAVE_CONFIG_H=1)
 
 IF (WTF_OS_UNIX AND NOT PORT MATCHES "Netflix")
     ADD_DEFINITIONS(-DXP_UNIX)
-ENDIF (WTF_OS_UNIX)
+ENDIF ()
 
 IF (MSVC)
     # FIXME: Some codegenerators don't support paths with spaces. So use the executable name only.

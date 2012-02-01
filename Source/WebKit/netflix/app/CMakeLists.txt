@@ -19,5 +19,5 @@ include ( ${QT_USE_FILE} )
 
 add_executable(app_netflix main.cpp)
 include_directories( ${QT_QTCORE_INCLUDE_DIR} ${QT_QTGUI_INCLUDE_DIR} )
-include_directories( ${WEBKIT_ROOTDIR} ${JAVASCRIPTCORE_DIR}/wtf ${JAVASCRIPTCORE_DIR} ${WEBCORE_DIR}/platform/text ${WEBKIT_DIR}/netflix ${WEBCORE_DIR}/platform/graphics ${WEBCORE_DIR}/platform )
+include_directories( ${WEBKIT_ROOTDIR} ${JAVASCRIPTCORE_DIR}/wtf ${JAVASCRIPTCORE_DIR}/runtime ${JAVASCRIPTCORE_DIR} ${WEBCORE_DIR}/platform/text ${WEBKIT_DIR}/netflix ${WEBCORE_DIR}/platform/graphics ${WEBCORE_DIR}/platform/animation ${WEBCORE_DIR}/platform )
 target_link_libraries(app_netflix ${WebKit_LIBRARY_NAME} ${QT_QTGUI_LIBRARY} ${QT_QTCORE_LIBRARY} -lcairo -lfreetype -lfontconfig)

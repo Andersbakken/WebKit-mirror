@@ -36,8 +36,8 @@ public:
     virtual void destroy();
     virtual IntSize size() const { return m_image->size(); }
     virtual void reset(const IntSize&, bool opaque);
-    virtual GraphicsContext* beginPaint(const IntRect& dirtyRect);
-    virtual void endPaint(GraphicsContext *);
+    virtual PlatformGraphicsContext* beginPaint(const IntRect& dirtyRect);
+    virtual void endPaint();
     virtual void setContentsToImage(Image*);
     virtual bool save(const String& path);
     virtual bool isValid() const { return m_image; }
@@ -45,6 +45,7 @@ public:
     virtual void pack() { }
     virtual void unpack() { }
     virtual bool isPacked() const { return false; }
+    virtual void updateContents(PixelFormat format, const IntRect& rect, void* bits);
 
 private:
     OwnPtr<ImageBuffer> m_image;

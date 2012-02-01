@@ -99,7 +99,7 @@ WebViewNetflix::WebViewNetflix() :
     m_page->settings()->setJavaEnabled(false);
     m_page->settings()->setPluginsEnabled(false);
     m_page->settings()->setLoadsImagesAutomatically(true);
-    m_page->settings()->setJavaScriptEnabled(true);
+    m_page->settings()->setScriptEnabled(true);
     m_page->settings()->setDeveloperExtrasEnabled(false);
     m_page->settings()->setPrivateBrowsingEnabled(false);
     m_page->settings()->setJavaScriptCanOpenWindowsAutomatically(false);
@@ -248,7 +248,7 @@ WebViewNetflix::onMouseMove(float x, float y)
     const IntPoint pos(x, y);
     PlatformMouseEvent mouseEvent(pos, pos,
                                   NoButton,
-                                  MouseEventMoved,
+                                  PlatformEvent::MouseMoved,
                                   0,
                                   false, false, false, false,
                                   WTF::currentTime());
@@ -261,7 +261,7 @@ WebViewNetflix::onMousePress(float x, float y)
     const IntPoint pos(x, y);
     PlatformMouseEvent mouseEvent(pos, pos,
                                   LeftButton,
-                                  MouseEventPressed,
+                                  PlatformEvent::MousePressed,
                                   1,
                                   false, false, false, false,
                                   WTF::currentTime());
@@ -274,7 +274,7 @@ WebViewNetflix::onMouseRelease(float x, float y)
     const IntPoint pos(x, y);
     PlatformMouseEvent mouseEvent(pos, pos,
                                   LeftButton,
-                                  MouseEventReleased,
+                                  PlatformEvent::MouseReleased,
                                   0,
                                   false, false, false, false,
                                   WTF::currentTime());
@@ -285,7 +285,7 @@ void
 WebViewNetflix::onWheelScroll(float x, float y, bool up)
 {
     IntPoint pos(x, y);
-    PlatformWheelEvent wheelEvent(pos, pos, up ? 1.0f : -1.0f, 0.0f, 0.0f, 0.0f, ScrollByPixelWheelEvent, false, false, false, false, false);
+    PlatformWheelEvent wheelEvent(pos, pos, up ? 1.0f : -1.0f, 0.0f, 0.0f, 0.0f, ScrollByPixelWheelEvent, false, false, false, false);
     m_page->mainFrame()->eventHandler()->handleWheelEvent(wheelEvent);
 }
 

@@ -42,11 +42,18 @@
 namespace WebCore {
 
 Cursor::Cursor(const Cursor& other)
+    : m_platformCursor(other.m_platformCursor)
 {
 }
 
 Cursor::~Cursor()
 {
+}
+
+Cursor& Cursor::operator=(const Cursor& other)
+{
+    m_platformCursor = other.m_platformCursor;
+    return *this;
 }
 
 static const char* cursorString(Cursor::Type type)
