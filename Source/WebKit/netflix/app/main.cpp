@@ -5,6 +5,7 @@
 #include <QtGui/qwidget.h>
 #include <QtGui/qpushbutton.h>
 #include <QtGui/qevent.h>
+#include <Qt/qdirectfbscreen.h>
 
 #ifndef WTF_PLATFORM_NETFLIX
 # define WTF_PLATFORM_NETFLIX 1
@@ -16,7 +17,7 @@
 #include "config.h"
 #include <WebViewNetflix.h>
 #include <EventLoopNetflix.h>
-#include <cairo/cairo-qt.h>
+#include <cairo/cairo-directfb.h>
 
 #include <ctype.h>
 #include <unistd.h>
@@ -605,7 +606,7 @@ protected:
         }
     }
 #else
-    void paintEvent(QPaintEvent *e) { QPainter p(this); onPaint(&p, e->rect()); }
+    void paintEvent(QPaintEvent *e) { /*QPainter p(this); onPaint(&p, e->rect());*/ onPaint(0, e->rect()); }
     void resizeEvent(QResizeEvent *) { WebViewNetflix::setSize(width(), height()); }
     void mouseMoveEvent(QMouseEvent *me) { WebViewNetflix::onMouseMove(me->x(), me->y()); }
     void mousePressEvent(QMouseEvent *me) { WebViewNetflix::onMousePress(me->x(), me->y()); }
@@ -663,12 +664,19 @@ void WebView::onPaint(QPainter *p, const QRect &rect)
     }
     p->restore();
 #else
+    /*
     cairo_surface_t *surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, getWidth(), getHeight());
     WebViewNetflix::onPaint(surface, WebCore::IntRect(rect.x(), rect.y(), rect.width(), rect.height()));
     QImage img(cairo_image_surface_get_data(surface), getWidth(), getHeight(), cairo_image_surface_get_stride(surface),
                QImage::Format_ARGB32_Premultiplied);
     p->drawImage(rect, img, rect);
     cairo_surface_destroy(surface);
+    */
+    IDirectFB* dfb = QDirectFBScreen::instance()->dfb();
+    IDirectFBSurface* dfbSurface = QDirectFBScreen::instance()->surfaceForWidget(this, 0);
+    cairo_surface_t* cairoSurface = cairo_directfb_surface_create(dfb, dfbSurface);
+    WebViewNetflix::onPaint(cairoSurface, WebCore::IntRect(rect.x(), rect.y(), rect.width(), rect.height()));
+    cairo_surface_destroy(cairoSurface);
 #endif
 #ifdef DEBUG_PAINT
     fprintf(stderr, "~onPaint\n");
