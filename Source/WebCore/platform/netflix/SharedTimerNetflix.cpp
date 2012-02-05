@@ -28,7 +28,7 @@
 
 #include "config.h"
 #include "SharedTimer.h"
-#include "EventLoopNetflix.h"
+#include "ApplicationNetflix.h"
 #include <stdio.h>
 
 #include <wtf/Assertions.h>
@@ -37,8 +37,15 @@
 
 namespace WebCore {
 
+static int _timerId = 0;
 static bool _timerSet = false;
 static void (*_timerFunction)();
+
+void checkSharedTimer()
+{
+    if (_timerSet)
+        (*_timerFunction)();
+}
 
 void setSharedTimerFiredFunction(void (*func)())
 {
@@ -47,20 +54,18 @@ void setSharedTimerFiredFunction(void (*func)())
 
 void stopSharedTimer()
 {
+    if (!_timerSet)
+        return;
     _timerSet = false;
-    WebKit::EventLoopNetflix::sharedInstance()->setSharedTimerInterval(-1);
+    WebKit::ApplicationNetflix::instance()->stopTimer(_timerId);
 }
 
 void setSharedTimerFireInterval(double interval)
 {
-    _timerSet = true;
-    WebKit::EventLoopNetflix::sharedInstance()->setSharedTimerInterval(interval);
-}
-
-void checkSharedTimer()
-{
     if (_timerSet)
-        (*_timerFunction)();
+        return;
+    _timerSet = true;
+    _timerId = WebKit::ApplicationNetflix::instance()->addTimer(static_cast<int>(interval * 1000.), checkSharedTimer);
 }
 
 }

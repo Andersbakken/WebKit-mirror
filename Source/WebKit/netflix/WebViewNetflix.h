@@ -2,7 +2,6 @@
 #define WebViewNetflix_H
 
 #include "WebKitNetflix.h"
-#include "EventLoopNetflix.h"
 #include "PassRefPtr.h"
 #include "KURL.h"
 #include "IntRect.h"
@@ -32,6 +31,25 @@ namespace WebKit {
 class ChromeClientNetflix;
 class EditorClientNetflix;
 class FrameLoaderClientNetflix;
+
+class EventNetflix
+{
+public:
+    enum Type {
+        LoadFail,
+        WindowClose,
+        WindowClear,
+        FrameCreate,
+        SharedTimer,
+        ResourceHandleJobs
+    };
+    EventNetflix(Type t) : m_type(t) { }
+    virtual ~EventNetflix() { }
+
+    Type type() const { return m_type; };
+private:
+    Type m_type;
+};
 
 class WEBKIT_API WebViewNetflix
 {
@@ -76,7 +94,7 @@ protected:
     void onPaint(cairo_surface_t *, WebCore::IntRect);
 #endif
 
-    virtual void notify(const WebKit::EventNetflix *event) { }
+    virtual void notify(const WebKit::EventNetflix *event) { delete event; }
     virtual void notifyRepaint(const WebCore::IntRect &) { }
     virtual WebCore::KURL notifyRequest(const WebCore::KURL &url) { return url; }
     virtual void javaScriptConsoleMessage(const char*, unsigned int, const char*);

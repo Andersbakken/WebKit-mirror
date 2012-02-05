@@ -51,10 +51,6 @@
 #include <wtf/Vector.h>
 #include <wtf/text/CString.h>
 
-#if PLATFORM(NETFLIX)
-#include "EventLoopNetflix.h"
-#endif
-
 #if !OS(WINDOWS)
 #include <sys/param.h>
 #define MAX_PATH MAXPATHLEN
@@ -163,20 +159,12 @@ void ResourceHandleManager::wakeup()
     const double pollTimeSeconds = 0.05;
     if (!m_downloadTimer.isActive())
         m_downloadTimer.startOneShot(pollTimeSeconds);
-#if PLATFORM(NETFLIX) && !defined(NETFLIX_NO_EVENTLOOP)
-    WebKit::EventLoopNetflix::sharedInstance()->wakeup();
-#endif
 }
 
 void ResourceHandleManager::downloadTimerCallback(Timer<ResourceHandleManager>*)
 {
-#if PLATFORM(NETFLIX) && !defined(NETFLIX_NO_EVENTLOOP)
-    if(startScheduledJobs())
-        WebKit::EventLoopNetflix::sharedInstance()->wakeup();
-#else
     if(processJobs())
         wakeup();
-#endif
 }
 
 static void handleLocalReceiveResponse (CURL* handle, ResourceHandle* job, ResourceHandleInternal* d)
@@ -364,7 +352,6 @@ bool ResourceHandleManager::processJobs()
 {
     startScheduledJobs();
 
-#if !PLATFORM(NETFLIX)
     struct timeval timeout;
     timeout.tv_sec = 0;
     const int selectTimeoutMS = 5;
@@ -390,7 +377,6 @@ bool ResourceHandleManager::processJobs()
 #endif
         return false;
     }
-#endif
 
     int runningHandles = 0;
     {

@@ -149,3 +149,13 @@ SET(CPACK_SOURCE_GENERATOR TBZ2)
 
 #LIST(APPEND DEBUG_SOURCES "page/FrameView.cpp")
 #set_source_files_properties(page/FrameView.cpp PROPERTIES COMPILE_FLAGS "-gfoobar")
+
+# Options for NfDfb
+set( NFDFBDIR "${TOOLCHAIN_DIRECTORY}/netflix/nfdfb" CACHE PATH "DFBAPP: Main NfDfb Directory. Default=${TOOLCHAIN_DIRECTORY}/netflix/nfdfb" )
+if( NFDFBDIR )
+    message( STATUS " - NfDfb base directory : ${NFDFBDIR}" )
+else()
+    set( NFDFBDIR "${TOOLCHAIN_DIRECTORY}/netflix/nfdfb" )
+endif()
+
+include_directories( ${NFDFBDIR}/include )
