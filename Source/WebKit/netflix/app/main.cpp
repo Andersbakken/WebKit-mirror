@@ -145,12 +145,9 @@ void Application::processEvent(const NfEvent* event)
     case WebKit::EventNetflix::Repaint: {
         if (!m_view)
             break;
+
         const WebCore::IntRect& area = static_cast<const PaintEvent*>(event)->area();
-
-        cairo_surface_t* cairoSurface = surface();
-        m_view->onPaint(cairoSurface, area);
-        cairo_surface_destroy(cairoSurface);
-
+        m_view->onPaint(surface(), area);
         flush(area.x(), area.y(), area.x() + area.width(), area.y() + area.height());
 
         break; }
