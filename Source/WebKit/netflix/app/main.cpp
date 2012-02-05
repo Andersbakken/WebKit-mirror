@@ -145,12 +145,9 @@ void Application::processEvent(const NfEvent* event)
     case WebKit::EventNetflix::Repaint: {
         if (!m_view)
             break;
-        const PaintEvent* pevent = static_cast<const PaintEvent*>(event);
+        const WebCore::IntRect& area = static_cast<const PaintEvent*>(event)->area();
 
-        IDirectFB* dfb = static_cast<IDirectFB*>(systemHandle());
-        IDirectFBSurface* dfbSurface = static_cast<IDirectFBSurface*>(surfaceHandle());
-        cairo_surface_t* cairoSurface = cairo_directfb_surface_create(dfb, dfbSurface);
-        const WebCore::IntRect& area = pevent->area();
+        cairo_surface_t* cairoSurface = surface();
         m_view->onPaint(cairoSurface, area);
         cairo_surface_destroy(cairoSurface);
 
