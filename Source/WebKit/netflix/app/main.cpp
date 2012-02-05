@@ -123,12 +123,15 @@ void Application::processEvent(const NfEvent* event)
 {
     if (event->type() == WebKit::EventNetflix::Repaint && m_view) {
         const PaintEvent* pevent = static_cast<const PaintEvent*>(event);
-        printf("repaint!\n");
+
         IDirectFB* dfb = static_cast<IDirectFB*>(systemHandle());
         IDirectFBSurface* dfbSurface = static_cast<IDirectFBSurface*>(surfaceHandle());
         cairo_surface_t* cairoSurface = cairo_directfb_surface_create(dfb, dfbSurface);
-        m_view->onPaint(cairoSurface, pevent->area());
+        const WebCore::IntRect& area = pevent->area();
+        m_view->onPaint(cairoSurface, area);
         cairo_surface_destroy(cairoSurface);
+
+        flush(area.x(), area.y(), area.x() + area.width(), area.y() + area.height());
     }
 }
 
