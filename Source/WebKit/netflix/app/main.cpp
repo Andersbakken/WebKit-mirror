@@ -84,7 +84,7 @@ private:
 WebView::WebView(Application* app)
     : WebViewNetflix(), m_app(app)
 {
-    setSize(1280, 720);
+    setSize(app->width(), app->height());
     setCookieJarFileName("/tmp/cookies.netflix");
 }
 
