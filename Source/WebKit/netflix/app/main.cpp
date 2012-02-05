@@ -140,7 +140,6 @@ void Application::setWebView(WebView* view)
 int main(int argc, char** argv)
 {
     Application app(argc, argv);
-    app.createPrimarySurface(1280, 720);
     WebView view(&app);
     app.setWebView(&view);
 
