@@ -37,7 +37,7 @@ class EventNetflix : public NfEvent
 {
 public:
     enum Type {
-        LoadFail,
+        LoadFail = NfEvent::Custom,
         WindowClose,
         WindowClear,
         FrameCreate,

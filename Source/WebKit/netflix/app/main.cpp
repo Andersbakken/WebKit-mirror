@@ -73,8 +73,10 @@ public:
 
     void setWebView(WebView* view);
 
-    void processKeyEvent(const NfKeyEvent& event);
-    void processMouseEvent(const NfMouseEvent& event);
+protected:
+    void processKeyEvent(const NfKeyEvent* event);
+    void processMouseEvent(const NfMouseEvent* event);
+
     void processEvent(const NfEvent* event);
 
 private:
@@ -98,39 +100,51 @@ Application::Application(int& argc, char**& argv)
 {
 }
 
-void Application::processKeyEvent(const NfKeyEvent& event)
+void Application::processKeyEvent(const NfKeyEvent* event)
 {
     if (!m_view)
         return;
 
-    if (event.isPress())
-        m_view->onKeyDown(keyIdentifierForNfKeyCode(event.keyCode()).c_str(),
-                          windowsKeyCodeForNfKeyCode(event.keyCode()),
-                          keyTextForNfKeyEvent(event).c_str());
+    if (event->type() == NfEvent::KeyPress)
+        m_view->onKeyDown(keyIdentifierForNfKeyCode(event->keyCode()).c_str(),
+                          windowsKeyCodeForNfKeyCode(event->keyCode()),
+                          keyTextForNfKeyEvent(*event).c_str());
     else
-        m_view->onKeyUp(keyIdentifierForNfKeyCode(event.keyCode()).c_str(),
-                        windowsKeyCodeForNfKeyCode(event.keyCode()),
-                        keyTextForNfKeyEvent(event).c_str());
+        m_view->onKeyUp(keyIdentifierForNfKeyCode(event->keyCode()).c_str(),
+                        windowsKeyCodeForNfKeyCode(event->keyCode()),
+                        keyTextForNfKeyEvent(*event).c_str());
 }
 
-void Application::processMouseEvent(const NfMouseEvent& event)
+void Application::processMouseEvent(const NfMouseEvent* event)
 {
     if (!m_view)
         return;
 
-    if (event.type() == NfMouseEvent::Move)
-        m_view->onMouseMove(event.x(), event.y());
-    else if (event.button() == NfMouseEvent::Left) {
-        if (event.type() == NfMouseEvent::Press)
-            m_view->onMousePress(event.x(), event.y());
-        else if (event.type() == NfMouseEvent::Release)
-            m_view->onMouseRelease(event.x(), event.y());
+    if (event->type() == NfEvent::MouseMove)
+        m_view->onMouseMove(event->x(), event->y());
+    else if (event->button() == NfMouseEvent::Left) {
+        if (event->type() == NfEvent::MousePress)
+            m_view->onMousePress(event->x(), event->y());
+        else if (event->type() == NfEvent::MouseRelease)
+            m_view->onMouseRelease(event->x(), event->y());
     }
 }
 
 void Application::processEvent(const NfEvent* event)
 {
-    if (event->type() == WebKit::EventNetflix::Repaint && m_view) {
+    switch (event->type()) {
+    case NfEvent::KeyPress:
+    case NfEvent::KeyRelease:
+        processKeyEvent(static_cast<const NfKeyEvent*>(event));
+        break;
+    case NfEvent::MousePress:
+    case NfEvent::MouseRelease:
+    case NfEvent::MouseMove:
+        processMouseEvent(static_cast<const NfMouseEvent*>(event));
+        break;
+    case WebKit::EventNetflix::Repaint: {
+        if (!m_view)
+            break;
         const PaintEvent* pevent = static_cast<const PaintEvent*>(event);
 
         IDirectFB* dfb = static_cast<IDirectFB*>(systemHandle());
@@ -141,6 +155,11 @@ void Application::processEvent(const NfEvent* event)
         cairo_surface_destroy(cairoSurface);
 
         flush(area.x(), area.y(), area.x() + area.width(), area.y() + area.height());
+
+        break; }
+    default:
+        ApplicationNetflix::processEvent(event);
+        break;
     }
 }
 

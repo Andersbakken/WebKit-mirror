@@ -22,7 +22,7 @@ public:
                  NfApplication::TimerMode mode = NfApplication::RecurringTimer);
 
 protected:
-    void processTimerEvent(int timerid);
+    void processEvent(const NfEvent* event);
 
 private:
     struct TimerNetflixData

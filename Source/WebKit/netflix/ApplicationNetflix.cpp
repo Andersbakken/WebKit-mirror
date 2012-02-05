@@ -22,8 +22,12 @@ int ApplicationNetflix::addTimer(int interval, TimerNetflixCallback callback,
     return id;
 }
 
-void ApplicationNetflix::processTimerEvent(int timerid)
+void ApplicationNetflix::processEvent(const NfEvent* event)
 {
+    if (event->type() != NfEvent::Timer)
+        return;
+
+    const int timerid = static_cast<const NfTimerEvent*>(event)->timerId();
     std::map<int, TimerNetflixData>::iterator it = m_timers.find(timerid);
     if (it == m_timers.end())
         return;
