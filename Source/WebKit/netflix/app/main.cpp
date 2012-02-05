@@ -115,8 +115,17 @@ void Application::processKeyEvent(const NfKeyEvent& event)
 
 void Application::processMouseEvent(const NfMouseEvent& event)
 {
-    if (m_view)
+    if (!m_view)
+        return;
+
+    if (event.type() == NfMouseEvent::Move)
         m_view->onMouseMove(event.x(), event.y());
+    else if (event.button() == NfMouseEvent::Left) {
+        if (event.type() == NfMouseEvent::Press)
+            m_view->onMousePress(event.x(), event.y());
+        else if (event.type() == NfMouseEvent::Release)
+            m_view->onMouseRelease(event.x(), event.y());
+    }
 }
 
 void Application::processEvent(const NfEvent* event)
