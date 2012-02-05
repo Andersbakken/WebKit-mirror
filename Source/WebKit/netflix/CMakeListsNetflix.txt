@@ -46,7 +46,7 @@ LIST(APPEND WebKit_LIBRARIES
     ${PNG_LIBRARY}
     ${JPEG_LIBRARY}
     ${CMAKE_DL_LIBS}
-    -Wl,-rpath,${NFDFBDIR}/lib -L${NFDFBDIR}/lib -lnfdfb 
+    -Wl,-rpath,${NFDFBDIR}/lib -L${NFDFBDIR}/lib -lnfdfb
 )
 
 IF (WTF_USE_CURL)

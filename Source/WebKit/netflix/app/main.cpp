@@ -28,6 +28,20 @@ static std::string keyTextForNfKeyEvent(const NfKeyEvent& event)
     return event.text();
 }
 
+class PaintEvent : public WebKit::EventNetflix
+{
+public:
+    PaintEvent(const WebCore::IntRect& area)
+        : WebKit::EventNetflix(WebKit::EventNetflix::Repaint), m_area(area)
+    {
+    }
+
+    inline const WebCore::IntRect& area() const { return m_area; }
+
+private:
+    WebCore::IntRect m_area;
+};
+
 class Application;
 
 class WebView : public WebKit::WebViewNetflix
@@ -41,6 +55,9 @@ public:
     void onMousePress(float x, float y) { WebViewNetflix::onMousePress(x, y); }
     void onMouseRelease(float x, float y) { WebViewNetflix::onMouseRelease(x, y); }
     void onWheelScroll(float x, float y, bool up) { WebViewNetflix::onWheelScroll(x, y, up); }
+#if USE(CAIRO)
+    void onPaint(cairo_surface_t *surface, WebCore::IntRect area) { WebViewNetflix::onPaint(surface, area); }
+#endif
 
 protected:
     void notifyRepaint(const WebCore::IntRect& area);
@@ -58,6 +75,7 @@ public:
 
     void processKeyEvent(const NfKeyEvent& event);
     void processMouseEvent(const NfMouseEvent& event);
+    void processEvent(const NfEvent* event);
 
 private:
     WebView* m_view;
@@ -72,12 +90,7 @@ WebView::WebView(Application* app)
 
 void WebView::notifyRepaint(const WebCore::IntRect& area)
 {
-    printf("repaint!\n");
-    IDirectFB* dfb = static_cast<IDirectFB*>(m_app->systemHandle());
-    IDirectFBSurface* dfbSurface = static_cast<IDirectFBSurface*>(m_app->surfaceHandle());
-    cairo_surface_t* cairoSurface = cairo_directfb_surface_create(dfb, dfbSurface);
-    WebViewNetflix::onPaint(cairoSurface, area);
-    cairo_surface_destroy(cairoSurface);
+    m_app->postEvent(new PaintEvent(area));
 }
 
 Application::Application(int& argc, char**& argv)
@@ -104,6 +117,19 @@ void Application::processMouseEvent(const NfMouseEvent& event)
 {
     if (m_view)
         m_view->onMouseMove(event.x(), event.y());
+}
+
+void Application::processEvent(const NfEvent* event)
+{
+    if (event->type() == WebKit::EventNetflix::Repaint && m_view) {
+        const PaintEvent* pevent = static_cast<const PaintEvent*>(event);
+        printf("repaint!\n");
+        IDirectFB* dfb = static_cast<IDirectFB*>(systemHandle());
+        IDirectFBSurface* dfbSurface = static_cast<IDirectFBSurface*>(surfaceHandle());
+        cairo_surface_t* cairoSurface = cairo_directfb_surface_create(dfb, dfbSurface);
+        m_view->onPaint(cairoSurface, pevent->area());
+        cairo_surface_destroy(cairoSurface);
+    }
 }
 
 void Application::setWebView(WebView* view)
