@@ -3,6 +3,8 @@ QT =
 CONFIG -= warn_on
 CONFIG += warn_off static
 #QMAKE_CXXFLAGS += -Wno-c++0x-compat
+QMAKE_CXXFLAGS += -fno-inline
+QMAKE_CFLAGS += -fno-inline
 LIBS += -licuuc -licui18n
 OBJECTS_DIR = .obj
 include(netflixjsc.pri)
